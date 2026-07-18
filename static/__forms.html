@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="tr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Netlify form kayıtları</title>
+	</head>
+	<body>
+		<!--
+			Bu dosya yalnızca Netlify'ın derleme sonrası form tarayıcısı içindir; sitede görünmez.
+			Her form, canlı sayfalardaki TÜM olası alan adlarının birleşimini bildirir —
+			koşullu render edilen alanlar burada bildirilmezse gönderimlerden sessizce düşer.
+		-->
+
+		<form name="contact" data-netlify="true" netlify-honeypot="bot-field" action="/thanks" hidden>
+			<input type="text" name="bot-field" />
+			<input type="text" name="ad_soyad" />
+			<input type="text" name="firma" />
+			<input type="tel" name="telefon" />
+			<input type="email" name="eposta" />
+			<textarea name="mesaj"></textarea>
+		</form>
+
+		<form name="appraisal" data-netlify="true" netlify-honeypot="bot-field" action="/thanks" hidden>
+			<input type="text" name="bot-field" />
+			<input type="text" name="ad_soyad" />
+			<input type="text" name="firma" />
+			<input type="tel" name="telefon" />
+			<input type="email" name="eposta" />
+			<input type="text" name="adres" />
+			<input type="text" name="makine_cinsi" />
+			<input type="text" name="makine_boyutu" />
+			<input type="number" name="model_yili" />
+			<textarea name="notlar"></textarea>
+		</form>
+
+		<form name="consulting" data-netlify="true" netlify-honeypot="bot-field" action="/thanks" hidden>
+			<input type="text" name="bot-field" />
+			<input type="text" name="ad_soyad" />
+			<input type="text" name="firma" />
+			<input type="tel" name="telefon" />
+			<input type="email" name="eposta" />
+			<input type="text" name="adres" />
+			<textarea name="notlar"></textarea>
+		</form>
+
+		<form
+			name="maintenance"
+			data-netlify="true"
+			netlify-honeypot="bot-field"
+			action="/thanks"
+			enctype="multipart/form-data"
+			hidden
+		>
+			<input type="text" name="bot-field" />
+			<input type="text" name="ad_soyad" />
+			<input type="text" name="firma" />
+			<input type="tel" name="telefon" />
+			<input type="email" name="eposta" />
+			<input type="text" name="adres" />
+			<input type="text" name="makine_cinsi" />
+			<input type="text" name="makine_boyutu" />
+			<input type="number" name="model_yili" />
+			<textarea name="notlar"></textarea>
+			<input type="file" name="fotograflar" multiple />
+		</form>
+
+		<form
+			name="repair"
+			data-netlify="true"
+			netlify-honeypot="bot-field"
+			action="/thanks"
+			enctype="multipart/form-data"
+			hidden
+		>
+			<input type="text" name="bot-field" />
+			<input type="text" name="ad_soyad" />
+			<input type="text" name="firma" />
+			<input type="tel" name="telefon" />
+			<input type="email" name="eposta" />
+			<input type="text" name="adres" />
+			<input type="text" name="makine_cinsi" />
+			<input type="text" name="makine_boyutu" />
+			<input type="number" name="model_yili" />
+			<textarea name="ariza_tanimi"></textarea>
+			<textarea name="notlar"></textarea>
+			<input type="file" name="fotograflar" multiple />
+		</form>
+
+		<form
+			name="machine-trading"
+			data-netlify="true"
+			netlify-honeypot="bot-field"
+			action="/thanks"
+			enctype="multipart/form-data"
+			hidden
+		>
+			<input type="text" name="bot-field" />
+			<input type="text" name="islem_turu" />
+			<input type="text" name="ilgili_ilan" />
+			<input type="text" name="ad_soyad" />
+			<input type="text" name="firma" />
+			<input type="tel" name="telefon" />
+			<input type="email" name="eposta" />
+			<input type="text" name="adres" />
+			<input type="text" name="makine_cinsi" />
+			<input type="text" name="makine_boyutu" />
+			<input type="number" name="model_yili" />
+			<input type="number" name="model_yili_min" />
+			<input type="number" name="model_yili_max" />
+			<input type="number" name="fiyat_min" />
+			<input type="number" name="fiyat_max" />
+			<input type="text" name="para_birimi" />
+			<textarea name="notlar"></textarea>
+			<input type="file" name="fotograflar" multiple />
+		</form>
+	</body>
+</html>
