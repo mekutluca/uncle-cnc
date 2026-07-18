@@ -23,7 +23,7 @@
 	];
 </script>
 
-<Seo title="Hakkımızda" description="MC ICS — International CNC Service: her makine çalışır. Kim olduğumuz ve nasıl çalıştığımız." />
+<Seo title="Hakkımızda" description="Uncle CNC — International CNC Service: her makine çalışır. Kim olduğumuz ve nasıl çalıştığımız." />
 
 <section class="dark bg-background text-foreground">
 	<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">

@@ -10,7 +10,7 @@
 	import { site } from '$lib/data/site';
 </script>
 
-<Seo title="İletişim" description="MC ICS ile iletişime geçin: telefon, e-posta, adres ve iletişim formu." />
+<Seo title="İletişim" description="Uncle CNC ile iletişime geçin: telefon, e-posta, adres ve iletişim formu." />
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader
@@ -42,7 +42,7 @@
 			</div>
 			<iframe
 				src={site.mapsEmbedUrl}
-				title="MC ICS konumu"
+				title="Uncle CNC konumu"
 				class="border-border min-h-64 w-full flex-1 rounded-md border"
 				loading="lazy"
 				referrerpolicy="no-referrer-when-downgrade"

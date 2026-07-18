@@ -45,7 +45,10 @@
 			<p class="text-muted-foreground font-mono text-[11px] tracking-[0.14em]">
 				© {new Date().getFullYear()} {site.fullName}
 			</p>
-			<span class="dim-line text-muted-foreground w-24" aria-hidden="true"></span>
+			<p class="text-muted-foreground flex items-center gap-3 font-mono text-[11px] tracking-[0.14em]">
+				<span class="dim-line w-24" aria-hidden="true"></span>
+				REV {__APP_VERSION__}
+			</p>
 		</div>
 	</div>
 </footer>

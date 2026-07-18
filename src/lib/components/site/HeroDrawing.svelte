@@ -87,7 +87,7 @@
 		<text x="264" y="422" class="text-safety" fill="currentColor">X 1200</text>
 		<text x="512" y="242" class="text-safety" fill="currentColor" transform="rotate(-90 512 242)" text-anchor="middle">Z 600</text>
 		<text x="230" y="274" class="text-safety" fill="currentColor">Y 600</text>
-		<text x="94" y="90" opacity="0.65">MC-V1200 / DİK İŞLEME MERKEZİ</text>
+		<text x="94" y="90" opacity="0.65">UC-V1200 / DİK İŞLEME MERKEZİ</text>
 		<text x="94" y="106" opacity="0.4">ÖLÇEK 1:20 — TOLERANS ±0.01 MM</text>
 	</g>
 </svg>

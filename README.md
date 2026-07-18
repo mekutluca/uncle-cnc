@@ -1,4 +1,4 @@
-# MC ICS — International CNC Service
+# Uncle CNC — International CNC Service
 
 CNC servis firması için pazarlama sitesi. SvelteKit (Svelte 5) + Tailwind v4 + shadcn-svelte, Netlify'a dağıtım için `adapter-netlify` ile yapılandırıldı. Müşteri gereksinimleri `docs/site-oneriler.pdf` içinde.
 

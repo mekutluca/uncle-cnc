@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /thanks
 
-Sitemap: https://mcics.netlify.app/sitemap.xml
+Sitemap: https://unclecnc.netlify.app/sitemap.xml

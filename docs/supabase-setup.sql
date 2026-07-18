@@ -1,4 +1,4 @@
--- MC ICS — Supabase kurulumu (paylaşılan DB: uc_ öneki zorunlu)
+-- Uncle CNC — Supabase kurulumu (paylaşılan DB: uc_ öneki zorunlu)
 -- Supabase Studio > SQL Editor'de bir kez çalıştırın.
 
 create table if not exists public.uc_machines (
