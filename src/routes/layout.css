@@ -154,6 +154,15 @@
 		text-wrap: balance;
 	}
 
+	/* Buton ve mono bağlantı etiketi */
+	.btn-label {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+	}
+
 	/* Datasheet eyebrow: `HİZMET / 03 — BAKIM` */
 	.eyebrow {
 		font-family: var(--font-mono);

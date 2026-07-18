@@ -2,13 +2,14 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import type { Service } from '$lib/data/services';
+	import type { Service } from '$lib/types';
 	import ContactFields from './ContactFields.svelte';
 	import MachineTypeSizeFields from './MachineTypeSizeFields.svelte';
 	import ModelYearFields from './ModelYearFields.svelte';
 	import NetlifyForm from './NetlifyForm.svelte';
 	import PhotoUploadField from './PhotoUploadField.svelte';
 	import PriceRangeFields from './PriceRangeFields.svelte';
+	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
 	import { labelClass } from './field-styles';
 
 	let { service }: { service: Service } = $props();
@@ -35,10 +36,7 @@
 </script>
 
 <div class="plate">
-	<div class="plate-header">
-		<span class="font-mono text-xs font-semibold uppercase tracking-[0.2em]">Talep Formu</span>
-		<span class="font-mono text-xs tracking-[0.2em] text-muted-foreground">FORM NO: {service.code}</span>
-	</div>
+	<PlateHeader title="Talep Formu" code={service.code} />
 
 	<NetlifyForm name={service.formName} upload={hasUpload}>
 		{#if isTrading}
@@ -116,7 +114,7 @@
 		<Button
 			type="submit"
 			size="lg"
-			class="font-mono text-[12px] font-semibold uppercase tracking-[0.2em]"
+			class="btn-label"
 		>
 			Talebi Gönder
 		</Button>

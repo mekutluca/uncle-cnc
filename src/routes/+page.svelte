@@ -37,14 +37,14 @@
 				tespit eder, doğru işlemi uygular, makinenizi en hızlı şekilde üretime döndürürüz.
 			</p>
 			<div class="mt-8 flex flex-wrap gap-3">
-				<Button size="lg" href="/services" class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em]">
+				<Button size="lg" href="/services" class="btn-label">
 					Hizmet Talebi Oluştur
 				</Button>
 				<Button
 					size="lg"
 					variant="outline"
 					href="/machines"
-					class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em]"
+					class="btn-label"
 				>
 					Satılık Makineler
 				</Button>
@@ -85,7 +85,7 @@
 				<span class="text-muted-foreground font-mono text-[11px] tracking-[0.18em]">{service.code}</span>
 				<h3 class="display mt-3 text-xl">{service.title}</h3>
 				<p class="text-muted-foreground mt-3 flex-1 text-sm leading-relaxed">{service.short}</p>
-				<span class="text-primary mt-5 inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+				<span class="text-primary mt-5 inline-flex items-center gap-2 btn-label">
 					Talep oluştur
 					<ArrowRightIcon class="size-3.5 transition-transform group-hover:translate-x-1" />
 				</span>
@@ -100,7 +100,7 @@
 					isteyin.
 				</p>
 			</div>
-			<Button href="/machines" class="mt-5 w-fit font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+			<Button href="/machines" class="mt-5 w-fit btn-label">
 				İlanlara Göz At
 			</Button>
 		</div>
@@ -121,7 +121,7 @@
 			{/each}
 		</div>
 		<div class="mt-8">
-			<Button variant="outline" href="/gallery" class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+			<Button variant="outline" href="/gallery" class="btn-label">
 				Tüm Galeri
 			</Button>
 		</div>
@@ -141,7 +141,7 @@
 		{/each}
 	</ul>
 	<div class="mt-8">
-		<Button variant="outline" href="/references" class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+		<Button variant="outline" href="/references" class="btn-label">
 			Tüm Referanslar
 		</Button>
 	</div>
@@ -154,12 +154,12 @@
 			<h2 class="display text-3xl sm:text-4xl">Tezgâhınız mı durdu?</h2>
 			<p class="text-muted-foreground mt-4 text-lg">
 				Formu doldurun, arızanızı en hızlı şekilde çözelim — ya da bizi doğrudan arayın:
-				<a href="tel:{site.phone.replaceAll(' ', '')}" class="text-safety font-mono text-base hover:underline">
+				<a href={site.phoneHref} class="text-safety font-mono text-base hover:underline">
 					{site.phone}
 				</a>
 			</p>
 		</div>
-		<Button size="lg" href="/services/repair" class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em]">
+		<Button size="lg" href="/services/repair" class="btn-label">
 			Servis Talebi Oluştur
 		</Button>
 	</div>

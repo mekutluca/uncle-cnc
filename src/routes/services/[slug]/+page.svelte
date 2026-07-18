@@ -65,7 +65,7 @@
 				Form yerine telefonla da talep oluşturabilirsiniz. Acil arızalarda arayın:
 			</p>
 			<a
-				href="tel:{site.phone.replaceAll(' ', '')}"
+				href={site.phoneHref}
 				class="text-primary mt-3 block font-mono text-lg font-semibold tracking-[0.06em]"
 			>
 				{site.phone}

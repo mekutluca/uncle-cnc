@@ -26,7 +26,7 @@
 		</a>
 
 		<nav class="hidden items-center gap-1 lg:flex" aria-label="Ana menü">
-			{#each nav as item (item.href)}
+			{#each nav.filter((item) => item.href !== '/') as item (item.href)}
 				{#if 'children' in item && item.children}
 					<div class="group relative">
 						<a
@@ -68,7 +68,7 @@
 		</nav>
 
 		<div class="flex items-center gap-2">
-			<Button href="/services" class="hidden font-mono text-[11px] font-semibold uppercase tracking-[0.16em] sm:inline-flex">
+			<Button href="/services" class="hidden btn-label sm:inline-flex">
 				Hizmet Talebi
 			</Button>
 

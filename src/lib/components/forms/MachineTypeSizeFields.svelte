@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
-	import { MACHINE_TYPES, SIZE_OPTIONS, type MachineType } from '$lib/data/machine-options';
+	import { MACHINE_TYPES, SIZE_OPTIONS } from '$lib/data/machine-options';
+	import type { MachineType } from '$lib/types';
 	import { labelClass, selectClass } from './field-styles';
 
 	let { legend = 'Makine Bilgileri' }: { legend?: string } = $props();

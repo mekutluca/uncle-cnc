@@ -4,6 +4,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import Seo from '$lib/components/site/Seo.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
+	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
 	import { formatPrice } from '$lib/components/site/machine-format';
 	import { site } from '$lib/data/site';
 
@@ -67,9 +68,7 @@
 
 			{#if specEntries.length > 0}
 				<div class="plate mt-7">
-					<div class="plate-header">
-						<span class="font-mono text-xs font-semibold uppercase tracking-[0.2em]">Teknik Özellikler</span>
-					</div>
+					<PlateHeader title="Teknik Özellikler" />
 					<dl class="divide-border divide-y">
 						{#each specEntries as [key, value] (key)}
 							<div class="flex items-baseline justify-between gap-4 px-5 py-3">
@@ -86,15 +85,15 @@
 					<Button
 						size="lg"
 						href="/services/machine-trading?request=buy&listing={machine.slug}"
-						class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em]"
+						class="btn-label"
 					>
 						Bilgi / Teklif İste
 					</Button>
 					<Button
 						size="lg"
 						variant="outline"
-						href="tel:{site.phone.replaceAll(' ', '')}"
-						class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em]"
+						href={site.phoneHref}
+						class="btn-label"
 					>
 						{site.phone}
 					</Button>

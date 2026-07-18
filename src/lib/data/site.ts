@@ -6,6 +6,9 @@ export const site = {
 	description:
 		'CNC tezgâhlarınız için ekspertiz, danışmanlık, bakım, servis ve makine ticareti. Her makine çalışır — biz çalıştırırız.',
 	phone: '+90 500 000 00 00', // TODO: gerçek telefon
+	get phoneHref() {
+		return `tel:${this.phone.replaceAll(' ', '')}`;
+	},
 	email: 'info@mcics.com.tr', // TODO: gerçek e-posta
 	address: 'Organize Sanayi Bölgesi, İstanbul', // TODO: gerçek adres
 	mapsEmbedUrl:

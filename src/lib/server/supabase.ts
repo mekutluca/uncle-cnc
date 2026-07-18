@@ -1,19 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
-
-export type Machine = {
-	id: string;
-	title: string;
-	slug: string;
-	machine_type: string;
-	specs: Record<string, string | number>;
-	price: number | null;
-	currency: 'USD' | 'EUR' | 'TRY';
-	status: 'available' | 'sold' | 'hidden';
-	photos: string[];
-	description: string | null;
-	created_at: string;
-};
+import type { Machine } from '$lib/types';
 
 const BUCKET = 'uc-machine-photos';
 

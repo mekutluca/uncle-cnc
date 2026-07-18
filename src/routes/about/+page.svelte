@@ -57,7 +57,7 @@
 		{/each}
 	</div>
 	<div class="mt-12">
-		<Button size="lg" href="/services" class="font-mono text-[12px] font-semibold uppercase tracking-[0.18em]">
+		<Button size="lg" href="/services" class="btn-label">
 			Hizmet Talebi Oluştur
 		</Button>
 	</div>

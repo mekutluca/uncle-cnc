@@ -1,25 +1,6 @@
-/** Beş hizmet dikeyi — sıra ve tanıtım metinleri müşterinin PDF'inden. */
-export type Service = {
-	slug: string;
-	/** Netlify form adı */
-	formName: string;
-	/** Plaka üzerindeki form kodu, ör. FORM NO: BAK-03 */
-	code: string;
-	title: string;
-	/** Ana sayfa kartı için kısa açıklama */
-	short: string;
-	/** Hizmet sayfası giriş metni (PDF'ten) */
-	intro: string;
-	/** Formda bulunan alan grupları */
-	fields: {
-		machine: boolean;
-		modelYear: 'none' | 'single' | 'range-by-intent';
-		priceRange: boolean;
-		photos: boolean | 'sell-only';
-		faultDescription: boolean;
-	};
-};
+import type { Service } from '$lib/types';
 
+/** Beş hizmet dikeyi — sıra ve tanıtım metinleri müşterinin PDF'inden. */
 export const services: Service[] = [
 	{
 		slug: 'appraisal',

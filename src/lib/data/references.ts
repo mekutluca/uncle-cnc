@@ -1,6 +1,6 @@
-/** Referans firmalar — müşteriden logo ve isimler geldikçe güncellenir. */
-export type Reference = { name: string; sector?: string };
+import type { Reference } from '$lib/types';
 
+/** Referans firmalar — müşteriden logo ve isimler geldikçe güncellenir. */
 export const references: Reference[] = [
 	{ name: 'Referans 1', sector: 'Otomotiv yan sanayi' },
 	{ name: 'Referans 2', sector: 'Kalıp imalatı' },

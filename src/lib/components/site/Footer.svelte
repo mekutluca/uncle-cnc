@@ -34,7 +34,7 @@
 			<div>
 				<h2 class="eyebrow mb-4">İletişim</h2>
 				<ul class="grid gap-2.5 text-sm">
-					<li><a href="tel:{site.phone.replaceAll(' ', '')}" class="hover:text-safety font-mono transition-colors">{site.phone}</a></li>
+					<li><a href={site.phoneHref} class="hover:text-safety font-mono transition-colors">{site.phone}</a></li>
 					<li><a href="mailto:{site.email}" class="hover:text-safety font-mono transition-colors">{site.email}</a></li>
 					<li class="text-muted-foreground">{site.address}</li>
 				</ul>

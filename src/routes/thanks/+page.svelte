@@ -16,14 +16,14 @@
 		Formunuz ekibimize iletildi; en kısa sürede size dönüş yapacağız. Acil durumlar için bizi
 		doğrudan arayabilirsiniz:
 	</p>
-	<a href="tel:{site.phone.replaceAll(' ', '')}" class="text-primary mt-3 font-mono text-lg font-semibold">
+	<a href={site.phoneHref} class="text-primary mt-3 font-mono text-lg font-semibold">
 		{site.phone}
 	</a>
 	<div class="mt-10 flex gap-3">
-		<Button href="/" variant="outline" class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+		<Button href="/" variant="outline" class="btn-label">
 			Ana Sayfa
 		</Button>
-		<Button href="/machines" class="font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+		<Button href="/machines" class="btn-label">
 			Satılık Makineler
 		</Button>
 	</div>

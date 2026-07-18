@@ -1,3 +1,5 @@
+import type { MachineType } from '$lib/types';
+
 /**
  * Tek doğruluk kaynağı: makine cinsleri ve cinse bağlı boyut seçenekleri.
  * Formlar ve static/__forms.html buradan türetilir — alan adları Türkçe kalır
@@ -12,8 +14,6 @@ export const MACHINE_TYPES = [
 	'Yatay işleme',
 	'Diğer'
 ] as const;
-
-export type MachineType = (typeof MACHINE_TYPES)[number];
 
 /** Dizi → seçim listesi, 'text' → serbest metin, null → boyut alanı yok */
 export const SIZE_OPTIONS: Record<MachineType, readonly string[] | 'text' | null> = {

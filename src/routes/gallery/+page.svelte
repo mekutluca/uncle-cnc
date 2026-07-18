@@ -19,13 +19,13 @@
 		{#each gallery as item, i (i)}
 			{@const service = serviceBySlug(item.serviceSlug)}
 			<figure class="group flex flex-col">
-				<Placeholder label={item.label} ratio={item.ratio ?? '4/3'} class="text-muted-foreground" />
+				<Placeholder label={item.label} class="text-muted-foreground" />
 				<figcaption class="mt-3">
 					<p class="text-sm font-medium">{item.description}</p>
 					{#if service}
 						<a
 							href="/services/{service.slug}"
-							class="text-primary mt-1.5 inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.14em]"
+							class="text-primary mt-1.5 inline-flex items-center gap-1.5 btn-label"
 						>
 							{service.title} talebi oluştur
 							<ArrowRightIcon class="size-3 transition-transform group-hover:translate-x-0.5" />
