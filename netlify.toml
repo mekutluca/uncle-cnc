@@ -1,3 +1,11 @@
 [build]
 command = "npm run build"
 publish = "build"
+
+# Form POST'ları SvelteKit render fonksiyonuna değil statik dosyaya gitmeli ki
+# Netlify Forms yakalayabilsin (bkz. https://opennext.js.org/netlify/forms).
+[[redirects]]
+from = "/__forms.html"
+to = "/__forms.html"
+status = 200
+force = true
