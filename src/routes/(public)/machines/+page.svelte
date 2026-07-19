@@ -3,7 +3,7 @@
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
-	import { formatPrice } from '$lib/components/site/machine-format';
+	import { formatPrice } from '$lib/utils/machine-format';
 
 	let { data } = $props();
 </script>

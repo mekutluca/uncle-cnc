@@ -3,7 +3,6 @@
 	import MoreVerticalIcon from '@lucide/svelte/icons/more-vertical';
 	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import Trash2Icon from '@lucide/svelte/icons/trash-2';
-	import ImageOffIcon from '@lucide/svelte/icons/image-off';
 	import { goto } from '$app/navigation';
 	import { Badge, type BadgeVariant } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
@@ -16,7 +15,8 @@
 	import * as Table from '$lib/components/ui/table';
 	import MachineDeleteDialog from '$lib/components/admin/machine-delete-dialog.svelte';
 	import SortableHead from '$lib/components/admin/sortable-head.svelte';
-	import { formatPrice } from '$lib/components/site/machine-format';
+	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
+	import { formatPrice } from '$lib/utils/machine-format';
 	import { TableSort } from '$lib/utils/table-sort.svelte';
 	import type { Machine, MachineWithPhotos } from '$lib/types';
 
@@ -130,19 +130,7 @@
 									onclick={() => goto(`/admin/machines/${machine.id}/edit`)}
 								>
 									<Table.Cell>
-										{#if machine.photoUrls[0]}
-											<img
-												src={machine.photoUrls[0]}
-												alt=""
-												class="border-border size-11 rounded-sm border object-cover"
-											/>
-										{:else}
-											<span
-												class="border-border bg-muted text-muted-foreground flex size-11 items-center justify-center rounded-sm border"
-											>
-												<ImageOffIcon class="size-4" />
-											</span>
-										{/if}
+										<PhotoThumb src={machine.photoUrls[0] ?? null} class="size-11" />
 									</Table.Cell>
 									<Table.Cell>
 										<p class="font-medium">{machine.title}</p>

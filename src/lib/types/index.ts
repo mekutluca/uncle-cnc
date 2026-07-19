@@ -44,6 +44,12 @@ export type Reference = { name: string; sector?: string };
 /** Görüntüleme için herkese açık fotoğraf URL'leri eklenmiş makine kaydı */
 export type MachineWithPhotos = Machine & { photoUrls: string[] };
 
+/** Talep formundaki ilan önizlemesi için gereken alanlar */
+export type MachinePreview = Pick<
+	Machine,
+	'title' | 'price' | 'currency' | 'machine_type' | 'photos'
+>;
+
 /* ---------- Yönetim paneli ---------- */
 
 /** Makine formunun doğrulanmış alanları (id/photos/created_at hariç) */

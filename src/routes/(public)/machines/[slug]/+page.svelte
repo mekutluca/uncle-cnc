@@ -5,7 +5,7 @@
 	import BackLink from '$lib/components/site/BackLink.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
-	import { formatPrice } from '$lib/components/site/machine-format';
+	import { formatPrice } from '$lib/utils/machine-format';
 	import { site } from '$lib/data/site';
 
 	let { data } = $props();

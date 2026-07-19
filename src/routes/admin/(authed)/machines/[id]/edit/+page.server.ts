@@ -1,18 +1,22 @@
-import { error, fail } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { withPhotoUrls } from '$lib/server/supabase';
 import { parseMachineFields, removePhotos, uploadPhotos } from '$lib/server/machines';
-import type { Machine } from '$lib/types';
+import type { Machine, MachineWithPhotos } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
+async function loadMachine(locals: App.Locals, id: string): Promise<MachineWithPhotos> {
 	const { data, error: fetchError } = await locals.supabase
 		.from('uc_machines')
 		.select('*')
-		.eq('id', params.id)
+		.eq('id', id)
 		.maybeSingle();
-	if (fetchError || !data) error(404, 'Makine bulunamadı');
+	if (fetchError || !data) throw new Error('Makine bulunamadı');
+	return withPhotoUrls(data as Machine);
+}
 
-	return { machine: withPhotoUrls(data as Machine) };
+export const load: PageServerLoad = ({ params, locals }) => {
+	// Akış (streaming): sayfa iskeletle açılır, form veri gelince kurulur.
+	return { machine: loadMachine(locals, params.id) };
 };
 
 async function getPhotos(locals: App.Locals, id: string): Promise<string[] | null> {

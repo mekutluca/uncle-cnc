@@ -1,8 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { MACHINE_TYPES } from '$lib/data/machine-options';
+import { PHOTOS_BUCKET } from '$lib/utils/storage';
 import type { Machine, MachineFields } from '$lib/types';
-
-const BUCKET = 'uc-machine-photos';
 
 const STATUSES: Machine['status'][] = ['available', 'sold', 'hidden'];
 const CURRENCIES: Machine['currency'][] = ['EUR', 'USD', 'TRY'];
@@ -64,7 +63,7 @@ export async function uploadPhotos(
 		const ext = file.name.includes('.') ? file.name.split('.').pop() : 'jpg';
 		const path = `${machineId}/${crypto.randomUUID()}.${ext}`;
 		const { error } = await supabase.storage
-			.from(BUCKET)
+			.from(PHOTOS_BUCKET)
 			.upload(path, file, { contentType: file.type });
 		if (error) {
 			console.error('Fotoğraf yüklenemedi:', error.message);
@@ -79,6 +78,6 @@ export async function uploadPhotos(
 
 export async function removePhotos(supabase: SupabaseClient, paths: string[]): Promise<void> {
 	if (!paths.length) return;
-	const { error } = await supabase.storage.from(BUCKET).remove(paths);
+	const { error } = await supabase.storage.from(PHOTOS_BUCKET).remove(paths);
 	if (error) console.error('Fotoğraflar depodan silinemedi:', error.message);
 }

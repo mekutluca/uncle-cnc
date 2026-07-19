@@ -4,6 +4,7 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import type { Service } from '$lib/types';
 	import ContactFields from './ContactFields.svelte';
+	import ListingPreviewCard from './ListingPreviewCard.svelte';
 	import MachineTypeSizeFields from './MachineTypeSizeFields.svelte';
 	import ModelYearFields from './ModelYearFields.svelte';
 	import NetlifyForm from './NetlifyForm.svelte';
@@ -66,9 +67,7 @@
 
 		{#if relatedListing}
 			<input type="hidden" name="ilgili_ilan" value={relatedListing} />
-			<p class="border-safety bg-safety/10 rounded-md border-l-2 px-3 py-2 text-sm">
-				İlgilendiğiniz ilan: <span class="font-mono">{relatedListing}</span>
-			</p>
+			<ListingPreviewCard slug={relatedListing} />
 		{/if}
 
 		<ContactFields />
