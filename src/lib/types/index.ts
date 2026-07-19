@@ -1,3 +1,4 @@
+import type WrenchIcon from '@lucide/svelte/icons/wrench';
 import type { MACHINE_TYPES } from '$lib/data/machine-options';
 
 export type MachineType = (typeof MACHINE_TYPES)[number];
@@ -39,6 +40,41 @@ export type Machine = {
 };
 
 export type Reference = { name: string; sector?: string };
+
+/* ---------- Yönetim paneli ---------- */
+
+export type SortOrder = 'asc' | 'desc';
+
+/** Form aksiyonlarından dönen standart veri şekli */
+export interface FormActionData {
+	message?: string;
+	success?: boolean;
+	/** create aksiyonunun ürettiği kaydın id'si */
+	id?: string;
+}
+
+export interface FormEnhanceOptions {
+	beforeSubmit?: (formData: FormData) => void;
+	onStart?: () => void;
+	onFinish?: () => void;
+	onSuccess?: (data?: FormActionData) => void;
+	successMessage?: string;
+	loadingMessage?: string;
+}
+
+/** Formda seçilmiş ama henüz yüklenmemiş fotoğraf */
+export interface PendingPhoto {
+	id: string;
+	file: File;
+	url: string;
+}
+
+export interface AdminRoute {
+	href: string;
+	label: string;
+	icon: typeof WrenchIcon;
+	group: string;
+}
 
 export type GalleryItem = {
 	label: string;

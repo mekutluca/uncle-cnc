@@ -6,7 +6,7 @@ CNC servis firması için pazarlama sitesi. SvelteKit (Svelte 5) + Tailwind v4 +
 
 ```bash
 npm install
-cp .env.example .env   # SUPABASE_ANON_KEY değerini doldurun
+cp .env.example .env   # PUBLIC_SUPABASE_ANON_KEY değerini doldurun
 npm run dev
 ```
 
@@ -21,10 +21,18 @@ npm run dev
 - **Satılık makineler Supabase'ten gelir** (paylaşılan DB, `uc_` önekli tablolar). Kurulum: `docs/supabase-setup.sql` dosyasını Supabase Studio SQL Editor'de çalıştırın. Sayfa SSR ile yüklenir ve Netlify CDN'de 5 dk önbelleklenir; rebuild gerekmez.
 - **Firma bilgileri** (telefon, adres, e-posta, harita) tek yerden: `src/lib/data/site.ts` — TODO işaretli alanları müşteri bilgileriyle güncelleyin.
 
+## Yönetim paneli (/admin)
+
+- `/admin/login` → Supabase Auth (e-posta + şifre). Oturum `@supabase/ssr` ile çerezde tutulur; `src/hooks.server.ts` yalnızca `/admin` rotalarında çalışır, halka açık sayfalar prerender kalır.
+- **Yetki = RLS**: yalnızca `uc_admins` tablosundaki kullanıcılar `uc_machines` ve `uc-machine-photos` bucket'ına yazabilir (`public.uc_is_admin()` — paylaşılan auth havuzunda "authenticated" yeterli değildir).
+- Yeni yönetici eklemek: Supabase Studio → Auth → Add user, ardından `insert into uc_admins (user_id) values ('<uid>');`
+- Makine CRUD: `/admin/machines` (liste + sil), `/admin/machines/new`, `/admin/machines/[id]/edit` (fotoğraf ekle/sil/sırala — fotoğraflar tarayıcıda ~1600px'e küçültülür). Kayıtlar herkese açık `/machines` sayfasına en geç 5 dk (CDN önbelleği) içinde yansır; deploy gerekmez.
+- Panel navigasyonuna sayfa eklemek: `src/lib/data/admin-routes.ts`.
+
 ## Netlify dağıtımı (manuel adımlar)
 
 1. Site oluşturup repo'yu bağlayın (`netlify.toml` hazır).
-2. Environment variables: `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
+2. Environment variables: `PUBLIC_SUPABASE_URL`, `PUBLIC_SUPABASE_ANON_KEY`.
 3. **Forms → Enable form detection**'ı açın (varsayılan kapalı), ardından e-posta bildirimlerini ayarlayın (Forms → Notifications).
 4. İlk deploy sonrası Forms sekmesinde 6 formun (contact, appraisal, consulting, maintenance, repair, machine-trading) tam alan listeleriyle göründüğünü doğrulayın ve her formdan bir test gönderimi yapın (fotoğraflı bir tane dahil).
 5. Ücretsiz plan sınırı: ay başına 100 gönderim, dosya başına 8 MB. Aşılırsa geçiş yolu: form `action`'ını Resend ile e-posta atan bir Netlify function'a çevirmek (tek değişiklik `NetlifyForm.svelte`).

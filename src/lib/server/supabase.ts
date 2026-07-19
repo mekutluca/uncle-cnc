@@ -1,30 +1,19 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import { env } from '$env/dynamic/private';
+import { createClient } from '@supabase/supabase-js';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import type { Machine } from '$lib/types';
 
 const BUCKET = 'uc-machine-photos';
 
-let client: SupabaseClient | null = null;
-
-/** Env eksikse (örn. lokal geliştirme) site patlamaz; ilan listesi boş görünür. */
-export function getSupabase(): SupabaseClient | null {
-	if (client) return client;
-	if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) return null;
-	client = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
-		auth: { persistSession: false }
-	});
-	return client;
-}
+/** Halka açık sayfalar için anon (salt-okunur RLS) istemci — oturum tutmaz. */
+const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+	auth: { persistSession: false }
+});
 
 export function photoUrl(path: string): string {
-	const supabase = getSupabase();
-	if (!supabase) return '';
 	return supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
 }
 
 export async function listMachines(): Promise<Machine[]> {
-	const supabase = getSupabase();
-	if (!supabase) return [];
 	const { data, error } = await supabase
 		.from('uc_machines')
 		.select('*')
@@ -38,8 +27,6 @@ export async function listMachines(): Promise<Machine[]> {
 }
 
 export async function getMachine(slug: string): Promise<Machine | null> {
-	const supabase = getSupabase();
-	if (!supabase) return null;
 	const { data, error } = await supabase
 		.from('uc_machines')
 		.select('*')

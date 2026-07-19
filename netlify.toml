@@ -2,6 +2,11 @@
 command = "npm run build"
 publish = "build"
 
+[build.environment]
+# Anon anahtar tasarım gereği herkese açık (publishable) — istemci paketinde
+# görünmesi normal; secrets tarayıcısının deploy'u düşürmemesi için muaf tutulur.
+SECRETS_SCAN_OMIT_KEYS = "PUBLIC_SUPABASE_ANON_KEY,SUPABASE_ANON_KEY,PUBLIC_SUPABASE_URL,SUPABASE_URL"
+
 # Form POST'ları SvelteKit render fonksiyonuna değil statik dosyaya gitmeli ki
 # Netlify Forms yakalayabilsin (bkz. https://opennext.js.org/netlify/forms).
 [[redirects]]
