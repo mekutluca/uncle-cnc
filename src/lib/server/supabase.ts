@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
-import type { Machine } from '$lib/types';
+import type { Machine, MachineWithPhotos } from '$lib/types';
 
 const BUCKET = 'uc-machine-photos';
 
@@ -11,6 +11,10 @@ const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 
 export function photoUrl(path: string): string {
 	return supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+export function withPhotoUrls(machine: Machine): MachineWithPhotos {
+	return { ...machine, photoUrls: machine.photos.map(photoUrl) };
 }
 
 export async function listMachines(): Promise<Machine[]> {

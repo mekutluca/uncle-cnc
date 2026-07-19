@@ -1,4 +1,4 @@
-import { listMachines, photoUrl } from '$lib/server/supabase';
+import { listMachines, withPhotoUrls } from '$lib/server/supabase';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
@@ -6,10 +6,5 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		'netlify-cdn-cache-control': 'public, s-maxage=300, stale-while-revalidate=3600'
 	});
 	const machines = await listMachines();
-	return {
-		machines: machines.map((machine) => ({
-			...machine,
-			photoUrls: machine.photos.map(photoUrl)
-		}))
-	};
+	return { machines: machines.map(withPhotoUrls) };
 };

@@ -13,7 +13,7 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { cn } from '$lib/utils';
-	import { site } from '$lib/data/site';
+	import BrandMark from '$lib/components/site/BrandMark.svelte';
 
 	let { children, data } = $props();
 	let { supabase, session } = $derived(data);
@@ -102,14 +102,8 @@
 			</Button>
 		</div>
 		<div class="flex-1">
-			<a class="flex items-center gap-3 px-2" href="/admin">
-				<span class="crosshair text-safety shrink-0" aria-hidden="true"></span>
-				<span class="leading-none">
-					<span class="display block text-base">{site.name}</span>
-					<span class="text-muted-foreground mt-0.5 block font-mono text-[8px] uppercase tracking-[0.24em]">
-						Yönetim Paneli
-					</span>
-				</span>
+			<a class="px-2" href="/admin">
+				<BrandMark subtitle="Yönetim Paneli" size="sm" />
 			</a>
 		</div>
 		<div class="flex flex-none items-center gap-1">

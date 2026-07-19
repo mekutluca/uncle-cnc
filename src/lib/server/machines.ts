@@ -1,19 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { MACHINE_TYPES } from '$lib/data/machine-options';
-import type { Machine } from '$lib/types';
+import type { Machine, MachineFields } from '$lib/types';
 
 const BUCKET = 'uc-machine-photos';
-
-export type MachineFields = {
-	title: string;
-	slug: string;
-	machine_type: string;
-	status: Machine['status'];
-	price: number | null;
-	currency: Machine['currency'];
-	description: string | null;
-	specs: Record<string, string>;
-};
 
 const STATUSES: Machine['status'][] = ['available', 'sold', 'hidden'];
 const CURRENCIES: Machine['currency'][] = ['EUR', 'USD', 'TRY'];

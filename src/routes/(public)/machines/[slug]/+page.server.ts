@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getMachine, photoUrl } from '$lib/server/supabase';
+import { getMachine, withPhotoUrls } from '$lib/server/supabase';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
@@ -8,7 +8,5 @@ export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	});
 	const machine = await getMachine(params.slug);
 	if (!machine) error(404, 'İlan bulunamadı');
-	return {
-		machine: { ...machine, photoUrls: machine.photos.map(photoUrl) }
-	};
+	return { machine: withPhotoUrls(machine) };
 };

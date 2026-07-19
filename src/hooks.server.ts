@@ -49,7 +49,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	event.locals.session = session;
 	event.locals.user = user;
 
-	if (routeId.startsWith('/admin/(panel)') && !session) redirect(303, '/admin/login');
+	if (routeId.startsWith('/admin/(authed)') && !session) redirect(303, '/admin/login');
 	if (routeId.startsWith('/admin/login') && session) redirect(303, '/admin');
 
 	return resolve(event);

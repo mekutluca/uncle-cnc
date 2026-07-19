@@ -1,5 +1,5 @@
 import { error, fail } from '@sveltejs/kit';
-import { photoUrl } from '$lib/server/supabase';
+import { withPhotoUrls } from '$lib/server/supabase';
 import { parseMachineFields, removePhotos, uploadPhotos } from '$lib/server/machines';
 import type { Machine } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
@@ -12,8 +12,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		.maybeSingle();
 	if (fetchError || !data) error(404, 'Makine bulunamadı');
 
-	const machine = data as Machine;
-	return { machine: { ...machine, photoUrls: machine.photos.map(photoUrl) } };
+	return { machine: withPhotoUrls(data as Machine) };
 };
 
 async function getPhotos(locals: App.Locals, id: string): Promise<string[] | null> {

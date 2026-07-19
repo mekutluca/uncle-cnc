@@ -41,7 +41,22 @@ export type Machine = {
 
 export type Reference = { name: string; sector?: string };
 
+/** Görüntüleme için herkese açık fotoğraf URL'leri eklenmiş makine kaydı */
+export type MachineWithPhotos = Machine & { photoUrls: string[] };
+
 /* ---------- Yönetim paneli ---------- */
+
+/** Makine formunun doğrulanmış alanları (id/photos/created_at hariç) */
+export type MachineFields = {
+	title: string;
+	slug: string;
+	machine_type: string;
+	status: Machine['status'];
+	price: number | null;
+	currency: Machine['currency'];
+	description: string | null;
+	specs: Record<string, string>;
+};
 
 export type SortOrder = 'asc' | 'desc';
 
@@ -49,8 +64,6 @@ export type SortOrder = 'asc' | 'desc';
 export interface FormActionData {
 	message?: string;
 	success?: boolean;
-	/** create aksiyonunun ürettiği kaydın id'si */
-	id?: string;
 }
 
 export interface FormEnhanceOptions {

@@ -26,7 +26,6 @@ export const actions: Actions = {
 
 		return {
 			success: true,
-			id: machine.id,
 			message: failed
 				? `İlan oluşturuldu ancak ${failed} fotoğraf yüklenemedi.`
 				: 'İlan oluşturuldu.'

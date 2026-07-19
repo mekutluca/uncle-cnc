@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { site } from '$lib/data/site';
 	import { services } from '$lib/data/services';
+	import BrandMark from './BrandMark.svelte';
 </script>
 
 <footer class="dark bg-background text-foreground border-border border-t">
 	<div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
 		<div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
 			<div>
-				<div class="flex items-center gap-3">
-					<span class="crosshair text-safety shrink-0" aria-hidden="true"></span>
-					<span class="display text-xl">{site.name}</span>
-				</div>
+				<BrandMark />
 				<p class="text-safety mt-2 font-mono text-xs tracking-[0.14em]">{site.tagline}</p>
 				<p class="text-muted-foreground mt-4 max-w-sm text-sm leading-relaxed">{site.description}</p>
 			</div>

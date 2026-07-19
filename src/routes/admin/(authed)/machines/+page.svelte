@@ -18,12 +18,9 @@
 	import SortableHead from '$lib/components/admin/sortable-head.svelte';
 	import { formatPrice } from '$lib/components/site/machine-format';
 	import { TableSort } from '$lib/utils/table-sort.svelte';
-	import type { Machine } from '$lib/types';
+	import type { Machine, MachineWithPhotos } from '$lib/types';
 
 	let { data } = $props();
-
-	type MachineRow = Machine & { photoUrls: string[] };
-	type SortKey = 'title' | 'machine_type' | 'price' | 'status' | 'created_at';
 
 	const STATUS_LABEL: Record<Machine['status'], string> = {
 		available: 'Satışta',
@@ -38,12 +35,12 @@
 
 	let search = $state('');
 	let statusFilter = $state('all');
-	const sort = new TableSort<SortKey>();
+	const sort = new TableSort<'title' | 'machine_type' | 'price' | 'status' | 'created_at'>();
 
-	let deleteTarget = $state<MachineRow | null>(null);
+	let deleteTarget = $state<MachineWithPhotos | null>(null);
 	let deleteOpen = $state(false);
 
-	function filterAndSort(machines: MachineRow[]): MachineRow[] {
+	function filterAndSort(machines: MachineWithPhotos[]): MachineWithPhotos[] {
 		const query = search.trim().toLocaleLowerCase('tr');
 		let rows = machines.filter(
 			(machine) =>

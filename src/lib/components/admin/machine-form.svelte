@@ -17,13 +17,13 @@
 	import { resizeImage } from '$lib/utils/image-resize';
 	import { slugify } from '$lib/utils/slugify';
 	import { MACHINE_TYPES } from '$lib/data/machine-options';
-	import type { Machine, PendingPhoto } from '$lib/types';
+	import type { Machine, MachineWithPhotos, PendingPhoto } from '$lib/types';
 
 	let {
 		machine = null,
 		mode
 	}: {
-		machine?: (Machine & { photoUrls: string[] }) | null;
+		machine?: MachineWithPhotos | null;
 		mode: 'create' | 'edit';
 	} = $props();
 

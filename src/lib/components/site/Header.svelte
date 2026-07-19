@@ -3,6 +3,7 @@
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import { Button } from '$lib/components/ui/button';
 	import * as Sheet from '$lib/components/ui/sheet';
+	import BrandMark from './BrandMark.svelte';
 	import { nav, site } from '$lib/data/site';
 	import { services } from '$lib/data/services';
 
@@ -15,14 +16,8 @@
 <header class="border-border bg-card/95 sticky top-0 z-50 border-b backdrop-blur">
 	<div class="bg-safety h-0.5" aria-hidden="true"></div>
 	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
-		<a href="/" class="flex items-center gap-3" aria-label="{site.fullName} — ana sayfa">
-			<span class="crosshair text-safety shrink-0" aria-hidden="true"></span>
-			<span class="leading-none">
-				<span class="display block text-xl">{site.name}</span>
-				<span class="text-muted-foreground mt-1 block font-mono text-[9px] uppercase tracking-[0.24em]">
-					International CNC Service
-				</span>
-			</span>
+		<a href="/" aria-label="{site.fullName} — ana sayfa">
+			<BrandMark subtitle="International CNC Service" />
 		</a>
 
 		<nav class="hidden items-center gap-1 lg:flex" aria-label="Ana menü">

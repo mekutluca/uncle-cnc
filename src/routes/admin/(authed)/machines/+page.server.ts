@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { photoUrl } from '$lib/server/supabase';
+import { withPhotoUrls } from '$lib/server/supabase';
 import { removePhotos } from '$lib/server/machines';
 import type { Machine } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
@@ -11,10 +11,7 @@ async function listAllMachines(supabase: SupabaseClient) {
 		.select('*')
 		.order('created_at', { ascending: false });
 	if (error) throw new Error(error.message);
-	return ((data ?? []) as Machine[]).map((machine) => ({
-		...machine,
-		photoUrls: machine.photos.map(photoUrl)
-	}));
+	return ((data ?? []) as Machine[]).map(withPhotoUrls);
 }
 
 export const load: PageServerLoad = ({ locals }) => {

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
 	import Seo from '$lib/components/site/Seo.svelte';
+	import BackLink from '$lib/components/site/BackLink.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
 	import { formatPrice } from '$lib/components/site/machine-format';
@@ -17,13 +17,7 @@
 <Seo title={machine.title} description={machine.description ?? machine.title} image={machine.photoUrls[0]} />
 
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-	<a
-		href="/machines"
-		class="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors"
-	>
-		<ArrowLeftIcon class="size-3.5" />
-		Tüm ilanlar
-	</a>
+	<BackLink href="/machines" label="Tüm ilanlar" />
 
 	<div class="mt-6 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
 		<div class="grid gap-4">
