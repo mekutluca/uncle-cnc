@@ -24,3 +24,8 @@ vite.config.ts.timestamp-*
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Skill paketlerinin icerik-disi ekleri (gorseller, evaller, diger ajan konfigleri)
+.agents/skills/*/assets/
+.agents/skills/*/evals/
+.agents/skills/*/agents/

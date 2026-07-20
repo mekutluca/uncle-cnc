@@ -24,9 +24,9 @@
 	// /services/machine-trading?request=buy|sell&listing=<slug>
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
-		const request = params.get('request');
-		if (request === 'sell') intent = 'satmak';
 		relatedListing = params.get('listing') ?? '';
+		// İlan seçiliyken talep her zaman "almak"tır; request parametresi yok sayılır.
+		if (params.get('request') === 'sell' && !relatedListing) intent = 'satmak';
 	});
 
 	const showPhotos = $derived(
@@ -34,13 +34,22 @@
 	);
 
 	const hasUpload = $derived(service.fields.photos !== false);
+
+	/* Belirli bir ilan için gelen "Bilgi / Teklif İste" talebi: makine zaten belli
+	   olduğundan işlem türü seçici ve istenen-makine alanları (cins/boyut, model
+	   yılı, fiyat aralığı) gösterilmez; islem_turu gizli alanla "almak" gönderilir. */
+	const hasListing = $derived(isTrading && relatedListing !== '');
 </script>
 
 <div class="plate">
 	<PlateHeader title="Talep Formu" code={service.code} />
 
 	<NetlifyForm name={service.formName} upload={hasUpload}>
-		{#if isTrading}
+		{#if hasListing}
+			<input type="hidden" name="islem_turu" value="almak" />
+			<input type="hidden" name="ilgili_ilan" value={relatedListing} />
+			<ListingPreviewCard slug={relatedListing} />
+		{:else if isTrading}
 			<fieldset>
 				<legend class="eyebrow mb-3">İşlem Türü</legend>
 				<div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="İşlem türü">
@@ -65,14 +74,9 @@
 			</fieldset>
 		{/if}
 
-		{#if relatedListing}
-			<input type="hidden" name="ilgili_ilan" value={relatedListing} />
-			<ListingPreviewCard slug={relatedListing} />
-		{/if}
-
 		<ContactFields />
 
-		{#if service.fields.machine}
+		{#if service.fields.machine && !hasListing}
 			<MachineTypeSizeFields
 				legend={isTrading ? (intent === 'almak' ? 'İstenen Makine' : 'Satılacak Makine') : 'Makine Bilgileri'}
 			/>
@@ -80,11 +84,11 @@
 
 		{#if service.fields.modelYear === 'single'}
 			<ModelYearFields mode="single" />
-		{:else if isTrading}
+		{:else if isTrading && !hasListing}
 			<ModelYearFields mode={intent === 'almak' ? 'range' : 'single'} />
 		{/if}
 
-		{#if service.fields.priceRange}
+		{#if service.fields.priceRange && !hasListing}
 			<PriceRangeFields />
 		{/if}
 
