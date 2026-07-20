@@ -22,9 +22,6 @@
 				<PlateHeader title="Operatör Girişi" code="ADM-00" />
 				<LoginForm supabase={data.supabase} />
 			</div>
-			<p class="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-[#9aa1ab]">
-				Yalnızca yetkili kullanıcılar
-			</p>
 		</div>
 	</div>
 </div>
