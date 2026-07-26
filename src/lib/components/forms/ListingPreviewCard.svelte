@@ -2,7 +2,7 @@
 	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
-	import { publicPhotoUrl } from '$lib/utils/storage';
+	import { publicPhotoUrl, publicThumbUrl } from '$lib/utils/storage';
 	import type { MachinePreview } from '$lib/types';
 
 	let { slug }: { slug: string } = $props();
@@ -33,12 +33,13 @@
 	});
 
 	const price = $derived(preview ? formatPrice(preview.price, preview.currency) : null);
-	const thumbnail = $derived(preview?.photos[0] ? publicPhotoUrl(preview.photos[0]) : null);
+	const thumbnail = $derived(preview?.photos[0] ? publicThumbUrl(preview.photos[0]) : null);
+	const fullPhoto = $derived(preview?.photos[0] ? publicPhotoUrl(preview.photos[0]) : null);
 </script>
 
 {#if preview}
 	<div class="border-border bg-card border-s-safety flex items-center gap-4 rounded-md border border-s-2 p-3">
-		<PhotoThumb src={thumbnail} alt={preview.title} class="aspect-[4/3] w-20" />
+		<PhotoThumb src={thumbnail} fallback={fullPhoto} alt={preview.title} class="aspect-[4/3] w-20" />
 		<div class="min-w-0">
 			<p class="eyebrow">İlgilenilen İlan</p>
 			<p class="mt-1 truncate font-medium">{preview.title}</p>

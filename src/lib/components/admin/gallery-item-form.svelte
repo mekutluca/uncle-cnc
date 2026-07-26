@@ -10,7 +10,7 @@
 	import * as Select from '$lib/components/ui/select';
 	import { labelClass } from '$lib/components/forms/field-styles';
 	import { createFormEnhance, submitFormAction } from '$lib/utils/form-enhance';
-	import { resizeImage } from '$lib/utils/image-resize';
+	import { makeThumb, resizeImage } from '$lib/utils/image-resize';
 	import { services, serviceBySlug } from '$lib/data/services';
 	import type { GalleryItemWithUrl, PendingPhoto } from '$lib/types';
 
@@ -47,7 +47,12 @@
 		if (!file) return;
 		const resized = await resizeImage(file);
 		if (pendingPhoto) URL.revokeObjectURL(pendingPhoto.url);
-		pendingPhoto = { id: crypto.randomUUID(), file: resized, url: URL.createObjectURL(resized) };
+		pendingPhoto = {
+			id: crypto.randomUUID(),
+			file: resized,
+			thumb: await makeThumb(resized),
+			url: URL.createObjectURL(resized)
+		};
 	}
 
 	function removePending() {
@@ -72,7 +77,10 @@
 	const formEnhance = createFormEnhance({
 		loadingMessage: 'Kaydediliyor…',
 		beforeSubmit: (formData) => {
-			if (pendingPhoto) formData.append('photo', pendingPhoto.file);
+			if (pendingPhoto) {
+				formData.append('photo', pendingPhoto.file);
+				formData.append('photo_thumb', pendingPhoto.thumb);
+			}
 		},
 		onStart: () => (saving = true),
 		onFinish: () => (saving = false),

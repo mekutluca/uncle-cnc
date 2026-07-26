@@ -19,7 +19,8 @@ export const actions: Actions = {
 		}
 
 		const files = formData.getAll('photos').filter((f): f is File => f instanceof File);
-		const { paths, failed } = await uploadPhotos(locals.supabase, machine.id, files);
+		const thumbs = formData.getAll('thumbs').filter((f): f is File => f instanceof File);
+		const { paths, failed } = await uploadPhotos(locals.supabase, machine.id, files, thumbs);
 		if (paths.length) {
 			await locals.supabase.from('uc_machines').update({ photos: paths }).eq('id', machine.id);
 		}

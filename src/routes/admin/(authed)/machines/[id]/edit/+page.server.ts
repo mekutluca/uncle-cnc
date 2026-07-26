@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { withPhotoUrls } from '$lib/server/supabase';
-import { parseMachineFields, removePhotos, uploadPhotos } from '$lib/server/machines';
+import { parseMachineFields, uploadPhotos } from '$lib/server/machines';
+import { removePhotos } from '$lib/server/photo-storage';
 import type { Machine, MachineWithPhotos } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -38,7 +39,8 @@ export const actions: Actions = {
 		if (currentPhotos === null) return fail(400, { success: false, message: 'Makine bulunamadı.' });
 
 		const files = formData.getAll('photos').filter((f): f is File => f instanceof File);
-		const { paths, failed } = await uploadPhotos(locals.supabase, params.id, files);
+		const thumbs = formData.getAll('thumbs').filter((f): f is File => f instanceof File);
+		const { paths, failed } = await uploadPhotos(locals.supabase, params.id, files, thumbs);
 
 		const { error: updateError } = await locals.supabase
 			.from('uc_machines')

@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { withGalleryUrl } from '$lib/server/supabase';
-import { parseGalleryFields, uploadGalleryPhoto } from '$lib/server/gallery';
-import { removePhotos } from '$lib/server/machines';
+import { galleryFolder, parseGalleryFields } from '$lib/server/gallery';
+import { removePhotos, uploadPhotoFile } from '$lib/server/photo-storage';
 import type { GalleryItem, GalleryItemWithUrl } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -41,10 +41,16 @@ export const actions: Actions = {
 			return fail(400, { success: false, message: 'Galeri öğesi bulunamadı.' });
 
 		const file = formData.get('photo');
+		const thumb = formData.get('photo_thumb');
 		let newPath: string | null = null;
 		let photoFailed = false;
 		if (file instanceof File && file.size) {
-			newPath = await uploadGalleryPhoto(locals.supabase, params.id, file);
+			newPath = await uploadPhotoFile(
+				locals.supabase,
+				galleryFolder(params.id),
+				file,
+				thumb instanceof File ? thumb : null
+			);
 			photoFailed = newPath === null;
 		}
 

@@ -6,6 +6,8 @@
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { serviceBySlug } from '$lib/data/services';
 
+	import { fallbackToFull } from '$lib/utils/photo-fallback';
+
 	let { data } = $props();
 </script>
 
@@ -35,7 +37,8 @@
 					{#if item.photoUrl}
 						<div class="border-border relative aspect-[4/3] overflow-hidden rounded-md border">
 							<img
-								src={item.photoUrl}
+								src={item.thumbUrl}
+								onerror={(e) => fallbackToFull(e, item.photoUrl)}
 								alt={item.description}
 								loading="lazy"
 								class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"

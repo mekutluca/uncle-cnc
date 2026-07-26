@@ -14,7 +14,8 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { labelClass } from '$lib/components/forms/field-styles';
 	import { createFormEnhance, submitFormAction } from '$lib/utils/form-enhance';
-	import { resizeImage } from '$lib/utils/image-resize';
+	import { fallbackToFull } from '$lib/utils/photo-fallback';
+	import { makeThumb, resizeImage } from '$lib/utils/image-resize';
 	import { slugify } from '$lib/utils/slugify';
 	import { MACHINE_TYPES } from '$lib/data/machine-options';
 	import type { Machine, MachineWithPhotos, PendingPhoto } from '$lib/types';
@@ -68,7 +69,11 @@
 
 	// Mevcut fotoğraflar sunucu verisinden türetilir; sil/sırala invalidate ile tazelenir.
 	const existingPhotos = $derived(
-		(machine?.photos ?? []).map((path, index) => ({ path, url: machine?.photoUrls[index] ?? '' }))
+		(machine?.photos ?? []).map((path, index) => ({
+			path,
+			url: machine?.photoUrls[index] ?? '',
+			thumbUrl: machine?.thumbUrls[index] ?? ''
+		}))
 	);
 
 	function onTitleInput() {
@@ -84,6 +89,7 @@
 			pendingPhotos.push({
 				id: crypto.randomUUID(),
 				file: resized,
+				thumb: await makeThumb(resized),
 				url: URL.createObjectURL(resized)
 			});
 		}
@@ -129,7 +135,11 @@
 	const formEnhance = createFormEnhance({
 		loadingMessage: 'Kaydediliyor…',
 		beforeSubmit: (formData) => {
-			pendingPhotos.forEach((photo) => formData.append('photos', photo.file));
+			// photos ve thumbs aynı sırayla eklenir; sunucu dizinle eşleştirir.
+			pendingPhotos.forEach((photo) => {
+				formData.append('photos', photo.file);
+				formData.append('thumbs', photo.thumb);
+			});
 		},
 		onStart: () => (saving = true),
 		onFinish: () => (saving = false),
@@ -276,7 +286,8 @@
 					{#each existingPhotos as photo, index (photo.path)}
 						<div class="group relative">
 							<img
-								src={photo.url}
+								src={photo.thumbUrl || photo.url}
+								onerror={(e) => fallbackToFull(e, photo.url)}
 								alt="Makine fotoğrafı {index + 1}"
 								class="border-border aspect-[4/3] w-full rounded-md border object-cover"
 							/>

@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { MACHINE_TYPES } from '$lib/data/machine-options';
-import { PHOTOS_BUCKET } from '$lib/utils/storage';
+import { uploadPhotoFile } from '$lib/server/photo-storage';
 import type { Machine, MachineFields } from '$lib/types';
 
 const STATUSES: Machine['status'][] = ['available', 'sold', 'hidden'];
@@ -47,37 +47,24 @@ export function parseMachineFields(formData: FormData): MachineFields | string {
 }
 
 /**
- * Yeni fotoğrafları depoya yükler, başarıyla yüklenen yolları döner.
- * Yol düzeni: {machineId}/{uuid}.{uzantı}
+ * Yeni fotoğrafları küçük varyantlarıyla birlikte depoya yükler, başarıyla
+ * yüklenen yolları döner. Yol düzeni: {machineId}/{uuid}.{uzantı}.
  */
 export async function uploadPhotos(
 	supabase: SupabaseClient,
 	machineId: string,
-	files: File[]
+	files: File[],
+	thumbs: File[] = []
 ): Promise<{ paths: string[]; failed: number }> {
 	const paths: string[] = [];
 	let failed = 0;
 
-	for (const file of files) {
+	for (const [index, file] of files.entries()) {
 		if (!file.size) continue;
-		const ext = file.name.includes('.') ? file.name.split('.').pop() : 'jpg';
-		const path = `${machineId}/${crypto.randomUUID()}.${ext}`;
-		const { error } = await supabase.storage
-			.from(PHOTOS_BUCKET)
-			.upload(path, file, { contentType: file.type });
-		if (error) {
-			console.error('Fotoğraf yüklenemedi:', error.message);
-			failed += 1;
-			continue;
-		}
-		paths.push(path);
+		const path = await uploadPhotoFile(supabase, machineId, file, thumbs[index] ?? null);
+		if (path) paths.push(path);
+		else failed += 1;
 	}
 
 	return { paths, failed };
-}
-
-export async function removePhotos(supabase: SupabaseClient, paths: string[]): Promise<void> {
-	if (!paths.length) return;
-	const { error } = await supabase.storage.from(PHOTOS_BUCKET).remove(paths);
-	if (error) console.error('Fotoğraflar depodan silinemedi:', error.message);
 }

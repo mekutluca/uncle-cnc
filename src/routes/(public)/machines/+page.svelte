@@ -6,6 +6,8 @@
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
 
+	import { fallbackToFull } from '$lib/utils/photo-fallback';
+
 	let { data } = $props();
 </script>
 
@@ -57,7 +59,8 @@
 						{#if machine.photoUrls[0]}
 							<div class="relative aspect-[4/3] overflow-hidden">
 								<img
-									src={machine.photoUrls[0]}
+									src={machine.thumbUrls[0]}
+									onerror={(e) => fallbackToFull(e, machine.photoUrls[0])}
 									alt={machine.title}
 									loading="lazy"
 									class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"

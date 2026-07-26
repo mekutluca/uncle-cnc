@@ -83,7 +83,7 @@
 									onclick={() => goto(`/admin/gallery/${item.id}/edit`)}
 								>
 									<Table.Cell>
-										<PhotoThumb src={item.photoUrl} class="size-11" />
+										<PhotoThumb src={item.thumbUrl} fallback={item.photoUrl} class="size-11" />
 									</Table.Cell>
 									<Table.Cell>
 										<Badge variant="outline" class="font-mono text-[10px] tracking-[0.1em]">

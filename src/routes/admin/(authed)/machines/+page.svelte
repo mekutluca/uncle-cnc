@@ -130,7 +130,11 @@
 									onclick={() => goto(`/admin/machines/${machine.id}/edit`)}
 								>
 									<Table.Cell>
-										<PhotoThumb src={machine.photoUrls[0] ?? null} class="size-11" />
+										<PhotoThumb
+											src={machine.thumbUrls[0] ?? null}
+											fallback={machine.photoUrls[0] ?? null}
+											class="size-11"
+										/>
 									</Table.Cell>
 									<Table.Cell>
 										<p class="font-medium">{machine.title}</p>

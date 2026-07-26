@@ -42,7 +42,7 @@ export type Machine = {
 export type Reference = { name: string; sector?: string };
 
 /** Görüntüleme için herkese açık fotoğraf URL'leri eklenmiş makine kaydı */
-export type MachineWithPhotos = Machine & { photoUrls: string[] };
+export type MachineWithPhotos = Machine & { photoUrls: string[]; thumbUrls: string[] };
 
 /** Talep formundaki ilan önizlemesi için gereken alanlar */
 export type MachinePreview = Pick<
@@ -85,6 +85,8 @@ export interface FormEnhanceOptions {
 export interface PendingPhoto {
 	id: string;
 	file: File;
+	/** Kart/liste görünümleri için ~800px varyant; ana dosyayla birlikte yüklenir */
+	thumb: File;
 	url: string;
 }
 
@@ -109,7 +111,10 @@ export type GalleryItem = {
 };
 
 /** Görüntüleme için herkese açık fotoğraf URL'i eklenmiş galeri kaydı */
-export type GalleryItemWithUrl = GalleryItem & { photoUrl: string | null };
+export type GalleryItemWithUrl = GalleryItem & {
+	photoUrl: string | null;
+	thumbUrl: string | null;
+};
 
 /** Galeri formunun doğrulanmış alanları (id/photo/sort_order hariç) */
 export type GalleryFields = {

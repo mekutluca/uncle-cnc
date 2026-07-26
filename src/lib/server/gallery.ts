@@ -1,6 +1,4 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
 import { serviceBySlug } from '$lib/data/services';
-import { PHOTOS_BUCKET } from '$lib/utils/storage';
 import type { GalleryFields } from '$lib/types';
 
 /** Form alanlarını doğrular; hata durumunda kullanıcıya gösterilecek metin döner. */
@@ -17,24 +15,5 @@ export function parseGalleryFields(formData: FormData): GalleryFields | string {
 	return { label, description, service_slug };
 }
 
-/**
- * Galeri fotoğrafını depoya yükler, yolu döner.
- * Yol düzeni: gallery/{itemId}/{uuid}.{uzantı} — makine fotoğraflarıyla aynı bucket.
- */
-export async function uploadGalleryPhoto(
-	supabase: SupabaseClient,
-	itemId: string,
-	file: File
-): Promise<string | null> {
-	if (!file.size) return null;
-	const ext = file.name.includes('.') ? file.name.split('.').pop() : 'jpg';
-	const path = `gallery/${itemId}/${crypto.randomUUID()}.${ext}`;
-	const { error } = await supabase.storage
-		.from(PHOTOS_BUCKET)
-		.upload(path, file, { contentType: file.type });
-	if (error) {
-		console.error('Galeri fotoğrafı yüklenemedi:', error.message);
-		return null;
-	}
-	return path;
-}
+/** Galeri fotoğraflarının depo klasörü: gallery/{itemId} — makine fotoğraflarıyla aynı bucket. */
+export const galleryFolder = (itemId: string) => `gallery/${itemId}`;

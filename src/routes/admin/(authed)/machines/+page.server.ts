@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { withPhotoUrls } from '$lib/server/supabase';
-import { removePhotos } from '$lib/server/machines';
+import { removePhotos } from '$lib/server/photo-storage';
 import type { Machine } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
 

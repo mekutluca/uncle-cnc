@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
-import { publicPhotoUrl } from '$lib/utils/storage';
+import { publicPhotoUrl, publicThumbUrl } from '$lib/utils/storage';
 import type { GalleryItem, GalleryItemWithUrl, Machine, MachineWithPhotos } from '$lib/types';
 
 /** Halka açık sayfalar için anon (salt-okunur RLS) istemci — oturum tutmaz. */
@@ -9,7 +9,11 @@ const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 });
 
 export function withPhotoUrls(machine: Machine): MachineWithPhotos {
-	return { ...machine, photoUrls: machine.photos.map(publicPhotoUrl) };
+	return {
+		...machine,
+		photoUrls: machine.photos.map(publicPhotoUrl),
+		thumbUrls: machine.photos.map(publicThumbUrl)
+	};
 }
 
 export async function listMachines(): Promise<Machine[]> {
@@ -26,7 +30,11 @@ export async function listMachines(): Promise<Machine[]> {
 }
 
 export function withGalleryUrl(item: GalleryItem): GalleryItemWithUrl {
-	return { ...item, photoUrl: item.photo ? publicPhotoUrl(item.photo) : null };
+	return {
+		...item,
+		photoUrl: item.photo ? publicPhotoUrl(item.photo) : null,
+		thumbUrl: item.photo ? publicThumbUrl(item.photo) : null
+	};
 }
 
 export async function listGalleryItems(): Promise<GalleryItem[]> {

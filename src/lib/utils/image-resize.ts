@@ -1,15 +1,12 @@
 const MAX_DIMENSION = 1600;
 const JPEG_QUALITY = 0.85;
+const THUMB_DIMENSION = 800;
+const THUMB_QUALITY = 0.8;
 
-/**
- * Fotoğrafı tarayıcıda en fazla 1600px olacak şekilde küçültüp JPEG'e çevirir —
- * telefon fotoğrafları depolamayı şişirmesin. Küçültülemeyen dosya (ör. desteklenmeyen
- * biçim) olduğu gibi döner.
- */
-export async function resizeImage(file: File): Promise<File> {
+async function resize(file: File, maxDimension: number, quality: number): Promise<File> {
 	try {
 		const bitmap = await createImageBitmap(file);
-		const scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
+		const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
 
 		const canvas = document.createElement('canvas');
 		canvas.width = Math.round(bitmap.width * scale);
@@ -20,7 +17,7 @@ export async function resizeImage(file: File): Promise<File> {
 		bitmap.close();
 
 		const blob = await new Promise<Blob | null>((resolve) =>
-			canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY)
+			canvas.toBlob(resolve, 'image/jpeg', quality)
 		);
 		if (!blob) return file;
 
@@ -29,4 +26,22 @@ export async function resizeImage(file: File): Promise<File> {
 	} catch {
 		return file;
 	}
+}
+
+/**
+ * Fotoğrafı tarayıcıda en fazla 1600px olacak şekilde küçültüp JPEG'e çevirir —
+ * telefon fotoğrafları depolamayı şişirmesin. Küçültülemeyen dosya (ör. desteklenmeyen
+ * biçim) olduğu gibi döner.
+ */
+export function resizeImage(file: File): Promise<File> {
+	return resize(file, MAX_DIMENSION, JPEG_QUALITY);
+}
+
+/**
+ * Kart ve liste görünümleri için küçük (~800px) varyant. Ana görselle birlikte
+ * yüklenir, `thumbPath` düzeniyle depolanır. Küçültme başarısızsa ana dosya döner —
+ * varyant hiç yüklenmemiş olsa da görüntüleme tarafı tam boyuta düşer (onerror).
+ */
+export function makeThumb(file: File): Promise<File> {
+	return resize(file, THUMB_DIMENSION, THUMB_QUALITY);
 }

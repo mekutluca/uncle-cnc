@@ -1,5 +1,6 @@
 import { fail } from '@sveltejs/kit';
-import { parseGalleryFields, uploadGalleryPhoto } from '$lib/server/gallery';
+import { galleryFolder, parseGalleryFields } from '$lib/server/gallery';
+import { uploadPhotoFile } from '$lib/server/photo-storage';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -25,9 +26,15 @@ export const actions: Actions = {
 		if (error) return fail(500, { success: false, message: `Kaydedilemedi: ${error.message}` });
 
 		const file = formData.get('photo');
+		const thumb = formData.get('photo_thumb');
 		let photoFailed = false;
 		if (file instanceof File && file.size) {
-			const path = await uploadGalleryPhoto(locals.supabase, item.id, file);
+			const path = await uploadPhotoFile(
+				locals.supabase,
+				galleryFolder(item.id),
+				file,
+				thumb instanceof File ? thumb : null
+			);
 			if (path) {
 				await locals.supabase.from('uc_gallery_items').update({ photo: path }).eq('id', item.id);
 			} else {
