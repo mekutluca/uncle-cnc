@@ -23,7 +23,7 @@
 <section class="dark bg-background text-foreground relative overflow-hidden">
 	<div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:py-24">
 		<div>
-			<p class="eyebrow mb-5 flex items-center gap-3">
+			<p lang="en" class="eyebrow mb-5 flex items-center gap-3">
 				<span class="crosshair text-safety" aria-hidden="true"></span>
 				International CNC Service
 			</p>

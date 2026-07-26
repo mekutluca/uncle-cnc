@@ -17,7 +17,7 @@
 	<div class="bg-safety h-0.5" aria-hidden="true"></div>
 	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
 		<a href="/" aria-label="{site.fullName} — ana sayfa">
-			<BrandMark subtitle="International CNC Service" />
+			<BrandMark subtitle="International CNC Service" subtitleLang="en" />
 		</a>
 
 		<nav class="hidden items-center gap-1 lg:flex" aria-label="Ana menü">

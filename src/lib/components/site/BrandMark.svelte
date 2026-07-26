@@ -4,8 +4,15 @@
 	let {
 		subtitle = '',
 		size = 'lg',
-		subtitleClass = 'text-muted-foreground'
-	}: { subtitle?: string; size?: 'sm' | 'md' | 'lg'; subtitleClass?: string } = $props();
+		subtitleClass = 'text-muted-foreground',
+		subtitleLang = undefined
+	}: {
+		subtitle?: string;
+		size?: 'sm' | 'md' | 'lg';
+		subtitleClass?: string;
+		/** Dil kodu (ör. 'en') — İngilizce alt başlıkların Türkçe kurallarla (İ) büyütülmesini önler. */
+		subtitleLang?: string;
+	} = $props();
 
 	const nameSize = $derived({ sm: 'text-base', md: 'text-lg', lg: 'text-xl' }[size]);
 	const subtitleSize = $derived(size === 'sm' ? 'text-[8px]' : 'text-[9px]');
@@ -16,7 +23,7 @@
 	<span class="leading-none">
 		<span class="display block {nameSize}">{site.name}</span>
 		{#if subtitle}
-			<span class="mt-1 block font-mono {subtitleSize} uppercase tracking-[0.24em] {subtitleClass}">
+			<span lang={subtitleLang} class="mt-1 block font-mono {subtitleSize} uppercase tracking-[0.24em] {subtitleClass}">
 				{subtitle}
 			</span>
 		{/if}
