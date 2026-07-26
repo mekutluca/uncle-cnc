@@ -95,9 +95,25 @@ export interface AdminRoute {
 	group: string;
 }
 
+/** Supabase `uc_gallery_items` satırı */
 export type GalleryItem = {
+	id: string;
 	label: string;
 	description: string;
-	/** Görselden ilgili hizmet formuna yönlendirme (PDF isteği) */
-	serviceSlug: string;
+	/** Görselden ilgili hizmet formuna yönlendirme (PDF isteği); boşsa bağlantı gösterilmez */
+	service_slug: string | null;
+	/** `uc-machine-photos` bucket'ındaki yol (gallery/{id}/…); boşsa yer tutucu gösterilir */
+	photo: string | null;
+	sort_order: number;
+	created_at: string;
+};
+
+/** Görüntüleme için herkese açık fotoğraf URL'i eklenmiş galeri kaydı */
+export type GalleryItemWithUrl = GalleryItem & { photoUrl: string | null };
+
+/** Galeri formunun doğrulanmış alanları (id/photo/sort_order hariç) */
+export type GalleryFields = {
+	label: string;
+	description: string;
+	service_slug: string | null;
 };

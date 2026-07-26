@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { publicPhotoUrl } from '$lib/utils/storage';
-import type { Machine, MachineWithPhotos } from '$lib/types';
+import type { GalleryItem, GalleryItemWithUrl, Machine, MachineWithPhotos } from '$lib/types';
 
 /** Halka açık sayfalar için anon (salt-okunur RLS) istemci — oturum tutmaz. */
 const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
@@ -23,6 +23,23 @@ export async function listMachines(): Promise<Machine[]> {
 		return [];
 	}
 	return (data ?? []) as Machine[];
+}
+
+export function withGalleryUrl(item: GalleryItem): GalleryItemWithUrl {
+	return { ...item, photoUrl: item.photo ? publicPhotoUrl(item.photo) : null };
+}
+
+export async function listGalleryItems(): Promise<GalleryItem[]> {
+	const { data, error } = await supabase
+		.from('uc_gallery_items')
+		.select('*')
+		.order('sort_order', { ascending: true })
+		.order('created_at', { ascending: true });
+	if (error) {
+		console.error('uc_gallery_items listesi alınamadı:', error.message);
+		return [];
+	}
+	return (data ?? []) as GalleryItem[];
 }
 
 export async function getMachine(slug: string): Promise<Machine | null> {

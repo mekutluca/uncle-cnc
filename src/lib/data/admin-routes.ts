@@ -1,7 +1,9 @@
 import WrenchIcon from '@lucide/svelte/icons/wrench';
+import ImagesIcon from '@lucide/svelte/icons/images';
 import type { AdminRoute } from '$lib/types';
 
 /** Panel kenar çubuğu kayıtları — yeni yönetim sayfaları buraya eklenir. */
 export const adminRoutes: AdminRoute[] = [
-	{ href: '/admin/machines', label: 'Makineler', icon: WrenchIcon, group: 'Yönetim' }
+	{ href: '/admin/machines', label: 'Makineler', icon: WrenchIcon, group: 'Yönetim' },
+	{ href: '/admin/gallery', label: 'Galeri', icon: ImagesIcon, group: 'Yönetim' }
 ];
