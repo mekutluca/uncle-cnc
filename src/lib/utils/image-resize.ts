@@ -3,7 +3,12 @@ const JPEG_QUALITY = 0.85;
 const THUMB_DIMENSION = 800;
 const THUMB_QUALITY = 0.8;
 
-async function resize(file: File, maxDimension: number, quality: number): Promise<File> {
+async function resize(
+	file: File,
+	maxDimension: number,
+	quality: number,
+	type: 'image/jpeg' | 'image/png' = 'image/jpeg'
+): Promise<File> {
 	try {
 		const bitmap = await createImageBitmap(file);
 		const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
@@ -17,12 +22,13 @@ async function resize(file: File, maxDimension: number, quality: number): Promis
 		bitmap.close();
 
 		const blob = await new Promise<Blob | null>((resolve) =>
-			canvas.toBlob(resolve, 'image/jpeg', quality)
+			canvas.toBlob(resolve, type, quality)
 		);
 		if (!blob) return file;
 
-		const name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
-		return new File([blob], name, { type: 'image/jpeg' });
+		const ext = type === 'image/png' ? '.png' : '.jpg';
+		const name = file.name.replace(/\.[^.]+$/, '') + ext;
+		return new File([blob], name, { type });
 	} catch {
 		return file;
 	}
@@ -44,4 +50,15 @@ export function resizeImage(file: File): Promise<File> {
  */
 export function makeThumb(file: File): Promise<File> {
 	return resize(file, THUMB_DIMENSION, THUMB_QUALITY);
+}
+
+/**
+ * Logo hazırlığı — şeffaflık korunur: SVG olduğu gibi kalır, PNG/WebP gerekirse
+ * PNG olarak küçültülür, fotoğraf biçimleri (JPEG/HEIC vb.) JPEG'e küçültülür.
+ */
+export function prepareLogo(file: File): Promise<File> {
+	if (file.type === 'image/svg+xml') return Promise.resolve(file);
+	if (file.type === 'image/png' || file.type === 'image/webp')
+		return resize(file, MAX_DIMENSION, 1, 'image/png');
+	return resize(file, MAX_DIMENSION, JPEG_QUALITY);
 }

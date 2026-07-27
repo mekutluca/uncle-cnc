@@ -2,6 +2,7 @@ import { fail } from '@sveltejs/kit';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { withGalleryUrl } from '$lib/server/supabase';
 import { removePhotos } from '$lib/server/photo-storage';
+import { moveRowAction } from '$lib/server/sortable';
 import type { GalleryItem } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -41,38 +42,5 @@ export const actions: Actions = {
 		return { success: true, message: 'Galeri öğesi silindi.' };
 	},
 
-	moveItem: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const id = String(formData.get('id') ?? '');
-		const direction = Number(formData.get('direction'));
-		if (!id || (direction !== 1 && direction !== -1))
-			return fail(400, { success: false, message: 'Geçersiz istek.' });
-
-		const { data, error } = await locals.supabase
-			.from('uc_gallery_items')
-			.select('id')
-			.order('sort_order', { ascending: true })
-			.order('created_at', { ascending: true });
-		if (error || !data) return fail(500, { success: false, message: 'Liste alınamadı.' });
-
-		const ids = data.map((row) => row.id as string);
-		const index = ids.indexOf(id);
-		const target = index + direction;
-		if (index === -1 || target < 0 || target >= ids.length)
-			return fail(400, { success: false, message: 'Geçersiz sıralama.' });
-
-		[ids[index], ids[target]] = [ids[target], ids[index]];
-		// Sıra numaraları dizin olarak baştan yazılır; eski kayıtlardaki eşit/boşluklu
-		// sort_order değerleri de böylece normalize olur.
-		for (const [position, rowId] of ids.entries()) {
-			const { error: updateError } = await locals.supabase
-				.from('uc_gallery_items')
-				.update({ sort_order: position })
-				.eq('id', rowId);
-			if (updateError)
-				return fail(500, { success: false, message: `Sıralanamadı: ${updateError.message}` });
-		}
-
-		return { success: true };
-	}
+	moveItem: ({ request, locals }) => moveRowAction(locals.supabase, 'uc_gallery_items', request)
 };

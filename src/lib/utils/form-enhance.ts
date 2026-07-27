@@ -49,12 +49,13 @@ export function createFormEnhance(opts: FormEnhanceOptions = {}): SubmitFunction
 /**
  * `createFormEnhance`in programatik karşılığı: JS'ten (ör. menü öğesinden) form
  * aksiyonuna POST atar ve sonucu aynı toast + invalidate akışından geçirir.
+ * İyimser (optimistic) güncellemelerin geri alınabilmesi için başarı durumunu döner.
  */
 export async function submitFormAction(
 	action: string,
 	values: Record<string, string> = {},
 	opts: FormEnhanceOptions = {}
-): Promise<void> {
+): Promise<boolean> {
 	opts.onStart?.();
 	const toastId = opts.loadingMessage ? toast.loading(opts.loadingMessage) : undefined;
 	try {
@@ -68,11 +69,14 @@ export async function submitFormAction(
 			showSuccess(opts, result.data as FormActionData | undefined, toastId);
 			await invalidateAll();
 			opts.onSuccess?.(result.data as FormActionData | undefined);
-		} else if (result.type === 'failure') {
+			return true;
+		}
+		if (result.type === 'failure') {
 			showFailure(result.data as FormActionData | undefined, toastId);
 		} else if (toastId !== undefined) {
 			toast.dismiss(toastId);
 		}
+		return false;
 	} finally {
 		opts.onFinish?.();
 	}

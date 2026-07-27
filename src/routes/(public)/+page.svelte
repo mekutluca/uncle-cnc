@@ -5,9 +5,11 @@
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import HeroDrawing from '$lib/components/site/HeroDrawing.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
+	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { services } from '$lib/data/services';
-	import { references } from '$lib/data/references';
 	import { site } from '$lib/data/site';
+
+	let { data } = $props();
 
 	const specs = [
 		{ value: '±0.01 MM', label: 'Hassasiyet standardı' },
@@ -131,15 +133,34 @@
 <!-- REFERANSLAR -->
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
 	<SectionHeader eyebrow="Referanslar" title="Bize emanet edilen tezgâhlar" />
-	<ul class="grid grid-cols-2 gap-px overflow-hidden rounded-md border sm:grid-cols-3 lg:grid-cols-6">
-		{#each references as reference (reference.name)}
-			<li class="bg-card flex h-24 items-center justify-center px-4">
-				<span class="text-muted-foreground text-center font-mono text-[11px] uppercase tracking-[0.14em]">
-					{reference.name}
-				</span>
-			</li>
-		{/each}
-	</ul>
+	{#await data.references}
+		<ul class="grid grid-cols-2 gap-px overflow-hidden rounded-md border sm:grid-cols-3 lg:grid-cols-6">
+			{#each { length: 6 }, i (i)}
+				<li class="bg-card flex h-24 items-center justify-center px-4">
+					<Skeleton class="h-4 w-20" />
+				</li>
+			{/each}
+		</ul>
+	{:then references}
+		<ul class="grid grid-cols-2 gap-px overflow-hidden rounded-md border sm:grid-cols-3 lg:grid-cols-6">
+			{#each references.slice(0, 6) as reference (reference.id)}
+				<li class="bg-card flex h-24 items-center justify-center px-4">
+					{#if reference.logoUrl}
+						<img
+							src={reference.logoUrl}
+							alt="{reference.name} logosu"
+							loading="lazy"
+							class="max-h-12 max-w-full object-contain"
+						/>
+					{:else}
+						<span class="text-muted-foreground text-center font-mono text-[11px] uppercase tracking-[0.14em]">
+							{reference.name}
+						</span>
+					{/if}
+				</li>
+			{/each}
+		</ul>
+	{/await}
 	<div class="mt-8">
 		<Button variant="outline" href="/references" class="btn-label">
 			Tüm Referanslar

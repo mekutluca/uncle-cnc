@@ -13,7 +13,7 @@
 	import * as Select from '$lib/components/ui/select';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import * as Table from '$lib/components/ui/table';
-	import MachineDeleteDialog from '$lib/components/admin/machine-delete-dialog.svelte';
+	import ConfirmDeleteDialog from '$lib/components/admin/confirm-delete-dialog.svelte';
 	import SortableHead from '$lib/components/admin/sortable-head.svelte';
 	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
@@ -194,4 +194,10 @@
 	</Card.Root>
 </div>
 
-<MachineDeleteDialog bind:open={deleteOpen} machine={deleteTarget} />
+<ConfirmDeleteDialog
+	bind:open={deleteOpen}
+	id={deleteTarget?.id ?? null}
+	action="?/deleteMachine"
+	title="Makineyi sil"
+	description={`"${deleteTarget?.title}" ilanı ve tüm fotoğrafları kalıcı olarak silinecek. Bu işlem geri alınamaz.`}
+/>

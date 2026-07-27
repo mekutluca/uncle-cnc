@@ -8,7 +8,6 @@
 	import { flip } from 'svelte/animate';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { goto } from '$app/navigation';
-	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
@@ -18,26 +17,25 @@
 	import ConfirmDeleteDialog from '$lib/components/admin/confirm-delete-dialog.svelte';
 	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
 	import { ReorderableList } from '$lib/utils/reorderable-list.svelte';
-	import { serviceBySlug } from '$lib/data/services';
-	import type { GalleryItemWithUrl } from '$lib/types';
+	import type { ReferenceWithLogo } from '$lib/types';
 
 	let { data } = $props();
 
-	const list = new ReorderableList<GalleryItemWithUrl>();
-	$effect(() => list.sync(data.items));
+	const list = new ReorderableList<ReferenceWithLogo>();
+	$effect(() => list.sync(data.references));
 
-	let deleteTarget = $state<GalleryItemWithUrl | null>(null);
+	let deleteTarget = $state<ReferenceWithLogo | null>(null);
 	let deleteOpen = $state(false);
 </script>
 
-<svelte:head><title>Galeri | Uncle CNC Yönetim</title></svelte:head>
+<svelte:head><title>Referanslar | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-6xl p-4 sm:p-6">
 	<div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-		<h1 class="display text-2xl">Galeri</h1>
-		<Button href="/admin/gallery/new" class="btn-label">
+		<h1 class="display text-2xl">Referanslar</h1>
+		<Button href="/admin/references/new" class="btn-label">
 			<PlusIcon class="size-4" />
-			Yeni Öğe
+			Yeni Referans
 		</Button>
 	</div>
 
@@ -61,8 +59,8 @@
 				{#if rows.length === 0}
 					<Empty.Root class="py-16">
 						<Empty.Header>
-							<Empty.Title>Galeri boş</Empty.Title>
-							<Empty.Description>Tamamlanan işlerden ilk kareyi ekleyin.</Empty.Description>
+							<Empty.Title>Referans yok</Empty.Title>
+							<Empty.Description>İlk referans firmayı ekleyin.</Empty.Description>
 						</Empty.Header>
 					</Empty.Root>
 				{:else}
@@ -70,33 +68,27 @@
 						<Table.Header>
 							<Table.Row>
 								<Table.Head class="w-16"></Table.Head>
-								<Table.Head>Etiket</Table.Head>
-								<Table.Head>Açıklama</Table.Head>
-								<Table.Head>Hizmet</Table.Head>
+								<Table.Head>Firma</Table.Head>
+								<Table.Head>Sektör</Table.Head>
 								<Table.Head class="w-24">Sıra</Table.Head>
 								<Table.Head class="w-12"></Table.Head>
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>
-							{#each rows as item, index (item.id)}
+							{#each rows as reference, index (reference.id)}
 								<!-- Table.Row yerine düz tr: animate yönergesi bileşene uygulanamaz. -->
 								<tr
 									animate:flip={{ duration: prefersReducedMotion.current ? 0 : 220 }}
 									data-slot="table-row"
 									class="hover:bg-muted/50 cursor-pointer border-b transition-colors"
-									onclick={() => goto(`/admin/gallery/${item.id}/edit`)}
+									onclick={() => goto(`/admin/references/${reference.id}/edit`)}
 								>
 									<Table.Cell>
-										<PhotoThumb src={item.thumbUrl} fallback={item.photoUrl} class="size-11" />
+										<PhotoThumb src={reference.logoUrl} alt="{reference.name} logosu" class="size-11 object-contain p-1" />
 									</Table.Cell>
-									<Table.Cell>
-										<Badge variant="outline" class="font-mono text-[10px] tracking-[0.1em]">
-											{item.label}
-										</Badge>
-									</Table.Cell>
-									<Table.Cell class="font-medium">{item.description}</Table.Cell>
+									<Table.Cell class="font-medium">{reference.name}</Table.Cell>
 									<Table.Cell class="text-muted-foreground text-sm">
-										{serviceBySlug(item.service_slug ?? '')?.title ?? '—'}
+										{reference.sector ?? '—'}
 									</Table.Cell>
 									<Table.Cell onclick={(e: MouseEvent) => e.stopPropagation()}>
 										<div class="flex gap-1">
@@ -105,7 +97,7 @@
 												size="icon-sm"
 												aria-label="Yukarı taşı"
 												disabled={list.moveBusy || index === 0}
-												onclick={() => list.move('?/moveItem', item.id, -1)}
+												onclick={() => list.move('?/moveReference', reference.id, -1)}
 											>
 												<ArrowUpIcon class="size-3.5" />
 											</Button>
@@ -114,7 +106,7 @@
 												size="icon-sm"
 												aria-label="Aşağı taşı"
 												disabled={list.moveBusy || index === rows.length - 1}
-												onclick={() => list.move('?/moveItem', item.id, 1)}
+												onclick={() => list.move('?/moveReference', reference.id, 1)}
 											>
 												<ArrowDownIcon class="size-3.5" />
 											</Button>
@@ -130,14 +122,16 @@
 												{/snippet}
 											</DropdownMenu.Trigger>
 											<DropdownMenu.Content align="end">
-												<DropdownMenu.Item onclick={() => goto(`/admin/gallery/${item.id}/edit`)}>
+												<DropdownMenu.Item
+													onclick={() => goto(`/admin/references/${reference.id}/edit`)}
+												>
 													<PencilIcon size={14} />
 													Düzenle
 												</DropdownMenu.Item>
 												<DropdownMenu.Item
 													variant="destructive"
 													onclick={() => {
-														deleteTarget = item;
+														deleteTarget = reference;
 														deleteOpen = true;
 													}}
 												>
@@ -160,7 +154,7 @@
 <ConfirmDeleteDialog
 	bind:open={deleteOpen}
 	id={deleteTarget?.id ?? null}
-	action="?/deleteItem"
-	title="Galeri öğesini sil"
-	description={`"${deleteTarget?.description}" öğesi ve fotoğrafı kalıcı olarak silinecek. Bu işlem geri alınamaz.`}
+	action="?/deleteReference"
+	title="Referansı sil"
+	description={`"${deleteTarget?.name}" referansı ve logosu kalıcı olarak silinecek. Bu işlem geri alınamaz.`}
 />

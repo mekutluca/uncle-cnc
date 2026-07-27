@@ -39,7 +39,25 @@ export type Machine = {
 	created_at: string;
 };
 
-export type Reference = { name: string; sector?: string };
+/** Supabase `uc_references` satırı */
+export type Reference = {
+	id: string;
+	name: string;
+	sector: string | null;
+	/** `uc-machine-photos` bucket'ındaki yol (references/{id}/…); boşsa yalnız isim gösterilir */
+	logo: string | null;
+	sort_order: number;
+	created_at: string;
+};
+
+/** Görüntüleme için herkese açık logo URL'i eklenmiş referans kaydı */
+export type ReferenceWithLogo = Reference & { logoUrl: string | null };
+
+/** Referans formunun doğrulanmış alanları (id/logo/sort_order hariç) */
+export type ReferenceFields = {
+	name: string;
+	sector: string | null;
+};
 
 /** Görüntüleme için herkese açık fotoğraf URL'leri eklenmiş makine kaydı */
 export type MachineWithPhotos = Machine & { photoUrls: string[]; thumbUrls: string[] };
@@ -66,6 +84,9 @@ export type MachineFields = {
 
 export type SortOrder = 'asc' | 'desc';
 
+/** `sort_order` kolonuyla panelden sıralanabilen tablolar */
+export type SortableTable = 'uc_gallery_items' | 'uc_references';
+
 /** Form aksiyonlarından dönen standart veri şekli */
 export interface FormActionData {
 	message?: string;
@@ -80,6 +101,9 @@ export interface FormEnhanceOptions {
 	successMessage?: string;
 	loadingMessage?: string;
 }
+
+/** Formda seçilmiş ama henüz yüklenmemiş logo (küçük varyant üretilmez) */
+export type PendingLogo = { file: File; url: string };
 
 /** Formda seçilmiş ama henüz yüklenmemiş fotoğraf */
 export interface PendingPhoto {

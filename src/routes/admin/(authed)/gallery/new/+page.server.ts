@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { galleryFolder, parseGalleryFields } from '$lib/server/gallery';
 import { uploadPhotoFile } from '$lib/server/photo-storage';
+import { nextSortOrder } from '$lib/server/sortable';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -9,14 +10,7 @@ export const actions: Actions = {
 		const fields = parseGalleryFields(formData);
 		if (typeof fields === 'string') return fail(400, { success: false, message: fields });
 
-		// Yeni öğe listenin sonuna eklenir.
-		const { data: last } = await locals.supabase
-			.from('uc_gallery_items')
-			.select('sort_order')
-			.order('sort_order', { ascending: false })
-			.limit(1)
-			.maybeSingle();
-		const sort_order = (last?.sort_order ?? -1) + 1;
+		const sort_order = await nextSortOrder(locals.supabase, 'uc_gallery_items');
 
 		const { data: item, error } = await locals.supabase
 			.from('uc_gallery_items')

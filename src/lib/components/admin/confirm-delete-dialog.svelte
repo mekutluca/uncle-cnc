@@ -6,10 +6,18 @@
 
 	let {
 		open = $bindable(false),
-		item
+		id,
+		title,
+		description,
+		action
 	}: {
 		open?: boolean;
-		item: { id: string; description: string } | null;
+		/** Silinecek kaydın kimliği; hedef seçilmemişse null */
+		id: string | null;
+		title: string;
+		description: string;
+		/** Form aksiyonu, ör. "?/deleteMachine" */
+		action: string;
 	} = $props();
 
 	let loading = $state(false);
@@ -25,13 +33,11 @@
 <AlertDialog.Root bind:open>
 	<AlertDialog.Content>
 		<AlertDialog.Header>
-			<AlertDialog.Title>Galeri öğesini sil</AlertDialog.Title>
-			<AlertDialog.Description>
-				"{item?.description}" öğesi ve fotoğrafı kalıcı olarak silinecek. Bu işlem geri alınamaz.
-			</AlertDialog.Description>
+			<AlertDialog.Title>{title}</AlertDialog.Title>
+			<AlertDialog.Description>{description}</AlertDialog.Description>
 		</AlertDialog.Header>
-		<form method="POST" action="?/deleteItem" use:enhance={deleteEnhance}>
-			<input type="hidden" name="id" value={item?.id ?? ''} />
+		<form method="POST" {action} use:enhance={deleteEnhance}>
+			<input type="hidden" name="id" value={id ?? ''} />
 			<AlertDialog.Footer>
 				<AlertDialog.Cancel type="button" disabled={loading}>Vazgeç</AlertDialog.Cancel>
 				<Button type="submit" variant="destructive" disabled={loading}>Kalıcı Olarak Sil</Button>
