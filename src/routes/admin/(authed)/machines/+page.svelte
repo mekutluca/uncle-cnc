@@ -16,17 +16,12 @@
 	import ConfirmDeleteDialog from '$lib/components/admin/confirm-delete-dialog.svelte';
 	import SortableHead from '$lib/components/admin/sortable-head.svelte';
 	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
-	import { formatPrice } from '$lib/utils/machine-format';
+	import { formatPrice, STATUS_LABEL } from '$lib/utils/machine-format';
 	import { TableSort } from '$lib/utils/table-sort.svelte';
 	import type { Machine, MachineWithPhotos } from '$lib/types';
 
 	let { data } = $props();
 
-	const STATUS_LABEL: Record<Machine['status'], string> = {
-		available: 'Satışta',
-		sold: 'Satıldı',
-		hidden: 'Gizli'
-	};
 	const STATUS_BADGE: Record<Machine['status'], BadgeVariant> = {
 		available: 'default',
 		sold: 'destructive',
@@ -138,16 +133,18 @@
 									</Table.Cell>
 									<Table.Cell>
 										<p class="font-medium">{machine.title}</p>
-										<p class="text-muted-foreground font-mono text-[11px]">/{machine.slug}</p>
+										<p class="font-mono text-[11px] text-muted-foreground">/{machine.slug}</p>
 									</Table.Cell>
 									<Table.Cell>{machine.machine_type}</Table.Cell>
 									<Table.Cell class="text-right font-mono text-sm">
 										{formatPrice(machine.price, machine.currency) ?? 'Sorunuz'}
 									</Table.Cell>
 									<Table.Cell>
-										<Badge variant={STATUS_BADGE[machine.status]}>{STATUS_LABEL[machine.status]}</Badge>
+										<Badge variant={STATUS_BADGE[machine.status]}
+											>{STATUS_LABEL[machine.status]}</Badge
+										>
 									</Table.Cell>
-									<Table.Cell class="text-muted-foreground text-sm">
+									<Table.Cell class="text-sm text-muted-foreground">
 										{new Date(machine.created_at).toLocaleDateString('tr-TR')}
 									</Table.Cell>
 									<Table.Cell onclick={(e: MouseEvent) => e.stopPropagation()}>
@@ -160,7 +157,9 @@
 												{/snippet}
 											</DropdownMenu.Trigger>
 											<DropdownMenu.Content align="end">
-												<DropdownMenu.Item onclick={() => goto(`/admin/machines/${machine.id}/edit`)}>
+												<DropdownMenu.Item
+													onclick={() => goto(`/admin/machines/${machine.id}/edit`)}
+												>
 													<PencilIcon size={14} />
 													Düzenle
 												</DropdownMenu.Item>
@@ -186,7 +185,9 @@
 				<Empty.Root class="py-16">
 					<Empty.Header>
 						<Empty.Title>Liste yüklenemedi</Empty.Title>
-						<Empty.Description>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description>
+						<Empty.Description
+							>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description
+						>
 					</Empty.Header>
 				</Empty.Root>
 			{/await}

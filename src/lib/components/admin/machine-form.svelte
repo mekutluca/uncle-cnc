@@ -17,6 +17,7 @@
 	import { fallbackToFull } from '$lib/utils/photo-fallback';
 	import { makeThumb, resizeImage } from '$lib/utils/image-resize';
 	import { slugify } from '$lib/utils/slugify';
+	import { CURRENCY_LABEL, STATUS_LABEL } from '$lib/utils/machine-format';
 	import { MACHINE_TYPES } from '$lib/data/machine-options';
 	import type { Machine, MachineWithPhotos, PendingPhoto } from '$lib/types';
 
@@ -27,13 +28,6 @@
 		machine?: MachineWithPhotos | null;
 		mode: 'create' | 'edit';
 	} = $props();
-
-	const STATUS_LABEL: Record<Machine['status'], string> = {
-		available: 'Satışta',
-		sold: 'Satıldı',
-		hidden: 'Gizli'
-	};
-	const CURRENCY_LABEL: Record<Machine['currency'], string> = { EUR: '€', USD: '$', TRY: 'TL' };
 
 	/* Form alanları bilinçli olarak yalnızca İLK değerden başlar: kullanıcı yazarken
 	   sunucu verisi alanların üzerine yazmamalı. Düzenleme sayfası {#key machine.id}
@@ -210,7 +204,14 @@
 			</div>
 			<div class="grid gap-1.5">
 				<label class={labelClass} for="price">Fiyat (boş = "Fiyat için sorunuz")</label>
-				<Input id="price" name="price" type="number" min="0" bind:value={price} placeholder="45000" />
+				<Input
+					id="price"
+					name="price"
+					type="number"
+					min="0"
+					bind:value={price}
+					placeholder="45000"
+				/>
 			</div>
 			<div class="grid gap-1.5">
 				<span class={labelClass}>Para Birimi *</span>
@@ -251,7 +252,7 @@
 		</Card.Header>
 		<Card.Content class="grid gap-2">
 			{#if specs.length === 0}
-				<p class="text-muted-foreground text-sm">
+				<p class="text-sm text-muted-foreground">
 					Örn. "Model Yılı → 2018", "Tabla Boyutu → 1000x500 mm", "Kontrol → Fanuc".
 				</p>
 			{/if}
@@ -289,16 +290,16 @@
 								src={photo.thumbUrl || photo.url}
 								onerror={(e) => fallbackToFull(e, photo.url)}
 								alt="Makine fotoğrafı {index + 1}"
-								class="border-border aspect-[4/3] w-full rounded-md border object-cover"
+								class="aspect-[4/3] w-full rounded-md border border-border object-cover"
 							/>
 							{#if index === 0}
 								<span
-									class="bg-safety text-steel absolute left-1 top-1 rounded-sm px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.1em]"
+									class="absolute top-1 left-1 rounded-sm bg-safety px-1.5 py-0.5 font-mono text-[9px] font-semibold tracking-[0.1em] text-steel uppercase"
 								>
 									Kapak
 								</span>
 							{/if}
-							<div class="absolute bottom-1 right-1 flex gap-1">
+							<div class="absolute right-1 bottom-1 flex gap-1">
 								<Button
 									type="button"
 									variant="secondary"
@@ -342,13 +343,13 @@
 							<img
 								src={photo.url}
 								alt="Yüklenecek fotoğraf"
-								class="border-safety aspect-[4/3] w-full rounded-md border border-dashed object-cover opacity-90"
+								class="aspect-[4/3] w-full rounded-md border border-dashed border-safety object-cover opacity-90"
 							/>
 							<Button
 								type="button"
 								variant="destructive"
 								size="icon-sm"
-								class="absolute right-1 top-1"
+								class="absolute top-1 right-1"
 								aria-label="Vazgeç"
 								onclick={() => removePending(photo.id)}
 							>
@@ -360,9 +361,9 @@
 			{/if}
 
 			<label
-				class="border-border hover:bg-muted flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed px-4 py-6 text-sm transition-colors"
+				class="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-border px-4 py-6 text-sm transition-colors hover:bg-muted"
 			>
-				<ImagePlusIcon class="text-muted-foreground size-4" />
+				<ImagePlusIcon class="size-4 text-muted-foreground" />
 				Fotoğraf seç veya sürükleyip bırak
 				<input type="file" accept="image/*" multiple class="sr-only" onchange={onPhotosSelected} />
 			</label>
