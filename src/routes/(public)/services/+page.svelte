@@ -20,14 +20,18 @@
 		{#each services as service (service.slug)}
 			<a
 				href="/services/{service.slug}"
-				class="group border-border bg-card hover:border-foreground flex flex-col rounded-md border p-7 transition-colors"
+				class="group flex flex-col rounded-md border border-border bg-card p-7 transition-colors hover:border-foreground"
 			>
 				<div class="flex items-center justify-between">
-					<span class="text-muted-foreground font-mono text-[11px] tracking-[0.18em]">FORM NO: {service.code}</span>
-					<ArrowRightIcon class="text-primary size-4 transition-transform group-hover:translate-x-1" />
+					<span class="font-mono text-[11px] tracking-[0.18em] text-muted-foreground"
+						>FORM NO: {service.code}</span
+					>
+					<ArrowRightIcon
+						class="size-4 text-primary transition-transform group-hover:translate-x-1"
+					/>
 				</div>
 				<h2 class="display mt-4 text-2xl">{service.title}</h2>
-				<p class="text-muted-foreground mt-3 leading-relaxed">{service.intro}</p>
+				<p class="mt-3 leading-relaxed text-muted-foreground">{service.intro}</p>
 			</a>
 		{/each}
 	</div>

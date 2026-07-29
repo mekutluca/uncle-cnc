@@ -7,7 +7,13 @@
 	<legend class="eyebrow mb-3">İletişim Bilgileri</legend>
 	<div class="grid gap-1.5">
 		<label class={labelClass} for="ad_soyad">Ad Soyad *</label>
-		<Input id="ad_soyad" name="ad_soyad" required autocomplete="name" placeholder="Adınız Soyadınız" />
+		<Input
+			id="ad_soyad"
+			name="ad_soyad"
+			required
+			autocomplete="name"
+			placeholder="Adınız Soyadınız"
+		/>
 	</div>
 	<div class="grid gap-1.5">
 		<label class={labelClass} for="firma">Firma</label>

@@ -38,9 +38,7 @@ export const actions: Actions = {
 
 		return {
 			success: true,
-			message: photoFailed
-				? 'Öğe eklendi ancak fotoğraf yüklenemedi.'
-				: 'Galeri öğesi eklendi.'
+			message: photoFailed ? 'Öğe eklendi ancak fotoğraf yüklenemedi.' : 'Galeri öğesi eklendi.'
 		};
 	}
 };

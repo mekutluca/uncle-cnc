@@ -95,7 +95,12 @@
 			</div>
 			<div class="grid gap-1.5">
 				<label class={labelClass} for="sector">Sektör</label>
-				<Input id="sector" name="sector" bind:value={sector} placeholder="Örn. Otomotiv yan sanayi" />
+				<Input
+					id="sector"
+					name="sector"
+					bind:value={sector}
+					placeholder="Örn. Otomotiv yan sanayi"
+				/>
 			</div>
 		</Card.Content>
 	</Card.Root>
@@ -110,14 +115,20 @@
 		<Card.Content class="grid gap-4">
 			{#if reference?.logoUrl && !pendingLogo}
 				<div class="relative max-w-sm">
-					<div class="border-border bg-muted/40 flex h-32 items-center justify-center rounded-md border p-4">
-						<img src={reference.logoUrl} alt="{name} logosu" class="max-h-full max-w-full object-contain" />
+					<div
+						class="flex h-32 items-center justify-center rounded-md border border-border bg-muted/40 p-4"
+					>
+						<img
+							src={reference.logoUrl}
+							alt="{name} logosu"
+							class="max-h-full max-w-full object-contain"
+						/>
 					</div>
 					<Button
 						type="button"
 						variant="destructive"
 						size="icon-sm"
-						class="absolute right-1 top-1"
+						class="absolute top-1 right-1"
 						aria-label="Logoyu sil"
 						disabled={logoBusy}
 						onclick={deleteExistingLogo}
@@ -129,14 +140,20 @@
 
 			{#if pendingLogo}
 				<div class="relative max-w-sm">
-					<div class="border-safety bg-muted/40 flex h-32 items-center justify-center rounded-md border border-dashed p-4">
-						<img src={pendingLogo.url} alt="Yüklenecek logo" class="max-h-full max-w-full object-contain" />
+					<div
+						class="flex h-32 items-center justify-center rounded-md border border-dashed border-safety bg-muted/40 p-4"
+					>
+						<img
+							src={pendingLogo.url}
+							alt="Yüklenecek logo"
+							class="max-h-full max-w-full object-contain"
+						/>
 					</div>
 					<Button
 						type="button"
 						variant="destructive"
 						size="icon-sm"
-						class="absolute right-1 top-1"
+						class="absolute top-1 right-1"
 						aria-label="Vazgeç"
 						onclick={removePending}
 					>
@@ -144,14 +161,14 @@
 					</Button>
 				</div>
 				{#if reference?.logo}
-					<p class="text-muted-foreground text-xs">Kaydedildiğinde mevcut logonun yerine geçer.</p>
+					<p class="text-xs text-muted-foreground">Kaydedildiğinde mevcut logonun yerine geçer.</p>
 				{/if}
 			{/if}
 
 			<label
-				class="border-border hover:bg-muted flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed px-4 py-6 text-sm transition-colors"
+				class="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-border px-4 py-6 text-sm transition-colors hover:bg-muted"
 			>
-				<ImagePlusIcon class="text-muted-foreground size-4" />
+				<ImagePlusIcon class="size-4 text-muted-foreground" />
 				{reference?.logo || pendingLogo ? 'Logoyu değiştir' : 'Logo seç'}
 				<input type="file" accept="image/*,.svg" class="sr-only" onchange={onLogoSelected} />
 			</label>
@@ -159,7 +176,9 @@
 	</Card.Root>
 
 	<div class="flex items-center justify-end gap-3">
-		<Button type="button" variant="outline" href="/admin/references" disabled={saving}>Vazgeç</Button>
+		<Button type="button" variant="outline" href="/admin/references" disabled={saving}
+			>Vazgeç</Button
+		>
 		<Button type="submit" class="btn-label" disabled={saving}>
 			{mode === 'create' ? 'Referansı Ekle' : 'Değişiklikleri Kaydet'}
 		</Button>

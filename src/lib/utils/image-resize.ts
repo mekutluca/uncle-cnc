@@ -21,9 +21,7 @@ async function resize(
 		context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
 		bitmap.close();
 
-		const blob = await new Promise<Blob | null>((resolve) =>
-			canvas.toBlob(resolve, type, quality)
-		);
+		const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality));
 		if (!blob) return file;
 
 		const ext = type === 'image/png' ? '.png' : '.jpg';

@@ -55,7 +55,7 @@
 				<div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="İşlem türü">
 					{#each [{ value: 'almak', label: 'Almak istiyorum' }, { value: 'satmak', label: 'Satmak istiyorum' }] as option (option.value)}
 						<label
-							class="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-md border font-mono text-[12px] font-medium uppercase tracking-[0.12em] transition-colors
+							class="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-md border font-mono text-[12px] font-medium tracking-[0.12em] uppercase transition-colors
 								{intent === option.value
 								? 'border-primary bg-primary text-primary-foreground'
 								: 'border-input bg-card hover:bg-accent'}"
@@ -78,7 +78,11 @@
 
 		{#if service.fields.machine && !hasListing}
 			<MachineTypeSizeFields
-				legend={isTrading ? (intent === 'almak' ? 'İstenen Makine' : 'Satılacak Makine') : 'Makine Bilgileri'}
+				legend={isTrading
+					? intent === 'almak'
+						? 'İstenen Makine'
+						: 'Satılacak Makine'
+					: 'Makine Bilgileri'}
 			/>
 		{/if}
 
@@ -114,15 +118,10 @@
 			<Textarea id="notlar" name="notlar" rows={3} placeholder="Eklemek istedikleriniz…" />
 		</div>
 
-		<Button
-			type="submit"
-			size="lg"
-			class="btn-label"
-		>
-			Talebi Gönder
-		</Button>
-		<p class="text-muted-foreground text-xs">
-			* işaretli alanlar zorunludur. Talebiniz doğrudan ekibimize iletilir; en kısa sürede size dönüş yapılır.
+		<Button type="submit" size="lg" class="btn-label">Talebi Gönder</Button>
+		<p class="text-xs text-muted-foreground">
+			* işaretli alanlar zorunludur. Talebiniz doğrudan ekibimize iletilir; en kısa sürede size
+			dönüş yapılır.
 		</p>
 	</NetlifyForm>
 </div>

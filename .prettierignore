@@ -1,0 +1,15 @@
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+deno.lock
+
+# Miscellaneous
+/static/
+
+# Agent skills (vendored) and local tooling
+/.agents/
+skills-lock.json
+.claude/settings.local.json

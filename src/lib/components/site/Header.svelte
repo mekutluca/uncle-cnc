@@ -13,8 +13,8 @@
 		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
 </script>
 
-<header class="border-border bg-card/95 sticky top-0 z-50 border-b backdrop-blur">
-	<div class="bg-safety h-0.5" aria-hidden="true"></div>
+<header class="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur">
+	<div class="h-0.5 bg-safety" aria-hidden="true"></div>
 	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
 		<a href="/" aria-label="{site.fullName} — ana sayfa">
 			<BrandMark subtitle="International CNC Service" subtitleLang="en" />
@@ -26,23 +26,25 @@
 					<div class="group relative">
 						<a
 							href={item.href}
-							class="hover:bg-accent flex h-9 items-center gap-1 rounded-md px-3 text-sm font-medium
+							class="flex h-9 items-center gap-1 rounded-md px-3 text-sm font-medium hover:bg-accent
 								{isActive(item.href) ? 'text-primary' : ''}"
 							aria-current={isActive(item.href) ? 'page' : undefined}
 						>
 							{item.label}
 						</a>
 						<div
-							class="invisible absolute left-0 top-full pt-2 opacity-0 transition-opacity
+							class="invisible absolute top-full left-0 pt-2 opacity-0 transition-opacity
 								group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
 						>
-							<div class="border-border bg-card w-64 rounded-md border p-1.5 shadow-lg">
+							<div class="w-64 rounded-md border border-border bg-card p-1.5 shadow-lg">
 								{#each services as service (service.slug)}
 									<a
 										href="/services/{service.slug}"
-										class="hover:bg-accent flex items-baseline gap-3 rounded-sm px-3 py-2.5 text-sm font-medium"
+										class="flex items-baseline gap-3 rounded-sm px-3 py-2.5 text-sm font-medium hover:bg-accent"
 									>
-										<span class="text-muted-foreground font-mono text-[10px] tracking-[0.12em]">{service.code}</span>
+										<span class="font-mono text-[10px] tracking-[0.12em] text-muted-foreground"
+											>{service.code}</span
+										>
 										{service.title}
 									</a>
 								{/each}
@@ -52,7 +54,7 @@
 				{:else}
 					<a
 						href={item.href}
-						class="hover:bg-accent flex h-9 items-center rounded-md px-3 text-sm font-medium
+						class="flex h-9 items-center rounded-md px-3 text-sm font-medium hover:bg-accent
 							{isActive(item.href) ? 'text-primary' : ''}"
 						aria-current={isActive(item.href) ? 'page' : undefined}
 					>
@@ -63,9 +65,7 @@
 		</nav>
 
 		<div class="flex items-center gap-2">
-			<Button href="/services" class="hidden btn-label sm:inline-flex">
-				Hizmet Talebi
-			</Button>
+			<Button href="/services" class="btn-label hidden sm:inline-flex">Hizmet Talebi</Button>
 
 			<Sheet.Root bind:open={sheetOpen}>
 				<Sheet.Trigger class="lg:hidden">
@@ -81,7 +81,7 @@
 							<a
 								href={item.href}
 								onclick={() => (sheetOpen = false)}
-								class="hover:bg-accent rounded-md px-3 py-2.5 text-base font-medium
+								class="rounded-md px-3 py-2.5 text-base font-medium hover:bg-accent
 									{isActive(item.href) ? 'text-primary' : ''}"
 							>
 								{item.label}
@@ -92,7 +92,7 @@
 										<a
 											href="/services/{service.slug}"
 											onclick={() => (sheetOpen = false)}
-											class="hover:bg-accent text-muted-foreground flex items-baseline gap-2 rounded-md px-3 py-2 text-sm"
+											class="flex items-baseline gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-accent"
 										>
 											<span class="font-mono text-[10px] tracking-[0.12em]">{service.code}</span>
 											{service.title}

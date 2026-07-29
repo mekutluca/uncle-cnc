@@ -38,13 +38,20 @@
 </script>
 
 {#if preview}
-	<div class="border-border bg-card border-s-safety flex items-center gap-4 rounded-md border border-s-2 p-3">
-		<PhotoThumb src={thumbnail} fallback={fullPhoto} alt={preview.title} class="aspect-[4/3] w-20" />
+	<div
+		class="flex items-center gap-4 rounded-md border border-s-2 border-border border-s-safety bg-card p-3"
+	>
+		<PhotoThumb
+			src={thumbnail}
+			fallback={fullPhoto}
+			alt={preview.title}
+			class="aspect-[4/3] w-20"
+		/>
 		<div class="min-w-0">
 			<p class="eyebrow">İlgilenilen İlan</p>
 			<p class="mt-1 truncate font-medium">{preview.title}</p>
-			<p class="text-muted-foreground mt-0.5 font-mono text-[11px] uppercase tracking-[0.12em]">
-				{preview.machine_type}{#if price}<span class="text-primary normal-case tracking-normal">
+			<p class="mt-0.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase">
+				{preview.machine_type}{#if price}<span class="tracking-normal text-primary normal-case">
 						· {price}</span
 					>{/if}
 			</p>

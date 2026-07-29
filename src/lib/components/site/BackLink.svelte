@@ -6,7 +6,7 @@
 
 <a
 	{href}
-	class="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors"
+	class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase transition-colors hover:text-foreground"
 >
 	<ArrowLeftIcon class="size-3.5" />
 	{label}

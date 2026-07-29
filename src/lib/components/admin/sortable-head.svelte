@@ -22,7 +22,7 @@
 </script>
 
 <Table.Head
-	class="hover:bg-muted cursor-pointer select-none transition-colors"
+	class="cursor-pointer transition-colors select-none hover:bg-muted"
 	onclick={() => sort.toggle(key, initialOrder)}
 >
 	<div class="flex items-center gap-1 {alignRight ? 'justify-end' : ''}">

@@ -54,7 +54,9 @@ export const actions: Actions = {
 
 		return {
 			success: true,
-			message: failed ? `Kaydedildi ancak ${failed} fotoğraf yüklenemedi.` : 'Değişiklikler kaydedildi.'
+			message: failed
+				? `Kaydedildi ancak ${failed} fotoğraf yüklenemedi.`
+				: 'Değişiklikler kaydedildi.'
 		};
 	},
 

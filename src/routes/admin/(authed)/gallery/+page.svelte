@@ -47,7 +47,9 @@
 				<Empty.Root class="py-16">
 					<Empty.Header>
 						<Empty.Title>Liste yüklenemedi</Empty.Title>
-						<Empty.Description>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description>
+						<Empty.Description
+							>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description
+						>
 					</Empty.Header>
 				</Empty.Root>
 			{:else if list.rows === null}
@@ -83,7 +85,7 @@
 								<tr
 									animate:flip={{ duration: prefersReducedMotion.current ? 0 : 220 }}
 									data-slot="table-row"
-									class="hover:bg-muted/50 cursor-pointer border-b transition-colors"
+									class="cursor-pointer border-b transition-colors hover:bg-muted/50"
 									onclick={() => goto(`/admin/gallery/${item.id}/edit`)}
 								>
 									<Table.Cell>
@@ -95,7 +97,7 @@
 										</Badge>
 									</Table.Cell>
 									<Table.Cell class="font-medium">{item.description}</Table.Cell>
-									<Table.Cell class="text-muted-foreground text-sm">
+									<Table.Cell class="text-sm text-muted-foreground">
 										{serviceBySlug(item.service_slug ?? '')?.title ?? '—'}
 									</Table.Cell>
 									<Table.Cell onclick={(e: MouseEvent) => e.stopPropagation()}>

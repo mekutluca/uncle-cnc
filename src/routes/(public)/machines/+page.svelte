@@ -26,7 +26,7 @@
 	{#await data.machines}
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each { length: 6 }, i (i)}
-				<div class="border-border bg-card flex flex-col overflow-hidden rounded-md border">
+				<div class="flex flex-col overflow-hidden rounded-md border border-border bg-card">
 					<Skeleton class="aspect-[4/3] w-full rounded-none" />
 					<div class="flex flex-1 flex-col p-5">
 						<Skeleton class="h-3 w-24" />
@@ -38,11 +38,14 @@
 		</div>
 	{:then machines}
 		{#if machines.length === 0}
-			<div class="border-border bg-card rounded-md border p-10 text-center">
-				<p class="font-mono text-sm uppercase tracking-[0.14em]">Şu anda satışta makine yok</p>
-				<p class="text-muted-foreground mt-3 text-sm">
+			<div class="rounded-md border border-border bg-card p-10 text-center">
+				<p class="font-mono text-sm tracking-[0.14em] uppercase">Şu anda satışta makine yok</p>
+				<p class="mt-3 text-sm text-muted-foreground">
 					Aradığınız makineyi
-					<a href="/services/machine-trading?request=buy" class="text-primary font-medium hover:underline">
+					<a
+						href="/services/machine-trading?request=buy"
+						class="font-medium text-primary hover:underline"
+					>
 						alım talebi formuyla
 					</a>
 					bize iletin — uygun makine bulunduğunda size haber verelim.
@@ -54,7 +57,7 @@
 					{@const price = formatPrice(machine.price, machine.currency)}
 					<a
 						href="/machines/{machine.slug}"
-						class="group border-border bg-card hover:border-foreground flex flex-col overflow-hidden rounded-md border transition-colors"
+						class="group flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-foreground"
 					>
 						{#if machine.photoUrls[0]}
 							<div class="relative aspect-[4/3] overflow-hidden">
@@ -66,18 +69,22 @@
 									class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
 								/>
 								{#if machine.status === 'sold'}
-									<Badge class="absolute left-3 top-3" variant="destructive">Satıldı</Badge>
+									<Badge class="absolute top-3 left-3" variant="destructive">Satıldı</Badge>
 								{/if}
 							</div>
 						{:else}
-							<Placeholder label={machine.machine_type} ratio="4/3" class="text-muted-foreground rounded-none border-0 border-b" />
+							<Placeholder
+								label={machine.machine_type}
+								ratio="4/3"
+								class="rounded-none border-0 border-b text-muted-foreground"
+							/>
 						{/if}
 						<div class="flex flex-1 flex-col p-5">
-							<span class="text-muted-foreground font-mono text-[10px] uppercase tracking-[0.16em]">
+							<span class="font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
 								{machine.machine_type}
 							</span>
-							<h2 class="mt-2 text-lg font-semibold leading-snug">{machine.title}</h2>
-							<p class="text-primary mt-auto pt-4 font-mono text-base font-semibold">
+							<h2 class="mt-2 text-lg leading-snug font-semibold">{machine.title}</h2>
+							<p class="mt-auto pt-4 font-mono text-base font-semibold text-primary">
 								{price ?? 'Fiyat için sorunuz'}
 							</p>
 						</div>

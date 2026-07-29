@@ -11,11 +11,30 @@
 
 	/* Bakım hizmetindeki 32 başlığın ana grupları — tam liste müşteriden gelince açılır. */
 	const maintenanceGroups = [
-		{ title: 'Mekanik kontroller', detail: 'Eksen kızakları, bilyalı vidalar, rulmanlar, kayış-kasnak sistemleri ve tabla hizalamaları kontrol edilir.' },
-		{ title: 'Elektrik ve kontrol sistemi', detail: 'Pano bağlantıları, servo sürücüler, enkoder geri beslemeleri ve kontrol ünitesi parametreleri gözden geçirilir.' },
-		{ title: 'Yağlama ve hidrolik', detail: 'Merkezi yağlama hatları, hidrolik ünite basınçları ve soğutma sıvısı sistemi bakımı yapılır.' },
-		{ title: 'Hassasiyet ölçümleri', detail: 'Eksen geometrileri, mil salgısı ve tekrarlanabilirlik ölçülür; sonuçlar raporlanır.' },
-		{ title: 'Raporlama', detail: 'Tüm başlıklar ayrıntılı görsellerle belgelenir, öneri listesiyle birlikte teslim edilir.' }
+		{
+			title: 'Mekanik kontroller',
+			detail:
+				'Eksen kızakları, bilyalı vidalar, rulmanlar, kayış-kasnak sistemleri ve tabla hizalamaları kontrol edilir.'
+		},
+		{
+			title: 'Elektrik ve kontrol sistemi',
+			detail:
+				'Pano bağlantıları, servo sürücüler, enkoder geri beslemeleri ve kontrol ünitesi parametreleri gözden geçirilir.'
+		},
+		{
+			title: 'Yağlama ve hidrolik',
+			detail:
+				'Merkezi yağlama hatları, hidrolik ünite basınçları ve soğutma sıvısı sistemi bakımı yapılır.'
+		},
+		{
+			title: 'Hassasiyet ölçümleri',
+			detail: 'Eksen geometrileri, mil salgısı ve tekrarlanabilirlik ölçülür; sonuçlar raporlanır.'
+		},
+		{
+			title: 'Raporlama',
+			detail:
+				'Tüm başlıklar ayrıntılı görsellerle belgelenir, öneri listesiyle birlikte teslim edilir.'
+		}
 	];
 </script>
 
@@ -28,7 +47,7 @@
 			Hizmet Kartı — {service.code}
 		</p>
 		<h1 class="display max-w-3xl text-4xl sm:text-5xl">{service.title}</h1>
-		<p class="text-muted-foreground mt-5 max-w-3xl text-lg leading-relaxed">{service.intro}</p>
+		<p class="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">{service.intro}</p>
 	</div>
 </section>
 
@@ -39,12 +58,12 @@
 		{#if service.slug === 'maintenance'}
 			<div class="mt-10">
 				<h2 class="eyebrow mb-4">32 başlıkta neler kontrol edilir?</h2>
-				<Accordion.Root type="single" class="border-border rounded-md border px-4">
+				<Accordion.Root type="single" class="rounded-md border border-border px-4">
 					{#each maintenanceGroups as group, i (group.title)}
 						<Accordion.Item value={group.title}>
 							<Accordion.Trigger class="font-medium">
 								<span class="flex items-baseline gap-3">
-									<span class="text-muted-foreground font-mono text-[11px] tracking-[0.14em]">
+									<span class="font-mono text-[11px] tracking-[0.14em] text-muted-foreground">
 										{String(i + 1).padStart(2, '0')}
 									</span>
 									{group.title}
@@ -59,29 +78,34 @@
 	</div>
 
 	<aside class="flex flex-col gap-6 lg:mt-0">
-		<div class="border-border bg-card rounded-md border p-6">
+		<div class="rounded-md border border-border bg-card p-6">
 			<h2 class="eyebrow mb-4">Hemen ulaşın</h2>
 			<p class="text-sm leading-relaxed">
 				Form yerine telefonla da talep oluşturabilirsiniz. Acil arızalarda arayın:
 			</p>
 			<a
 				href={site.phoneHref}
-				class="text-primary mt-3 block font-mono text-lg font-semibold tracking-[0.06em]"
+				class="mt-3 block font-mono text-lg font-semibold tracking-[0.06em] text-primary"
 			>
 				{site.phone}
 			</a>
-			<a href="mailto:{site.email}" class="text-muted-foreground mt-1 block font-mono text-sm">
+			<a href="mailto:{site.email}" class="mt-1 block font-mono text-sm text-muted-foreground">
 				{site.email}
 			</a>
 		</div>
 
-		<nav class="border-border bg-card rounded-md border p-6" aria-label="Diğer hizmetler">
+		<nav class="rounded-md border border-border bg-card p-6" aria-label="Diğer hizmetler">
 			<h2 class="eyebrow mb-4">Diğer hizmetler</h2>
 			<ul class="grid gap-2.5">
 				{#each otherServices as other (other.slug)}
 					<li>
-						<a href="/services/{other.slug}" class="hover:text-primary flex items-baseline gap-3 text-sm font-medium transition-colors">
-							<span class="text-muted-foreground font-mono text-[10px] tracking-[0.12em]">{other.code}</span>
+						<a
+							href="/services/{other.slug}"
+							class="flex items-baseline gap-3 text-sm font-medium transition-colors hover:text-primary"
+						>
+							<span class="font-mono text-[10px] tracking-[0.12em] text-muted-foreground"
+								>{other.code}</span
+							>
 							{other.title}
 						</a>
 					</li>

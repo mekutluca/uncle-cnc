@@ -48,7 +48,12 @@
 		<path class="draw d2" pathLength="1" d="M130 296 H370 V314 H130 Z" />
 		<path class="draw d2" pathLength="1" d="M154 314 H346 V346 H154 Z" />
 		<!-- tabla T-kanalları -->
-		<path class="draw d3" pathLength="1" d="M166 296 V314 M214 296 V314 M262 296 V314 M310 296 V314 M358 296 V314" opacity="0.5" />
+		<path
+			class="draw d3"
+			pathLength="1"
+			d="M166 296 V314 M214 296 V314 M262 296 V314 M310 296 V314 M358 296 V314"
+			opacity="0.5"
+		/>
 		<!-- kolon cıvataları -->
 		<path class="draw d3" pathLength="1" d="M372 360 h8 M422 360 h8" opacity="0.6" />
 	</g>
@@ -83,9 +88,22 @@
 	</g>
 
 	<!-- ölçü etiketleri -->
-	<g class="labels" fill="currentColor" font-family="'IBM Plex Mono', monospace" font-size="11" letter-spacing="0.1em">
+	<g
+		class="labels"
+		fill="currentColor"
+		font-family="'IBM Plex Mono', monospace"
+		font-size="11"
+		letter-spacing="0.1em"
+	>
 		<text x="264" y="422" class="text-safety" fill="currentColor">X 1200</text>
-		<text x="512" y="242" class="text-safety" fill="currentColor" transform="rotate(-90 512 242)" text-anchor="middle">Z 600</text>
+		<text
+			x="512"
+			y="242"
+			class="text-safety"
+			fill="currentColor"
+			transform="rotate(-90 512 242)"
+			text-anchor="middle">Z 600</text
+		>
 		<text x="230" y="274" class="text-safety" fill="currentColor">Y 600</text>
 		<text x="94" y="90" opacity="0.65">UC-V1200 / DİK İŞLEME MERKEZİ</text>
 		<text x="94" y="106" opacity="0.4">ÖLÇEK 1:20 — TOLERANS ±0.01 MM</text>
@@ -98,9 +116,15 @@
 		stroke-dashoffset: 1;
 		animation: draw 1.1s cubic-bezier(0.6, 0, 0.3, 1) forwards;
 	}
-	.d1 { animation-delay: 0.1s; }
-	.d2 { animation-delay: 0.5s; }
-	.d3 { animation-delay: 0.9s; }
+	.d1 {
+		animation-delay: 0.1s;
+	}
+	.d2 {
+		animation-delay: 0.5s;
+	}
+	.d3 {
+		animation-delay: 0.9s;
+	}
 
 	.origin,
 	.dims .dim,
@@ -108,22 +132,48 @@
 		opacity: 0;
 		animation: appear 0.5s ease forwards;
 	}
-	.dims .x { animation-delay: 1.5s; }
-	.dims .y { animation-delay: 1.65s; }
-	.dims .z { animation-delay: 1.8s; }
-	.origin { animation-delay: 1.4s; }
-	.labels text { animation-delay: 1.9s; }
+	.dims .x {
+		animation-delay: 1.5s;
+	}
+	.dims .y {
+		animation-delay: 1.65s;
+	}
+	.dims .z {
+		animation-delay: 1.8s;
+	}
+	.origin {
+		animation-delay: 1.4s;
+	}
+	.labels text {
+		animation-delay: 1.9s;
+	}
 
 	@keyframes draw {
-		to { stroke-dashoffset: 0; }
+		to {
+			stroke-dashoffset: 0;
+		}
 	}
 	@keyframes appear {
-		to { opacity: 1; }
+		to {
+			opacity: 1;
+		}
 	}
-	.labels text[opacity='0.65'] { animation-name: appear-65; }
-	.labels text[opacity='0.4'] { animation-name: appear-40; }
-	@keyframes appear-65 { to { opacity: 0.65; } }
-	@keyframes appear-40 { to { opacity: 0.4; } }
+	.labels text[opacity='0.65'] {
+		animation-name: appear-65;
+	}
+	.labels text[opacity='0.4'] {
+		animation-name: appear-40;
+	}
+	@keyframes appear-65 {
+		to {
+			opacity: 0.65;
+		}
+	}
+	@keyframes appear-40 {
+		to {
+			opacity: 0.4;
+		}
+	}
 
 	@media (prefers-reduced-motion: reduce) {
 		.draw,
@@ -134,7 +184,11 @@
 			stroke-dashoffset: 0;
 			opacity: 1;
 		}
-		.labels text[opacity='0.65'] { opacity: 0.65; }
-		.labels text[opacity='0.4'] { opacity: 0.4; }
+		.labels text[opacity='0.65'] {
+			opacity: 0.65;
+		}
+		.labels text[opacity='0.4'] {
+			opacity: 0.4;
+		}
 	}
 </style>

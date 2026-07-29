@@ -12,7 +12,9 @@ export function publicPhotoUrl(path: string): string {
  * varyant, ana yoldan türetilir; ayrı bir sütunda tutulmaz. */
 export function thumbPath(path: string): string {
 	const dot = path.lastIndexOf('.');
-	return dot > path.lastIndexOf('/') ? `${path.slice(0, dot)}.thumb${path.slice(dot)}` : `${path}.thumb`;
+	return dot > path.lastIndexOf('/')
+		? `${path.slice(0, dot)}.thumb${path.slice(dot)}`
+		: `${path}.thumb`;
 }
 
 /** Küçük varyantın herkese açık URL'i. Varyantı olmayan (eski) fotoğraflarda

@@ -48,7 +48,7 @@
 	</p>
 	{@render children()}
 	{#if failed}
-		<p class="text-destructive text-sm" role="alert">
+		<p class="text-sm text-destructive" role="alert">
 			Gönderim başarısız oldu. Lütfen tekrar deneyin ya da bizi arayın: {site.phone}
 		</p>
 	{/if}

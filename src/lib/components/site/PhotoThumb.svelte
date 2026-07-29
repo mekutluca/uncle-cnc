@@ -17,11 +17,11 @@
 		{src}
 		{alt}
 		onerror={(e) => fallbackToFull(e, fallback)}
-		class="border-border shrink-0 rounded-sm border object-cover {className}"
+		class="shrink-0 rounded-sm border border-border object-cover {className}"
 	/>
 {:else}
 	<span
-		class="border-border bg-muted text-muted-foreground flex shrink-0 items-center justify-center rounded-sm border {className}"
+		class="flex shrink-0 items-center justify-center rounded-sm border border-border bg-muted text-muted-foreground {className}"
 	>
 		<ImageOffIcon class="size-4" />
 	</span>

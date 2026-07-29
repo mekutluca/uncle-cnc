@@ -45,7 +45,9 @@
 				<Empty.Root class="py-16">
 					<Empty.Header>
 						<Empty.Title>Liste yüklenemedi</Empty.Title>
-						<Empty.Description>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description>
+						<Empty.Description
+							>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description
+						>
 					</Empty.Header>
 				</Empty.Root>
 			{:else if list.rows === null}
@@ -80,14 +82,18 @@
 								<tr
 									animate:flip={{ duration: prefersReducedMotion.current ? 0 : 220 }}
 									data-slot="table-row"
-									class="hover:bg-muted/50 cursor-pointer border-b transition-colors"
+									class="cursor-pointer border-b transition-colors hover:bg-muted/50"
 									onclick={() => goto(`/admin/references/${reference.id}/edit`)}
 								>
 									<Table.Cell>
-										<PhotoThumb src={reference.logoUrl} alt="{reference.name} logosu" class="size-11 object-contain p-1" />
+										<PhotoThumb
+											src={reference.logoUrl}
+											alt="{reference.name} logosu"
+											class="size-11 object-contain p-1"
+										/>
 									</Table.Cell>
 									<Table.Cell class="font-medium">{reference.name}</Table.Cell>
-									<Table.Cell class="text-muted-foreground text-sm">
+									<Table.Cell class="text-sm text-muted-foreground">
 										{reference.sector ?? '—'}
 									</Table.Cell>
 									<Table.Cell onclick={(e: MouseEvent) => e.stopPropagation()}>

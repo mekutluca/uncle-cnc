@@ -14,7 +14,13 @@
 	<legend class="eyebrow mb-3">{legend}</legend>
 	<div class="grid gap-1.5">
 		<label class={labelClass} for="makine_cinsi">Makine Cinsi *</label>
-		<select id="makine_cinsi" name="makine_cinsi" required class={selectClass} bind:value={machineType}>
+		<select
+			id="makine_cinsi"
+			name="makine_cinsi"
+			required
+			class={selectClass}
+			bind:value={machineType}
+		>
 			<option value="" disabled>Seçiniz</option>
 			{#each MACHINE_TYPES as type (type)}
 				<option value={type}>{type}</option>

@@ -66,9 +66,7 @@ export const actions: Actions = {
 
 		return {
 			success: true,
-			message: photoFailed
-				? 'Kaydedildi ancak fotoğraf yüklenemedi.'
-				: 'Değişiklikler kaydedildi.'
+			message: photoFailed ? 'Kaydedildi ancak fotoğraf yüklenemedi.' : 'Değişiklikler kaydedildi.'
 		};
 	},
 

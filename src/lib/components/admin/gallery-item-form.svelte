@@ -147,13 +147,13 @@
 					<img
 						src={item.photoUrl}
 						alt="Galeri fotoğrafı"
-						class="border-border aspect-[4/3] w-full rounded-md border object-cover"
+						class="aspect-[4/3] w-full rounded-md border border-border object-cover"
 					/>
 					<Button
 						type="button"
 						variant="destructive"
 						size="icon-sm"
-						class="absolute right-1 top-1"
+						class="absolute top-1 right-1"
 						aria-label="Fotoğrafı sil"
 						disabled={photoBusy}
 						onclick={deleteExistingPhoto}
@@ -168,13 +168,13 @@
 					<img
 						src={pendingPhoto.url}
 						alt="Yüklenecek fotoğraf"
-						class="border-safety aspect-[4/3] w-full rounded-md border border-dashed object-cover opacity-90"
+						class="aspect-[4/3] w-full rounded-md border border-dashed border-safety object-cover opacity-90"
 					/>
 					<Button
 						type="button"
 						variant="destructive"
 						size="icon-sm"
-						class="absolute right-1 top-1"
+						class="absolute top-1 right-1"
 						aria-label="Vazgeç"
 						onclick={removePending}
 					>
@@ -182,14 +182,16 @@
 					</Button>
 				</div>
 				{#if item?.photo}
-					<p class="text-muted-foreground text-xs">Kaydedildiğinde mevcut fotoğrafın yerine geçer.</p>
+					<p class="text-xs text-muted-foreground">
+						Kaydedildiğinde mevcut fotoğrafın yerine geçer.
+					</p>
 				{/if}
 			{/if}
 
 			<label
-				class="border-border hover:bg-muted flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed px-4 py-6 text-sm transition-colors"
+				class="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-border px-4 py-6 text-sm transition-colors hover:bg-muted"
 			>
-				<ImagePlusIcon class="text-muted-foreground size-4" />
+				<ImagePlusIcon class="size-4 text-muted-foreground" />
 				{item?.photo || pendingPhoto ? 'Fotoğrafı değiştir' : 'Fotoğraf seç'}
 				<input type="file" accept="image/*" class="sr-only" onchange={onPhotoSelected} />
 			</label>

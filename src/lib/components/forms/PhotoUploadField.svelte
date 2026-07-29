@@ -35,13 +35,15 @@
 		accept="image/*"
 		multiple
 		{onchange}
-		class="border-input bg-card file:bg-secondary file:text-foreground hover:file:bg-accent w-full
-			cursor-pointer rounded-md border text-sm shadow-xs outline-none file:mr-3 file:h-10
-			file:cursor-pointer file:border-0 file:px-4 file:font-mono file:text-[11px] file:font-medium
-			file:uppercase file:tracking-[0.14em] focus-visible:ring-2 focus-visible:ring-ring/50"
+		class="w-full cursor-pointer rounded-md border border-input bg-card
+			text-sm shadow-xs outline-none file:mr-3 file:h-10 file:cursor-pointer file:border-0 file:bg-secondary
+			file:px-4 file:font-mono file:text-[11px] file:font-medium file:tracking-[0.14em] file:text-foreground
+			file:uppercase hover:file:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50"
 	/>
-	<p class="text-muted-foreground text-xs">En fazla {MAX_FILES} fotoğraf, her biri {MAX_MB} MB'den küçük.</p>
+	<p class="text-xs text-muted-foreground">
+		En fazla {MAX_FILES} fotoğraf, her biri {MAX_MB} MB'den küçük.
+	</p>
 	{#if warning}
-		<p class="text-destructive text-sm" role="alert">{warning}</p>
+		<p class="text-sm text-destructive" role="alert">{warning}</p>
 	{/if}
 </div>

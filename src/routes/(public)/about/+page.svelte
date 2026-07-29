@@ -23,7 +23,10 @@
 	];
 </script>
 
-<Seo title="Hakkımızda" description="Uncle CNC — International CNC Service: her makine çalışır. Kim olduğumuz ve nasıl çalıştığımız." />
+<Seo
+	title="Hakkımızda"
+	description="Uncle CNC — International CNC Service: her makine çalışır. Kim olduğumuz ve nasıl çalıştığımız."
+/>
 
 <section class="dark bg-background text-foreground">
 	<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
@@ -35,10 +38,10 @@
 			Her makine çalışır.<br />
 			<span class="text-safety">Biz çalıştırırız.</span>
 		</h1>
-		<p class="text-muted-foreground mt-6 max-w-2xl text-lg leading-relaxed">
-			{site.fullName}, CNC tezgâhlarının ekspertizi, bakımı, tamiri, danışmanlığı ve ticareti üzerine
-			uzmanlaşmış bir servis firmasıdır. Yurt içinde ve yurt dışında, markadan bağımsız olarak dik
-			işleme, torna, 5 eksen ve daha fazlasına hizmet veriyoruz.
+		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+			{site.fullName}, CNC tezgâhlarının ekspertizi, bakımı, tamiri, danışmanlığı ve ticareti
+			üzerine uzmanlaşmış bir servis firmasıdır. Yurt içinde ve yurt dışında, markadan bağımsız
+			olarak dik işleme, torna, 5 eksen ve daha fazlasına hizmet veriyoruz.
 		</p>
 	</div>
 </section>
@@ -47,18 +50,16 @@
 	<SectionHeader eyebrow="Çalışma Prensipleri" title="Nasıl çalışırız" />
 	<div class="grid gap-5 md:grid-cols-3">
 		{#each principles as principle, i (principle.title)}
-			<div class="border-border bg-card rounded-md border p-6">
-				<span class="text-muted-foreground font-mono text-[11px] tracking-[0.18em]">
+			<div class="rounded-md border border-border bg-card p-6">
+				<span class="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">
 					{String(i + 1).padStart(2, '0')}
 				</span>
 				<h2 class="display mt-3 text-xl">{principle.title}</h2>
-				<p class="text-muted-foreground mt-3 text-sm leading-relaxed">{principle.detail}</p>
+				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">{principle.detail}</p>
 			</div>
 		{/each}
 	</div>
 	<div class="mt-12">
-		<Button size="lg" href="/services" class="btn-label">
-			Hizmet Talebi Oluştur
-		</Button>
+		<Button size="lg" href="/services" class="btn-label">Hizmet Talebi Oluştur</Button>
 	</div>
 </section>

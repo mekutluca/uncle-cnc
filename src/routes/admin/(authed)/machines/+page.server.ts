@@ -30,8 +30,7 @@ export const actions: Actions = {
 			.select('photos')
 			.eq('id', id)
 			.maybeSingle();
-		if (fetchError || !machine)
-			return fail(400, { success: false, message: 'Makine bulunamadı.' });
+		if (fetchError || !machine) return fail(400, { success: false, message: 'Makine bulunamadı.' });
 
 		await removePhotos(locals.supabase, (machine.photos as string[]) ?? []);
 

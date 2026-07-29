@@ -1,9 +1,6 @@
 <script lang="ts">
-	let {
-		eyebrow,
-		title,
-		description
-	}: { eyebrow: string; title: string; description?: string } = $props();
+	let { eyebrow, title, description }: { eyebrow: string; title: string; description?: string } =
+		$props();
 </script>
 
 <header class="mb-10 max-w-2xl sm:mb-14">
@@ -13,6 +10,6 @@
 	</div>
 	<h2 class="display text-3xl sm:text-4xl">{title}</h2>
 	{#if description}
-		<p class="text-muted-foreground mt-4 text-base leading-relaxed sm:text-lg">{description}</p>
+		<p class="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{description}</p>
 	{/if}
 </header>

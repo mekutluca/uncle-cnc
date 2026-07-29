@@ -34,7 +34,8 @@
 		<Empty.Root class="py-16">
 			<Empty.Header>
 				<Empty.Title>Referans bulunamadı</Empty.Title>
-				<Empty.Description>Kayıt silinmiş olabilir. Listeye dönüp tekrar deneyin.</Empty.Description>
+				<Empty.Description>Kayıt silinmiş olabilir. Listeye dönüp tekrar deneyin.</Empty.Description
+				>
 			</Empty.Header>
 		</Empty.Root>
 	{/await}

@@ -11,7 +11,7 @@
 
 <!-- Çelik zemin bilinçli olarak .dark token takası yerine sabit renk: plaka kartı
      içeride normal (aydınlık) token bağlamında kalır -->
-<div class="bg-steel flex min-h-svh flex-col">
+<div class="flex min-h-svh flex-col bg-steel">
 	<div class="mx-auto w-full max-w-7xl px-4 py-5 text-[#f4f5f7] sm:px-6">
 		<BrandMark subtitle="Yönetim Paneli" size="md" subtitleClass="text-[#9aa1ab]" />
 	</div>

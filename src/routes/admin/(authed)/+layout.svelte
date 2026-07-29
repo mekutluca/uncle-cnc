@@ -94,8 +94,8 @@
 {/snippet}
 
 <div class="fixed inset-0 flex flex-col">
-	<header class="bg-card flex h-14 flex-none items-center border-b px-4">
-		<div class="bg-safety absolute inset-x-0 top-0 h-0.5" aria-hidden="true"></div>
+	<header class="flex h-14 flex-none items-center border-b bg-card px-4">
+		<div class="absolute inset-x-0 top-0 h-0.5 bg-safety" aria-hidden="true"></div>
 		<div class="flex-none lg:hidden">
 			<Button variant="ghost" size="icon" onclick={() => (mobileOpen = true)} aria-label="Menü">
 				<MenuIcon class="size-5" />
@@ -131,11 +131,11 @@
 	</header>
 
 	<div class="flex flex-1 overflow-hidden">
-		<aside class="bg-card hidden w-64 flex-col border-e p-4 lg:flex">
+		<aside class="hidden w-64 flex-col border-e bg-card p-4 lg:flex">
 			<nav class="flex-1">
 				{@render nav()}
 			</nav>
-			<p class="text-muted-foreground mt-auto font-mono text-[10px] tracking-[0.14em]">
+			<p class="mt-auto font-mono text-[10px] tracking-[0.14em] text-muted-foreground">
 				REV {__APP_VERSION__}
 			</p>
 		</aside>
@@ -149,13 +149,13 @@
 				<nav class="mt-4 flex-1">
 					{@render nav()}
 				</nav>
-				<p class="text-muted-foreground font-mono text-[10px] tracking-[0.14em]">
+				<p class="font-mono text-[10px] tracking-[0.14em] text-muted-foreground">
 					REV {__APP_VERSION__}
 				</p>
 			</Sheet.Content>
 		</Sheet.Root>
 
-		<main bind:this={mainEl} class="bg-muted/30 flex-1 overflow-auto">
+		<main bind:this={mainEl} class="flex-1 overflow-auto bg-muted/30">
 			{@render children()}
 		</main>
 	</div>

@@ -11,7 +11,10 @@
 	let { data } = $props();
 </script>
 
-<Seo title="Galeri" description="Tamamlanan bakım, revizyon, servis ve montaj işlerimizden görüntüler." />
+<Seo
+	title="Galeri"
+	description="Tamamlanan bakım, revizyon, servis ve montaj işlerimizden görüntüler."
+/>
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader
@@ -35,7 +38,7 @@
 				{@const service = item.service_slug ? serviceBySlug(item.service_slug) : undefined}
 				<figure class="group flex flex-col">
 					{#if item.photoUrl}
-						<div class="border-border relative aspect-[4/3] overflow-hidden rounded-md border">
+						<div class="relative aspect-[4/3] overflow-hidden rounded-md border border-border">
 							<img
 								src={item.thumbUrl}
 								onerror={(e) => fallbackToFull(e, item.photoUrl)}
@@ -44,7 +47,7 @@
 								class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
 							/>
 							<span
-								class="bg-background/85 absolute bottom-2 left-2 rounded-sm px-2 py-1 font-mono text-[10px] uppercase tracking-[0.16em]"
+								class="absolute bottom-2 left-2 rounded-sm bg-background/85 px-2 py-1 font-mono text-[10px] tracking-[0.16em] uppercase"
 							>
 								{item.label}
 							</span>
@@ -57,7 +60,7 @@
 						{#if service}
 							<a
 								href="/services/{service.slug}"
-								class="text-primary mt-1.5 inline-flex items-center gap-1.5 btn-label"
+								class="btn-label mt-1.5 inline-flex items-center gap-1.5 text-primary"
 							>
 								{service.title} talebi oluştur
 								<ArrowRightIcon class="size-3 transition-transform group-hover:translate-x-0.5" />

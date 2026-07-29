@@ -19,11 +19,14 @@
 </script>
 
 <span class="flex items-center gap-3">
-	<span class="crosshair text-safety shrink-0" aria-hidden="true"></span>
+	<span class="crosshair shrink-0 text-safety" aria-hidden="true"></span>
 	<span class="leading-none">
 		<span class="display block {nameSize}">{site.name}</span>
 		{#if subtitle}
-			<span lang={subtitleLang} class="mt-1 block font-mono {subtitleSize} uppercase tracking-[0.24em] {subtitleClass}">
+			<span
+				lang={subtitleLang}
+				class="mt-1 block font-mono {subtitleSize} tracking-[0.24em] uppercase {subtitleClass}"
+			>
 				{subtitle}
 			</span>
 		{/if}
