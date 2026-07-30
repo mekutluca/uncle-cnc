@@ -5,15 +5,15 @@ export const site = {
 	tagline: '.every machine can work',
 	description:
 		'CNC tezgâhlarınız için ekspertiz, danışmanlık, bakım, servis ve makine ticareti. Her makine çalışır — biz çalıştırırız.',
-	phone: '+90 500 000 00 00', // TODO: gerçek telefon
+	phone: '+90 506 577 18 37',
 	get phoneHref() {
 		return `tel:${this.phone.replaceAll(' ', '')}`;
 	},
-	email: 'info@unclecnc.com.tr', // TODO: gerçek e-posta
-	address: 'Organize Sanayi Bölgesi, İstanbul', // TODO: gerçek adres
+	email: 'info@unclecnc.com',
+	address: '100. Yıl Bulvarı 55/A, Ostim OSB, Yenimahalle/Ankara',
 	mapsEmbedUrl:
-		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48173.5!2d29.1!3d40.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zSXN0YW5idWw!5e0!3m2!1str!2str!4v1700000000000', // TODO: gerçek konum embed'i
-	url: 'https://unclecnc.netlify.app' // TODO: gerçek alan adı
+		'https://www.google.com/maps?q=100.%20Y%C4%B1l%20Bulvar%C4%B1%2055%2FA%2C%20Ostim%20OSB%2C%20Yenimahalle%2FAnkara&output=embed',
+	url: 'https://unclecnc.com'
 };
 
 export const nav = [
