@@ -72,3 +72,39 @@ insert into public.uc_machines (title, slug, machine_type, specs, price, currenc
 	 null, 'EUR', 'available',
 	 'Fiyat için sorunuz örneği. Gerçek ilanlar eklendiğinde silin.')
 on conflict (slug) do nothing;
+
+-- ---------------------------------------------------------------------------
+-- Form gönderimleri (Netlify Forms yerine kendi kaydımız; bkz. /api/submit)
+create table if not exists public.uc_form_submissions (
+	id uuid primary key default gen_random_uuid(),
+	form_name text not null check (form_name in ('contact','appraisal','consulting','maintenance','repair','machine-trading')),
+	data jsonb not null default '{}' check (pg_column_size(data) < 20000),
+	photos text[] not null default '{}' check (coalesce(array_length(photos, 1), 0) <= 3),
+	is_read boolean not null default false,
+	created_at timestamptz not null default now()
+);
+
+alter table public.uc_form_submissions enable row level security;
+
+-- Form endpoint'i anon anahtarla yazar; okuma/güncelleme/silme yalnızca yönetici.
+create policy "uc_form_submissions anon insert" on public.uc_form_submissions
+	for insert to anon with check (true);
+create policy "uc_form_submissions admin select" on public.uc_form_submissions
+	for select to authenticated using (public.uc_is_admin());
+create policy "uc_form_submissions admin update" on public.uc_form_submissions
+	for update to authenticated using (public.uc_is_admin()) with check (public.uc_is_admin());
+create policy "uc_form_submissions admin delete" on public.uc_form_submissions
+	for delete to authenticated using (public.uc_is_admin());
+
+-- Müşteri fotoğrafları: private bucket, yönetici imzalı URL ile görüntüler.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('uc-submission-photos', 'uc-submission-photos', false, 4194304,
+	array['image/jpeg','image/png','image/webp','image/heic','image/heif','image/gif','image/avif'])
+on conflict (id) do nothing;
+
+create policy "uc submission photos anon insert" on storage.objects
+	for insert to anon with check (bucket_id = 'uc-submission-photos');
+create policy "uc submission photos admin select" on storage.objects
+	for select to authenticated using (bucket_id = 'uc-submission-photos' and public.uc_is_admin());
+create policy "uc submission photos admin delete" on storage.objects
+	for delete to authenticated using (bucket_id = 'uc-submission-photos' and public.uc_is_admin());

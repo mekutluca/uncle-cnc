@@ -5,7 +5,7 @@ export type MachineType = (typeof MACHINE_TYPES)[number];
 
 export type Service = {
 	slug: string;
-	/** Netlify form adı */
+	/** Form adı (gönderimlerde `form-name` alanı) */
 	formName: string;
 	/** Plaka üzerindeki form kodu, ör. FORM NO: BAK-03 */
 	code: string;
@@ -145,4 +145,16 @@ export type GalleryFields = {
 	label: string;
 	description: string;
 	service_slug: string | null;
+};
+
+/** Supabase `uc_form_submissions` satırı */
+export type FormSubmission = {
+	id: string;
+	form_name: string;
+	/** Form alanları anahtar-değer olarak (ör. ad_soyad, telefon…) */
+	data: Record<string, string>;
+	/** `uc-submission-photos` bucket'ındaki yollar; görüntüleme imzalı URL ile */
+	photos: string[];
+	is_read: boolean;
+	created_at: string;
 };

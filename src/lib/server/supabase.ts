@@ -11,7 +11,7 @@ import type {
 } from '$lib/types';
 
 /** Halka açık sayfalar için anon (salt-okunur RLS) istemci — oturum tutmaz. */
-const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+export const supabaseAnon = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 	auth: { persistSession: false }
 });
 
@@ -24,7 +24,7 @@ export function withPhotoUrls(machine: Machine): MachineWithPhotos {
 }
 
 export async function listMachines(): Promise<Machine[]> {
-	const { data, error } = await supabase
+	const { data, error } = await supabaseAnon
 		.from('uc_machines')
 		.select('*')
 		.neq('status', 'hidden')
@@ -45,7 +45,7 @@ export function withGalleryUrl(item: GalleryItem): GalleryItemWithUrl {
 }
 
 export async function listGalleryItems(): Promise<GalleryItem[]> {
-	const { data, error } = await supabase
+	const { data, error } = await supabaseAnon
 		.from('uc_gallery_items')
 		.select('*')
 		.order('sort_order', { ascending: true })
@@ -62,7 +62,7 @@ export function withLogoUrl(reference: Reference): ReferenceWithLogo {
 }
 
 export async function listReferences(): Promise<Reference[]> {
-	const { data, error } = await supabase
+	const { data, error } = await supabaseAnon
 		.from('uc_references')
 		.select('*')
 		.order('sort_order', { ascending: true })
@@ -75,7 +75,7 @@ export async function listReferences(): Promise<Reference[]> {
 }
 
 export async function getMachine(slug: string): Promise<Machine | null> {
-	const { data, error } = await supabase
+	const { data, error } = await supabaseAnon
 		.from('uc_machines')
 		.select('*')
 		.eq('slug', slug)

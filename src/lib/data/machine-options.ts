@@ -2,8 +2,8 @@ import type { MachineType } from '$lib/types';
 
 /**
  * Tek doğruluk kaynağı: makine cinsleri ve cinse bağlı boyut seçenekleri.
- * Formlar ve static/__forms.html buradan türetilir — alan adları Türkçe kalır
- * çünkü Netlify e-posta bildirimlerinde müşteriye bu adlar görünür.
+ * Formlar buradan türetilir — alan adları Türkçe kalır; e-posta bildirimi ve
+ * yönetim panelindeki etiketler $lib/data/form-fields.ts ile eşleşmelidir.
  */
 export const MACHINE_TYPES = [
 	'Dik işleme',

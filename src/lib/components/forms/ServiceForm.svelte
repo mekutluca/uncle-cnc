@@ -7,7 +7,7 @@
 	import ListingPreviewCard from './ListingPreviewCard.svelte';
 	import MachineTypeSizeFields from './MachineTypeSizeFields.svelte';
 	import ModelYearFields from './ModelYearFields.svelte';
-	import NetlifyForm from './NetlifyForm.svelte';
+	import RequestForm from './RequestForm.svelte';
 	import PhotoUploadField from './PhotoUploadField.svelte';
 	import PriceRangeFields from './PriceRangeFields.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
@@ -44,7 +44,7 @@
 <div class="plate">
 	<PlateHeader title="Talep Formu" code={service.code} />
 
-	<NetlifyForm name={service.formName} upload={hasUpload}>
+	<RequestForm name={service.formName} upload={hasUpload}>
 		{#if hasListing}
 			<input type="hidden" name="islem_turu" value="almak" />
 			<input type="hidden" name="ilgili_ilan" value={relatedListing} />
@@ -123,5 +123,5 @@
 			* işaretli alanlar zorunludur. Talebiniz doğrudan ekibimize iletilir; en kısa sürede size
 			dönüş yapılır.
 		</p>
-	</NetlifyForm>
+	</RequestForm>
 </div>

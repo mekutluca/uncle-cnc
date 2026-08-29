@@ -19,7 +19,7 @@ const staticPaths = [
 export const GET: RequestHandler = async ({ setHeaders }) => {
 	setHeaders({
 		'content-type': 'application/xml',
-		'netlify-cdn-cache-control': 'public, s-maxage=3600'
+		'cache-control': 'public, s-maxage=3600'
 	});
 
 	const machines = await listMachines();

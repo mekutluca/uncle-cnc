@@ -12,17 +12,16 @@
 	let submitting = $state(false);
 	let failed = $state(false);
 
-	/* Gönderim statik /__forms.html yoluna yapılır: SvelteKit SSR fonksiyonu bu yolu
-	   sahiplenmez (bkz. scripts/patch-netlify-forms.mjs), böylece Netlify Forms POST'u
-	   CDN'de yakalar. Başarıda /thanks'e istemci tarafında geçilir; JS kapalıysa form
-	   yine natif olarak POST edilir ve Netlify teşekkür içeriğini döndürür. */
+	/* Gönderim /api/submit endpoint'ine yapılır: kayıt Supabase'e yazılır ve
+	   e-posta bildirimi gönderilir. Başarıda /thanks'e istemci tarafında geçilir;
+	   JS kapalıysa form natif POST edilir ve endpoint /thanks'e yönlendirir. */
 	async function onsubmit(event: SubmitEvent) {
 		event.preventDefault();
 		const form = event.currentTarget as HTMLFormElement;
 		submitting = true;
 		failed = false;
 		try {
-			const response = await fetch('/__forms.html', { method: 'POST', body: new FormData(form) });
+			const response = await fetch('/api/submit', { method: 'POST', body: new FormData(form) });
 			if (!response.ok) throw new Error(`Form gönderimi ${response.status} döndürdü`);
 			await goto('/thanks');
 		} catch {
@@ -32,11 +31,10 @@
 	}
 </script>
 
-<!-- Canlı formlar data-netlify taşımaz; kayıt static/__forms.html üzerinden yapılır. -->
 <form
 	{name}
 	method="POST"
-	action="/__forms.html"
+	action="/api/submit"
 	enctype={upload ? 'multipart/form-data' : undefined}
 	{onsubmit}
 	class="grid gap-5 p-5 sm:p-7"

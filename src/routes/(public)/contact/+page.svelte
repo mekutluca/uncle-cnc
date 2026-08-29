@@ -3,7 +3,7 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
-	import NetlifyForm from '$lib/components/forms/NetlifyForm.svelte';
+	import RequestForm from '$lib/components/forms/RequestForm.svelte';
 	import ContactFields from '$lib/components/forms/ContactFields.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
 	import { labelClass } from '$lib/components/forms/field-styles';
@@ -58,7 +58,7 @@
 
 		<div class="plate h-fit">
 			<PlateHeader title="İletişim Formu" code="ILT-00" />
-			<NetlifyForm name="contact">
+			<RequestForm name="contact">
 				<ContactFields />
 				<div class="grid gap-1.5">
 					<label class={labelClass} for="mesaj">Mesajınız *</label>
@@ -71,7 +71,7 @@
 					/>
 				</div>
 				<Button type="submit" size="lg" class="btn-label">Mesajı Gönder</Button>
-			</NetlifyForm>
+			</RequestForm>
 		</div>
 	</div>
 </section>
