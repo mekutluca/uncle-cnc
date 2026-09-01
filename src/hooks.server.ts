@@ -1,7 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
-import { type Handle, redirect } from '@sveltejs/kit';
+import { type Handle, type HandleServerError, redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+import { defaultErrorMessage } from '$lib/utils/errors';
 
 /** Supabase oturum istemcisi yalnızca /admin alt ağacı için kurulur; halka açık
  *  (prerender edilen) sayfalar ve /machines SSR'ı bu hook'tan etkilenmez. */
@@ -56,3 +57,14 @@ const authGuard: Handle = async ({ event, resolve }) => {
 };
 
 export const handle = sequence(supabase, authGuard);
+
+// Yalnızca beklenmeyen hatalar (fırlatılan istisnalar, eşleşmeyen rotalar) buraya
+// düşer; `error()` çağrıları kendi Türkçe mesajını korur. Gerçek hata sunucu
+// logunda kalır, tarayıcıya genel mesaj gider: yığın izi ve Supabase ayrıntıları
+// hata sayfasına ulaşmaz.
+export const handleError: HandleServerError = ({ error, event, status, message }) => {
+	if (status !== 404) {
+		console.error(`[${status}] ${event.request.method} ${event.url.pathname}: ${message}`, error);
+	}
+	return { message: defaultErrorMessage(status) };
+};

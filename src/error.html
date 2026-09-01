@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#16191d" />
+		<link
+			rel="icon"
+			href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316191d'/%3E%3Cpath d='M32 12v40M12 32h40' stroke='%23f5b301' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='10' fill='none' stroke='%23f5b301' stroke-width='3.5'/%3E%3C/svg%3E"
+		/>
+		<title>Hata %sveltekit.status% | Uncle CNC</title>
+		<!--
+			Son çare: yalnızca uygulama kabuğu hiç çizilemediğinde (kök layout çökmesi,
+			+error.svelte'nin kendisinin hata vermesi) sunulur. Tasarım tokenları
+			layout.css ile aynı ("Çelik ve İkaz"); font yüklenmez, sistem yazı tipi.
+		-->
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			html,
+			body {
+				height: 100%;
+				background: #16191d;
+				color: #f4f5f7;
+				font-family:
+					-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+				-webkit-font-smoothing: antialiased;
+			}
+			body {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 24px;
+			}
+			main {
+				max-width: 360px;
+				text-align: center;
+			}
+			.mark {
+				display: block;
+				width: 56px;
+				height: 56px;
+				margin: 0 auto 28px;
+			}
+			.code {
+				margin-bottom: 10px;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+				font-size: 0.6875rem;
+				font-weight: 500;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: #9aa1ab;
+			}
+			h1 {
+				margin-bottom: 12px;
+				font-size: 1.5rem;
+				font-weight: 800;
+				letter-spacing: -0.01em;
+				line-height: 1.05;
+				text-transform: uppercase;
+				text-wrap: balance;
+			}
+			p {
+				margin-bottom: 28px;
+				font-size: 1rem;
+				line-height: 1.5;
+				color: #9aa1ab;
+			}
+			a.button {
+				display: inline-block;
+				padding: 12px 24px;
+				border-radius: 4px;
+				background: #f5b301;
+				color: #16191d;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+				font-size: 0.6875rem;
+				font-weight: 600;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				text-decoration: none;
+				transition: opacity 0.15s;
+			}
+			a.button:hover,
+			a.button:focus-visible {
+				opacity: 0.85;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+				<rect width="64" height="64" rx="14" fill="#1e232a" />
+				<path d="M32 12v40M12 32h40" stroke="#f5b301" stroke-width="4.5" stroke-linecap="round" />
+				<circle cx="32" cy="32" r="10" fill="none" stroke="#f5b301" stroke-width="3.5" />
+			</svg>
+			<div class="code">Hata / %sveltekit.status%</div>
+			<h1>Bir şeyler ters gitti</h1>
+			<p>%sveltekit.error.message%</p>
+			<a class="button" href="/">Ana Sayfa</a>
+		</main>
+	</body>
+</html>

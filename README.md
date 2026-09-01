@@ -21,6 +21,12 @@ npm run dev
 - **Satılık makineler Supabase'ten gelir** (paylaşılan DB, `uc_` önekli tablolar). Kurulum: `docs/supabase-setup.sql` dosyasını Supabase Studio SQL Editor'de çalıştırın. Sayfa SSR ile yüklenir (`cache-control: s-maxage` başlıkları öne bir CDN konursa geçerli olur); rebuild gerekmez.
 - **Firma bilgileri** (telefon, adres, e-posta, harita) tek yerden: `src/lib/data/site.ts` — TODO işaretli alanları müşteri bilgileriyle güncelleyin.
 
+## Hata sayfaları
+
+- `src/lib/components/ErrorState.svelte` ortak gövdedir; çerçeveyi kapsam belirler: `(public)/+error.svelte` header/footer içinde, `admin/(authed)/+error.svelte` panel kabuğu içinde, `admin/+error.svelte` çelik zemin (yetkisiz hesabın 403'ü buraya düşer; "Çıkış Yap" butonu login → /admin → 403 döngüsünü kırar), kök `+error.svelte` son basamak.
+- Eşleşmeyen adresleri `(public)/[...path]` ve `admin/(authed)/[...path]` yakalar; böylece 404 doğru çerçevede çizilir ve `/admin/*` altındaki bilinmeyen adresler de yetki zincirinden geçer.
+- `handleError` hook'ları (`hooks.server.ts`, `hooks.client.ts`) beklenmeyen hatalarda tarayıcıya yalnızca `src/lib/utils/errors.ts` içindeki genel Türkçe mesajı gönderir; ayrıntı sunucu logunda kalır. `src/error.html` uygulama kabuğu hiç çizilemediğinde sunulan statik yedek sayfadır.
+
 ## Yönetim paneli (/admin)
 
 - `/admin/login` → Supabase Auth (e-posta + şifre). Oturum `@supabase/ssr` ile çerezde tutulur; `src/hooks.server.ts` yalnızca `/admin` rotalarında çalışır, halka açık sayfalar prerender kalır.

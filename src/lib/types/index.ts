@@ -1,3 +1,4 @@
+import type { Component } from 'svelte';
 import type WrenchIcon from '@lucide/svelte/icons/wrench';
 import type { MACHINE_TYPES } from '$lib/data/machine-options';
 
@@ -158,3 +159,14 @@ export type FormSubmission = {
 	is_read: boolean;
 	created_at: string;
 };
+
+/* ---------- Hata sayfaları ---------- */
+
+export type ErrorKind = 'notFound' | 'forbidden' | 'server';
+
+/** Hata türü başına ikon, sekme başlığı (`tab`) ve sayfa manşeti (`title`) */
+export interface ErrorCopy {
+	icon: Component;
+	tab: string;
+	title: string;
+}
