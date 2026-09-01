@@ -1,4 +1,4 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { PostgrestError, SupabaseClient } from '@supabase/supabase-js';
 import { MACHINE_TYPES } from '$lib/data/machine-options';
 import { uploadPhotoFile } from '$lib/server/photo-storage';
 import type { Machine, MachineFields } from '$lib/types';
@@ -44,6 +44,21 @@ export function parseMachineFields(formData: FormData): MachineFields | string {
 	});
 
 	return { title, slug, machine_type, status, price, currency, description, specs };
+}
+
+/** Formdaki yeni fotoğraf ve küçük varyant dosyaları — oluşturma ve düzenleme paylaşır. */
+export function photoUploadsFrom(formData: FormData): { files: File[]; thumbs: File[] } {
+	const isFile = (entry: FormDataEntryValue): entry is File => entry instanceof File;
+	return {
+		files: formData.getAll('photos').filter(isFile),
+		thumbs: formData.getAll('thumbs').filter(isFile)
+	};
+}
+
+/** Kayıt hatasını kullanıcı metnine çevirir; 23505 (unique) tekrar eden kısa addır. */
+export function machineSaveMessage(error: PostgrestError): string {
+	const detail = error.code === '23505' ? 'Bu kısa ad zaten kullanılıyor.' : error.message;
+	return `Kaydedilemedi: ${detail}`;
 }
 
 /**

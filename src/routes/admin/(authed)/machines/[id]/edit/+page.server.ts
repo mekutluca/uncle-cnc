@@ -1,6 +1,11 @@
 import { fail } from '@sveltejs/kit';
 import { withPhotoUrls } from '$lib/server/supabase';
-import { parseMachineFields, uploadPhotos } from '$lib/server/machines';
+import {
+	machineSaveMessage,
+	parseMachineFields,
+	photoUploadsFrom,
+	uploadPhotos
+} from '$lib/server/machines';
 import { removePhotos } from '$lib/server/photo-storage';
 import type { Machine, MachineWithPhotos } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
@@ -38,19 +43,14 @@ export const actions: Actions = {
 		const currentPhotos = await getPhotos(locals, params.id);
 		if (currentPhotos === null) return fail(400, { success: false, message: 'Makine bulunamadı.' });
 
-		const files = formData.getAll('photos').filter((f): f is File => f instanceof File);
-		const thumbs = formData.getAll('thumbs').filter((f): f is File => f instanceof File);
+		const { files, thumbs } = photoUploadsFrom(formData);
 		const { paths, failed } = await uploadPhotos(locals.supabase, params.id, files, thumbs);
 
 		const { error: updateError } = await locals.supabase
 			.from('uc_machines')
 			.update({ ...fields, photos: [...currentPhotos, ...paths] })
 			.eq('id', params.id);
-		if (updateError) {
-			const message =
-				updateError.code === '23505' ? 'Bu kısa ad zaten kullanılıyor.' : updateError.message;
-			return fail(500, { success: false, message: `Kaydedilemedi: ${message}` });
-		}
+		if (updateError) return fail(500, { success: false, message: machineSaveMessage(updateError) });
 
 		return {
 			success: true,

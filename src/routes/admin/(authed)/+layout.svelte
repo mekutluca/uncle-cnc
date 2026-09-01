@@ -22,7 +22,7 @@
 	let mainEl = $state<HTMLElement | null>(null);
 
 	async function logout() {
-		await supabase.auth.signOut();
+		await supabase.auth.signOut({ scope: 'local' });
 	}
 
 	onMount(() => {

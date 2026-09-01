@@ -1,5 +1,10 @@
 import { fail } from '@sveltejs/kit';
-import { parseMachineFields, uploadPhotos } from '$lib/server/machines';
+import {
+	machineSaveMessage,
+	parseMachineFields,
+	photoUploadsFrom,
+	uploadPhotos
+} from '$lib/server/machines';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -13,13 +18,9 @@ export const actions: Actions = {
 			.insert(fields)
 			.select('id')
 			.single();
-		if (error) {
-			const message = error.code === '23505' ? 'Bu kısa ad zaten kullanılıyor.' : error.message;
-			return fail(500, { success: false, message: `Kaydedilemedi: ${message}` });
-		}
+		if (error) return fail(500, { success: false, message: machineSaveMessage(error) });
 
-		const files = formData.getAll('photos').filter((f): f is File => f instanceof File);
-		const thumbs = formData.getAll('thumbs').filter((f): f is File => f instanceof File);
+		const { files, thumbs } = photoUploadsFrom(formData);
 		const { paths, failed } = await uploadPhotos(locals.supabase, machine.id, files, thumbs);
 		if (paths.length) {
 			await locals.supabase.from('uc_machines').update({ photos: paths }).eq('id', machine.id);
