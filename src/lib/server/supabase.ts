@@ -7,7 +7,8 @@ import type {
 	Machine,
 	MachineWithPhotos,
 	Reference,
-	ReferenceWithLogo
+	ReferenceWithLogo,
+	Stat
 } from '$lib/types';
 
 /** Halka açık sayfalar için anon (salt-okunur RLS) istemci — oturum tutmaz. */
@@ -72,6 +73,18 @@ export async function listReferences(): Promise<Reference[]> {
 		return [];
 	}
 	return (data ?? []) as Reference[];
+}
+
+export async function listStats(): Promise<Stat[]> {
+	const { data, error } = await supabaseAnon
+		.from('uc_stats')
+		.select('*')
+		.order('sort_order', { ascending: true });
+	if (error) {
+		console.error('uc_stats listesi alınamadı:', error.message);
+		return [];
+	}
+	return (data ?? []) as Stat[];
 }
 
 export async function getMachine(slug: string): Promise<Machine | null> {

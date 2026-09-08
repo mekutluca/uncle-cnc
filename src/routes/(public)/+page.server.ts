@@ -1,4 +1,4 @@
-import { listReferences, withLogoUrl } from '$lib/server/supabase';
+import { listReferences, listStats, withLogoUrl } from '$lib/server/supabase';
 import { PUBLIC_CDN_CACHE_HEADERS } from '$lib/server/cache';
 import type { PageServerLoad } from './$types';
 
@@ -10,5 +10,6 @@ export const load: PageServerLoad = ({ setHeaders }) => {
 	setHeaders(PUBLIC_CDN_CACHE_HEADERS);
 	// Streamed (not awaited) so the page renders immediately with skeleton cells.
 	const references = listReferences().then((rows) => rows.map(withLogoUrl));
-	return { references };
+	const stats = listStats();
+	return { references, stats };
 };

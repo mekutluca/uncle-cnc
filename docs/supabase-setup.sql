@@ -108,3 +108,34 @@ create policy "uc submission photos admin select" on storage.objects
 	for select to authenticated using (bucket_id = 'uc-submission-photos' and public.uc_is_admin());
 create policy "uc submission photos admin delete" on storage.objects
 	for delete to authenticated using (bucket_id = 'uc-submission-photos' and public.uc_is_admin());
+
+-- ---------------------------------------------------------------------------
+-- Ana sayfa spec şeridindeki 4 istatistik; panelden düzenlenebilir.
+create table if not exists public.uc_stats (
+	id uuid primary key default gen_random_uuid(),
+	value text not null,
+	label text not null,
+	sort_order integer not null default 0,
+	created_at timestamptz not null default now()
+);
+
+alter table public.uc_stats enable row level security;
+
+create policy "uc_stats anon read" on public.uc_stats
+	for select using (true);
+
+create policy "uc_stats admin select" on public.uc_stats
+	for select to authenticated using (public.uc_is_admin());
+create policy "uc_stats admin insert" on public.uc_stats
+	for insert to authenticated with check (public.uc_is_admin());
+create policy "uc_stats admin update" on public.uc_stats
+	for update to authenticated using (public.uc_is_admin()) with check (public.uc_is_admin());
+create policy "uc_stats admin delete" on public.uc_stats
+	for delete to authenticated using (public.uc_is_admin());
+
+insert into public.uc_stats (value, label, sort_order) values
+	('±0.01 MM', 'Hassasiyet standardı', 0),
+	('32 BAŞLIK', 'Bakım kontrol listesi', 1),
+	('5 HİZMET', 'Tek çatı altında', 2),
+	('INT’L', 'Yurt içi + yurt dışı servis', 3)
+on conflict do nothing;

@@ -155,6 +155,15 @@ export type GalleryFields = {
 	service_slug: string | null;
 };
 
+/** Supabase `uc_stats` satırı — ana sayfa spec şeridi */
+export type Stat = {
+	id: string;
+	value: string;
+	label: string;
+	sort_order: number;
+	created_at: string;
+};
+
 /** Supabase `uc_form_submissions` satırı */
 export type FormSubmission = {
 	id: string;

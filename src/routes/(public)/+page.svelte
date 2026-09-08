@@ -10,13 +10,6 @@
 	import { site } from '$lib/data/site';
 
 	let { data } = $props();
-
-	const specs = [
-		{ value: '±0.01 MM', label: 'Hassasiyet standardı' },
-		{ value: '32 BAŞLIK', label: 'Bakım kontrol listesi' },
-		{ value: '5 HİZMET', label: 'Tek çatı altında' },
-		{ value: 'INT’L', label: 'Yurt içi + yurt dışı servis' }
-	];
 </script>
 
 <Seo />
@@ -56,13 +49,23 @@
 <!-- SPEC STRIP -->
 <section class="border-b border-border bg-card">
 	<div class="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-8 px-4 py-10 sm:px-6 lg:grid-cols-4">
-		{#each specs as spec (spec.label)}
-			<div>
-				<p class="font-mono text-lg font-semibold tracking-[0.08em]">{spec.value}</p>
-				<span class="dim-line my-3 w-16 text-safety" aria-hidden="true"></span>
-				<p class="text-sm text-muted-foreground">{spec.label}</p>
-			</div>
-		{/each}
+		{#await data.stats}
+			{#each { length: 4 }, i (i)}
+				<div>
+					<Skeleton class="h-6 w-24" />
+					<span class="dim-line my-3 w-16 text-safety" aria-hidden="true"></span>
+					<Skeleton class="h-4 w-32" />
+				</div>
+			{/each}
+		{:then stats}
+			{#each stats as stat (stat.id)}
+				<div>
+					<p class="font-mono text-lg font-semibold tracking-[0.08em]">{stat.value}</p>
+					<span class="dim-line my-3 w-16 text-safety" aria-hidden="true"></span>
+					<p class="text-sm text-muted-foreground">{stat.label}</p>
+				</div>
+			{/each}
+		{/await}
 	</div>
 </section>
 
