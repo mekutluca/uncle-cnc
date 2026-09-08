@@ -7,20 +7,18 @@
 	import { serviceBySlug } from '$lib/data/services';
 
 	import { fallbackToFull } from '$lib/utils/photo-fallback';
+	import * as m from '$lib/paraglide/messages';
 
 	let { data } = $props();
 </script>
 
-<Seo
-	title="Galeri"
-	description="Tamamlanan bakım, revizyon, servis ve montaj işlerimizden görüntüler."
-/>
+<Seo title={m.gallery_page_seo_title()} description={m.gallery_page_seo_description()} />
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader
-		eyebrow="Galeri"
-		title="İşlerimizden kareler"
-		description="Beğendiğiniz işin benzerini tezgâhınız için talep edebilirsiniz — görselin altındaki bağlantı sizi ilgili hizmet formuna götürür."
+		eyebrow={m.gallery_page_eyebrow()}
+		title={m.gallery_page_title()}
+		description={m.gallery_page_description()}
 	/>
 	{#await data.items}
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -47,7 +45,7 @@
 								class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
 							/>
 							<span
-								class="absolute bottom-2 left-2 rounded-sm bg-background/85 px-2 py-1 font-mono text-[10px] tracking-[0.16em] uppercase"
+								class="absolute bottom-2 start-2 rounded-sm bg-background/85 px-2 py-1 font-mono text-[10px] tracking-[0.16em] uppercase"
 							>
 								{item.label}
 							</span>
@@ -62,7 +60,7 @@
 								href="/services/{service.slug}"
 								class="btn-label mt-1.5 inline-flex items-center gap-1.5 text-primary"
 							>
-								{service.title} talebi oluştur
+								{m.gallery_page_request_link({ serviceTitle: service.title })}
 								<ArrowRightIcon class="size-3 transition-transform group-hover:translate-x-0.5" />
 							</a>
 						{/if}

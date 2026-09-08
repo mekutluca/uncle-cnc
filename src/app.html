@@ -4,6 +4,17 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
+		<script>
+			(function () {
+				try {
+					var match = document.cookie.match(/(?:^|; )PARAGLIDE_LOCALE=([^;]+)/);
+					var locale = match ? decodeURIComponent(match[1]) : 'tr';
+					var rtl = locale === 'ar' || locale === 'fa';
+					document.documentElement.lang = locale;
+					document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+				} catch (e) {}
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

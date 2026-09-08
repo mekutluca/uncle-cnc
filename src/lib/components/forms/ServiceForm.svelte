@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Textarea } from '$lib/components/ui/textarea';
+	import * as m from '$lib/paraglide/messages';
 	import type { Service } from '$lib/types';
 	import ContactFields from './ContactFields.svelte';
 	import ListingPreviewCard from './ListingPreviewCard.svelte';
@@ -39,10 +40,15 @@
 	   olduğundan işlem türü seçici ve istenen-makine alanları (cins/boyut, model
 	   yılı, fiyat aralığı) gösterilmez. islem_turu gizli alanla "almak" gönderilir. */
 	const hasListing = $derived(isTrading && relatedListing !== '');
+
+	const intentOptions = $derived([
+		{ value: 'almak', label: m.forms_intent_buy_label() },
+		{ value: 'satmak', label: m.forms_intent_sell_label() }
+	]);
 </script>
 
 <div class="plate">
-	<PlateHeader title="Talep Formu" code={service.code} />
+	<PlateHeader title={m.forms_request_form_title()} code={service.code} />
 
 	<RequestForm name={service.formName} upload={hasUpload}>
 		{#if hasListing}
@@ -51,9 +57,13 @@
 			<ListingPreviewCard slug={relatedListing} />
 		{:else if isTrading}
 			<fieldset>
-				<legend class="eyebrow mb-3">İşlem Türü</legend>
-				<div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="İşlem türü">
-					{#each [{ value: 'almak', label: 'Almak istiyorum' }, { value: 'satmak', label: 'Satmak istiyorum' }] as option (option.value)}
+				<legend class="eyebrow mb-3">{m.forms_service_type_legend()}</legend>
+				<div
+					class="grid grid-cols-2 gap-2"
+					role="radiogroup"
+					aria-label={m.forms_service_type_aria_label()}
+				>
+					{#each intentOptions as option (option.value)}
 						<label
 							class="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-md border font-mono text-[12px] font-medium tracking-[0.12em] uppercase transition-colors
 								{intent === option.value
@@ -80,9 +90,9 @@
 			<MachineTypeSizeFields
 				legend={isTrading
 					? intent === 'almak'
-						? 'İstenen Makine'
-						: 'Satılacak Makine'
-					: 'Makine Bilgileri'}
+						? m.forms_machine_legend_wanted()
+						: m.forms_machine_legend_selling()
+					: m.forms_machine_legend_default()}
 			/>
 		{/if}
 
@@ -98,13 +108,13 @@
 
 		{#if service.fields.faultDescription}
 			<div class="grid gap-1.5">
-				<label class={labelClass} for="ariza_tanimi">Arıza Tanımı *</label>
+				<label class={labelClass} for="ariza_tanimi">{m.forms_fault_description_label()}</label>
 				<Textarea
 					id="ariza_tanimi"
 					name="ariza_tanimi"
 					required
 					rows={4}
-					placeholder="Alarm numarası, arızanın nasıl oluştuğu ve gözlemleriniz…"
+					placeholder={m.forms_fault_description_placeholder()}
 				/>
 			</div>
 		{/if}
@@ -114,14 +124,13 @@
 		{/if}
 
 		<div class="grid gap-1.5">
-			<label class={labelClass} for="notlar">Belirtmek İstediğiniz Diğer Hususlar</label>
-			<Textarea id="notlar" name="notlar" rows={3} placeholder="Eklemek istedikleriniz…" />
+			<label class={labelClass} for="notlar">{m.forms_notes_label()}</label>
+			<Textarea id="notlar" name="notlar" rows={3} placeholder={m.forms_notes_placeholder()} />
 		</div>
 
-		<Button type="submit" size="lg" class="btn-label">Talebi Gönder</Button>
+		<Button type="submit" size="lg" class="btn-label">{m.forms_submit_button()}</Button>
 		<p class="text-xs text-muted-foreground">
-			* işaretli alanlar zorunludur. Talebiniz doğrudan ekibimize iletilir, en kısa sürede size
-			dönüş yapılır.
+			{m.forms_required_footnote()}
 		</p>
 	</RequestForm>
 </div>

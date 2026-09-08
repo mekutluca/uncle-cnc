@@ -6,12 +6,15 @@
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
+	import { localeTag } from '$lib/utils/locale-format';
 	import { site } from '$lib/data/site';
+	import { getLocale } from '$lib/paraglide/runtime';
+	import * as m from '$lib/paraglide/messages';
 
 	let { data } = $props();
 	const machine = $derived(data.machine);
 	const categoryTitle = $derived(data.categoryTitle);
-	const price = $derived(formatPrice(machine.price, machine.currency));
+	const price = $derived(formatPrice(machine.price, machine.currency, localeTag(getLocale())));
 	const specEntries = $derived(Object.entries(machine.specs ?? {}));
 </script>
 
@@ -22,7 +25,7 @@
 />
 
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-	<BackLink href="/machines" label="Tüm ilanlar" />
+	<BackLink href="/machines" label={m.machine_detail_back_link()} />
 
 	<div class="mt-6 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
 		<div class="grid gap-4">
@@ -39,7 +42,7 @@
 						{#each machine.photoUrls.slice(1) as url, i (url)}
 							<img
 								src={url}
-								alt="{machine.title} — fotoğraf {i + 2}"
+								alt={m.machine_detail_photo_alt({ title: machine.title, index: i + 2 })}
 								loading="lazy"
 								class="aspect-[4/3] w-full rounded-md border border-border object-cover"
 							/>
@@ -56,12 +59,12 @@
 					{/if}{machine.machine_type}
 				</span>
 				{#if machine.status === 'sold'}
-					<Badge variant="destructive">Satıldı</Badge>
+					<Badge variant="destructive">{m.machine_detail_sold_badge()}</Badge>
 				{/if}
 			</div>
 			<h1 class="display mt-3 text-3xl sm:text-4xl">{machine.title}</h1>
-			<p class="mt-4 font-mono text-2xl font-semibold text-primary">
-				{price ?? 'Fiyat için sorunuz'}
+			<p class="mt-4 font-mono text-2xl font-semibold text-primary" dir="ltr">
+				{price ?? m.machine_detail_price_fallback()}
 			</p>
 
 			{#if machine.description}
@@ -70,7 +73,7 @@
 
 			{#if specEntries.length > 0}
 				<div class="plate mt-7">
-					<PlateHeader title="Teknik Özellikler" />
+					<PlateHeader title={m.machine_detail_specs_title()} />
 					<dl class="divide-y divide-border">
 						{#each specEntries as [key, value] (key)}
 							<div class="flex items-baseline justify-between gap-4 px-5 py-3">
@@ -91,9 +94,9 @@
 						href="/services/machine-trading?request=buy&listing={machine.slug}"
 						class="btn-label"
 					>
-						Bilgi / Teklif İste
+						{m.machine_detail_cta()}
 					</Button>
-					<Button size="lg" variant="outline" href={site.phoneHref} class="btn-label">
+					<Button size="lg" variant="outline" href={site.phoneHref} class="btn-label" dir="ltr">
 						{site.phone}
 					</Button>
 				</div>

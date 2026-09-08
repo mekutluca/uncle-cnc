@@ -2,20 +2,18 @@
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton';
+	import * as m from '$lib/paraglide/messages';
 
 	let { data } = $props();
 </script>
 
-<Seo
-	title="Referanslar"
-	description="Tezgâhlarını bize emanet eden firmalar ve çalıştığımız sektörler."
-/>
+<Seo title={m.references_page_seo_title()} description={m.references_page_seo_description()} />
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader
-		eyebrow="Referanslar"
-		title="Bize emanet edilen tezgâhlar"
-		description="Otomotivden havacılığa farklı sektörlerden firmalar, tezgâhlarının bakımını ve servisini bize emanet ediyor."
+		eyebrow={m.references_page_eyebrow()}
+		title={m.references_page_title()}
+		description={m.references_page_description()}
 	/>
 	{#await data.references}
 		<ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -35,7 +33,7 @@
 							<div class="mb-4 flex h-14 items-center">
 								<img
 									src={reference.logoUrl}
-									alt="{reference.name} logosu"
+									alt={m.references_page_logo_alt({ name: reference.name })}
 									loading="lazy"
 									class="max-h-full max-w-[70%] object-contain"
 								/>

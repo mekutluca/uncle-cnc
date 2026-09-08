@@ -2,7 +2,10 @@
 	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
+	import { localeTag } from '$lib/utils/locale-format';
 	import { publicPhotoUrl, publicThumbUrl } from '$lib/utils/storage';
+	import { getLocale } from '$lib/paraglide/runtime';
+	import * as m from '$lib/paraglide/messages';
 	import type { MachinePreview } from '$lib/types';
 
 	let { slug }: { slug: string } = $props();
@@ -32,7 +35,9 @@
 		};
 	});
 
-	const price = $derived(preview ? formatPrice(preview.price, preview.currency) : null);
+	const price = $derived(
+		preview ? formatPrice(preview.price, preview.currency, localeTag(getLocale())) : null
+	);
 	const thumbnail = $derived(preview?.photos[0] ? publicThumbUrl(preview.photos[0]) : null);
 	const fullPhoto = $derived(preview?.photos[0] ? publicPhotoUrl(preview.photos[0]) : null);
 </script>
@@ -48,7 +53,7 @@
 			class="aspect-[4/3] w-20"
 		/>
 		<div class="min-w-0">
-			<p class="eyebrow">İlgilenilen İlan</p>
+			<p class="eyebrow">{m.forms_listing_preview_eyebrow()}</p>
 			<p class="mt-1 truncate font-medium">{preview.title}</p>
 			<p class="mt-0.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase">
 				{preview.machine_type}{#if price}<span class="tracking-normal text-primary normal-case">

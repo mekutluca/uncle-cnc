@@ -1,16 +1,22 @@
+import * as m from '$lib/paraglide/messages';
 import type { Service } from '$lib/types';
 
-/** Beş hizmet dikeyi — sıra ve tanıtım metinleri müşterinin PDF'inden. */
+/** Beş hizmet dikeyi — sıra ve tanıtım metinleri müşterinin PDF'inden.
+ *  `title`/`short`/`intro` getter'dır: dil değişince yeniden hesaplanır. */
 export const services: Service[] = [
 	{
 		slug: 'appraisal',
 		formName: 'appraisal',
 		code: 'EKS-01',
-		title: 'Ekspertiz',
-		short:
-			'Almadan veya satmadan önce makinenizin gerçek durumunu köklü tecrübemizle raporluyoruz.',
-		intro:
-			'Almak veya satmak istediğiniz makinenizi köklü tecrübemizle inceleyerek gerekli tüm bilgileri size sunuyoruz. Bakım veya servis ekspertizi uygulamamızla doğru tespit ile doğru işlemlerin makinenize uygulanmasına yardımcı oluyoruz. Hemen iletişime geçmek için formu doldurun.',
+		get title() {
+			return m.services_data_appraisal_title();
+		},
+		get short() {
+			return m.services_data_appraisal_short();
+		},
+		get intro() {
+			return m.services_data_appraisal_intro();
+		},
 		fields: {
 			machine: true,
 			modelYear: 'single',
@@ -23,10 +29,15 @@ export const services: Service[] = [
 		slug: 'consulting',
 		formName: 'consulting',
 		code: 'DAN-02',
-		title: 'Danışmanlık',
-		short: 'Makine alımından sektöre girişe, aklınıza takılan her konuda yanınızdayız.',
-		intro:
-			'Makine almak, sektöre girmek ve dahası — aklınıza takılan her türlü konuda danışmanlık hizmeti vermekteyiz. Bilgilerinizi aşağıya girerek süreci başlatabilirsiniz.',
+		get title() {
+			return m.services_data_consulting_title();
+		},
+		get short() {
+			return m.services_data_consulting_short();
+		},
+		get intro() {
+			return m.services_data_consulting_intro();
+		},
 		fields: {
 			machine: false,
 			modelYear: 'none',
@@ -39,10 +50,15 @@ export const services: Service[] = [
 		slug: 'maintenance',
 		formName: 'maintenance',
 		code: 'BAK-03',
-		title: 'Bakım',
-		short: '32 başlıkta profesyonel tezgâh bakımı, ayrıntılı görsellerle raporlama.',
-		intro:
-			'32 başlıkta tezgâh bakımınızı profesyonel olarak tamamlıyoruz. Ayrıntılı görsellerle rapor hazırlayarak bilgilendirme yapıyoruz. Bakım teklifimiz için aşağıdaki formu doldurmanız yeterlidir.',
+		get title() {
+			return m.services_data_maintenance_title();
+		},
+		get short() {
+			return m.services_data_maintenance_short();
+		},
+		get intro() {
+			return m.services_data_maintenance_intro();
+		},
 		fields: {
 			machine: true,
 			modelYear: 'single',
@@ -55,10 +71,15 @@ export const services: Service[] = [
 		slug: 'repair',
 		formName: 'repair',
 		code: 'SRV-04',
-		title: 'Servis',
-		short: 'Arıza, değişim ve tamir işleriniz yetkin ekibimizle en hızlı şekilde teslim.',
-		intro:
-			'Yetkin ve donanımlı personeller ile arıza, değişim, tamir işlerinizi profesyonel olarak tamamlıyor, en hızlı şekilde teslim ediyoruz. En hızlı çözüm için formu doldurun.',
+		get title() {
+			return m.services_data_repair_title();
+		},
+		get short() {
+			return m.services_data_repair_short();
+		},
+		get intro() {
+			return m.services_data_repair_intro();
+		},
 		fields: {
 			machine: true,
 			modelYear: 'single',
@@ -71,11 +92,15 @@ export const services: Service[] = [
 		slug: 'machine-trading',
 		formName: 'machine-trading',
 		code: 'TIC-05',
-		title: 'Makine Ticareti',
-		short:
-			'İster değerleme yaptırın, ister değerinde alın veya satın — iki tarafta da kazançlı çıkın.',
-		intro:
-			'Makineniz için isterseniz değerleme yapıyoruz, isterseniz değerinde alıp satıyoruz. Doğru yönlendirme ile alırken de satarken de kazançlı çıkıyorsunuz. Hemen kazanmak için formu doldurun.',
+		get title() {
+			return m.services_data_machine_trading_title();
+		},
+		get short() {
+			return m.services_data_machine_trading_short();
+		},
+		get intro() {
+			return m.services_data_machine_trading_intro();
+		},
 		fields: {
 			machine: true,
 			modelYear: 'range-by-intent',

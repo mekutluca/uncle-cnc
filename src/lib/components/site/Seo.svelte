@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { site } from '$lib/data/site';
+	import { getLocale } from '$lib/paraglide/runtime';
 
 	let {
 		title,
@@ -10,6 +11,15 @@
 
 	const fullTitle = $derived(title ? `${title} | ${site.fullName}` : site.fullName);
 	const canonical = $derived(`${site.url}${page.url.pathname}`);
+
+	const OG_LOCALE: Record<string, string> = {
+		tr: 'tr_TR',
+		en: 'en_US',
+		ar: 'ar_SA',
+		de: 'de_DE',
+		fa: 'fa_IR'
+	};
+	const ogLocale = $derived(OG_LOCALE[getLocale()] ?? 'tr_TR');
 </script>
 
 <svelte:head>
@@ -22,6 +32,6 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:url" content={canonical} />
 	<meta property="og:image" content={image} />
-	<meta property="og:locale" content="tr_TR" />
+	<meta property="og:locale" content={ogLocale} />
 	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>

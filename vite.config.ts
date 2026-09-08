@@ -1,3 +1,4 @@
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import tailwindcss from '@tailwindcss/vite';
 import adapter from '@sveltejs/adapter-node';
 import { enhancedImages } from '@sveltejs/enhanced-img';
@@ -12,6 +13,11 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		enhancedImages(),
+		paraglideVitePlugin({
+			project: './project.inlang',
+			outdir: './src/lib/paraglide',
+			strategy: ['cookie', 'baseLocale']
+		}),
 		sveltekit({
 			compilerOptions: {
 				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.

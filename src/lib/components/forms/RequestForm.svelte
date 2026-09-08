@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { site } from '$lib/data/site';
+	import * as m from '$lib/paraglide/messages';
 
 	let {
 		name,
@@ -42,12 +43,15 @@
 >
 	<input type="hidden" name="form-name" value={name} />
 	<p class="hidden" aria-hidden="true">
-		<label>Bu alanı boş bırakın: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+		<label
+			>{m.forms_honeypot_label()}
+			<input name="bot-field" tabindex="-1" autocomplete="off" /></label
+		>
 	</p>
 	{@render children()}
 	{#if failed}
 		<p class="text-sm text-destructive" role="alert">
-			Gönderim başarısız oldu. Lütfen tekrar deneyin ya da bizi arayın: {site.phone}
+			{m.forms_submit_failed({ phone: site.phone })}
 		</p>
 	{/if}
 </form>

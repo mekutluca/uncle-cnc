@@ -3,51 +3,44 @@
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import { site } from '$lib/data/site';
+	import * as m from '$lib/paraglide/messages';
 
-	const principles = [
+	const principles = $derived([
 		{
-			title: 'Doğru tespit',
-			detail:
-				'Her iş ekspertizle başlar. Arızanın veya ihtiyacın kaynağını ölçerek belirler, tahminle parça değiştirmeyiz.'
+			title: m.about_principles_accuracy_title(),
+			detail: m.about_principles_accuracy_detail()
 		},
 		{
-			title: 'Şeffaf raporlama',
-			detail:
-				'Yaptığımız her işlemi ayrıntılı görsellerle belgeler, ne yapıldığını ve neden yapıldığını raporla teslim ederiz.'
+			title: m.about_principles_reporting_title(),
+			detail: m.about_principles_reporting_detail()
 		},
 		{
-			title: 'Hız',
-			detail:
-				'Duran tezgâh para kaybettirir. Yedek parça ağımız ve deneyimli ekibimizle makinenizi en kısa sürede üretime döndürürüz.'
+			title: m.about_principles_speed_title(),
+			detail: m.about_principles_speed_detail()
 		}
-	];
+	]);
 </script>
 
-<Seo
-	title="Hakkımızda"
-	description="Uncle CNC — International CNC Service: her makine çalışır. Kim olduğumuz ve nasıl çalıştığımız."
-/>
+<Seo title={m.about_seo_title()} description={m.about_seo_description()} />
 
 <section class="dark bg-background text-foreground">
 	<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 		<p class="eyebrow mb-4 flex items-center gap-3">
 			<span class="crosshair text-safety" aria-hidden="true"></span>
-			Hakkımızda
+			{m.about_eyebrow()}
 		</p>
 		<h1 class="display max-w-3xl text-4xl sm:text-5xl">
-			.Her makine çalışır<br />
-			<span class="text-safety">Biz çalıştırırız.</span>
+			{m.about_hero_title_line1()}<br />
+			<span class="text-safety">{m.about_hero_title_line2()}</span>
 		</h1>
 		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-			{site.fullName}, CNC tezgâhlarının ekspertizi, bakımı, tamiri, danışmanlığı ve ticareti
-			üzerine uzmanlaşmış bir servis firmasıdır. Yurt içinde ve yurt dışında, markadan bağımsız
-			olarak dik işleme, torna, 5 eksen ve daha fazlasına hizmet veriyoruz.
+			{m.about_intro({ fullName: site.fullName })}
 		</p>
 	</div>
 </section>
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
-	<SectionHeader eyebrow="Çalışma Prensipleri" title="Nasıl çalışırız" />
+	<SectionHeader eyebrow={m.about_principles_eyebrow()} title={m.about_principles_title()} />
 	<div class="grid gap-5 md:grid-cols-3">
 		{#each principles as principle, i (principle.title)}
 			<div class="rounded-md border border-border bg-card p-6">
@@ -60,6 +53,6 @@
 		{/each}
 	</div>
 	<div class="mt-12">
-		<Button size="lg" href="/services" class="btn-label">Hizmet Talebi Oluştur</Button>
+		<Button size="lg" href="/services" class="btn-label">{m.about_cta_button()}</Button>
 	</div>
 </section>

@@ -130,21 +130,22 @@ export function excerpt(body: string, max = 180): string {
 	return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), max - 20)).trimEnd()}…`;
 }
 
-/** Tarih plakası parçaları: gün ("12") ve kısa ay ("EYL"). */
-export function datePlate(iso: string): { day: string; month: string } {
+/** Tarih plakası parçaları: gün ("12") ve kısa ay ("EYL"). `locale` public site'ın
+ *  aktif Paraglide dilidir (BCP-47 tag) — admin çağrıları parametre geçmez, tr-TR kalır. */
+export function datePlate(iso: string, locale = 'tr-TR'): { day: string; month: string } {
 	const date = new Date(iso);
 	return {
-		day: date.toLocaleDateString('tr-TR', { day: 'numeric', timeZone: TR_ZONE }),
+		day: date.toLocaleDateString(locale, { day: 'numeric', timeZone: TR_ZONE }),
 		month: date
-			.toLocaleDateString('tr-TR', { month: 'short', timeZone: TR_ZONE })
+			.toLocaleDateString(locale, { month: 'short', timeZone: TR_ZONE })
 			.replace('.', '')
-			.toLocaleUpperCase('tr-TR')
+			.toLocaleUpperCase(locale)
 	};
 }
 
 /** "12 Eylül 2026" */
-function formatDayLong(iso: string): string {
-	return new Date(iso).toLocaleDateString('tr-TR', {
+function formatDayLong(iso: string, locale = 'tr-TR'): string {
+	return new Date(iso).toLocaleDateString(locale, {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric',
@@ -153,9 +154,9 @@ function formatDayLong(iso: string): string {
 }
 
 /** "12 Eyl 2026" */
-function formatDayMedium(iso: string): string {
+function formatDayMedium(iso: string, locale = 'tr-TR'): string {
 	return new Date(iso)
-		.toLocaleDateString('tr-TR', {
+		.toLocaleDateString(locale, {
 			day: 'numeric',
 			month: 'short',
 			year: 'numeric',
@@ -170,8 +171,8 @@ export function formatDayKeyMedium(dayKey: string): string {
 }
 
 /** Kapsayıcı son günün uzun gösterimi ("15 Eylül 2026"). */
-export function formatLastDayLong(endsAt: string): string {
-	return formatDayLong(dayKeyNoon(lastDayKey(endsAt)));
+export function formatLastDayLong(endsAt: string, locale = 'tr-TR'): string {
+	return formatDayLong(dayKeyNoon(lastDayKey(endsAt)), locale);
 }
 
 /** Panel listesi: "12 Eyl 2026 · süresiz" ya da "12 Eyl 2026 · 15 Eyl 2026". */

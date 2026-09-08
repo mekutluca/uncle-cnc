@@ -3,18 +3,16 @@
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import { services } from '$lib/data/services';
+	import * as m from '$lib/paraglide/messages';
 </script>
 
-<Seo
-	title="Hizmetler"
-	description="Ekspertiz, danışmanlık, bakım, servis ve makine ticareti — CNC tezgâhınız için beş hizmet tek çatı altında. Talep formunu doldurun, ekibimiz size dönsün."
-/>
+<Seo title={m.services_page_seo_title()} description={m.services_page_seo_description()} />
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader
-		eyebrow="Hizmetler / 01–05"
-		title="Hizmet talebi oluşturun"
-		description="Size uygun hizmeti seçin. Her hizmetin sayfasında o işe özel talep formu bulunur. Formunuz doğrudan ekibimize iletilir."
+		eyebrow={m.services_page_eyebrow()}
+		title={m.services_page_title()}
+		description={m.services_page_description()}
 	/>
 	<div class="grid gap-5 lg:grid-cols-2">
 		{#each services as service (service.slug)}
@@ -24,7 +22,7 @@
 			>
 				<div class="flex items-center justify-between">
 					<span class="font-mono text-[11px] tracking-[0.18em] text-muted-foreground"
-						>FORM NO: {service.code}</span
+						>{m.services_page_form_no({ code: service.code })}</span
 					>
 					<ArrowRightIcon
 						class="size-4 text-primary transition-transform group-hover:translate-x-1"

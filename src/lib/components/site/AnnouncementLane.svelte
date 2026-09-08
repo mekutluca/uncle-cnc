@@ -2,6 +2,9 @@
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 	import { fallbackToFull } from '$lib/utils/photo-fallback';
 	import { datePlate, excerpt, formatLastDayLong, splitParagraphs } from '$lib/utils/announcements';
+	import { getLocale } from '$lib/paraglide/runtime';
+	import { localeTag } from '$lib/utils/locale-format';
+	import * as m from '$lib/paraglide/messages';
 	import type { AnnouncementWithPhoto } from '$lib/types';
 
 	/** Duyuru şeridi. `compact`: ana sayfa kartı (özet + küçük görsel).
@@ -11,10 +14,10 @@
 		variant = 'full'
 	}: { announcement: AnnouncementWithPhoto; variant?: 'compact' | 'full' } = $props();
 
-	const plate = $derived(datePlate(announcement.starts_at));
+	const plate = $derived(datePlate(announcement.starts_at, localeTag(getLocale())));
 	const href = $derived(announcement.link_url ?? `/announcements#${announcement.id}`);
 	const label = $derived(
-		announcement.link_label ?? (announcement.link_url ? 'Ayrıntılar' : 'Devamı')
+		announcement.link_label ?? (announcement.link_url ? m.announcements_chrome_details() : m.announcements_chrome_more())
 	);
 	const paragraphs = $derived(splitParagraphs(announcement.body));
 	const compact = $derived(variant === 'compact');
@@ -71,7 +74,9 @@
 				</a>
 				{#if announcement.ends_at && !compact}
 					<span class="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
-						Son gün · {formatLastDayLong(announcement.ends_at)}
+						{m.announcements_chrome_last_day({
+							date: formatLastDayLong(announcement.ends_at, localeTag(getLocale()))
+						})}
 					</span>
 				{/if}
 			</div>

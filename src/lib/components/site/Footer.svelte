@@ -2,6 +2,7 @@
 	import { site } from '$lib/data/site';
 	import { services } from '$lib/data/services';
 	import BrandMark from './BrandMark.svelte';
+	import * as m from '$lib/paraglide/messages';
 </script>
 
 <footer class="dark border-t border-border bg-background text-foreground">
@@ -15,8 +16,8 @@
 				</p>
 			</div>
 
-			<nav aria-label="Hizmetler">
-				<h2 class="eyebrow mb-4">Hizmetler</h2>
+			<nav aria-label={m.footer_services_nav_aria()}>
+				<h2 class="eyebrow mb-4">{m.footer_services_heading()}</h2>
 				<ul class="grid gap-2.5">
 					{#each services as service (service.slug)}
 						<li>
@@ -30,22 +31,25 @@
 					{/each}
 					<li>
 						<a href="/machines" class="text-sm transition-colors hover:text-safety"
-							>Satılık Ürünler</a
+							>{m.footer_machines_link()}</a
 						>
 					</li>
 					<li>
 						<a href="/announcements" class="text-sm transition-colors hover:text-safety"
-							>Duyurular</a
+							>{m.footer_announcements_link()}</a
 						>
 					</li>
 				</ul>
 			</nav>
 
 			<div>
-				<h2 class="eyebrow mb-4">İletişim</h2>
+				<h2 class="eyebrow mb-4">{m.footer_contact_heading()}</h2>
 				<ul class="grid gap-2.5 text-sm">
 					<li>
-						<a href={site.phoneHref} class="font-mono transition-colors hover:text-safety"
+						<a
+							href={site.phoneHref}
+							dir="ltr"
+							class="inline-block font-mono transition-colors hover:text-safety"
 							>{site.phone}</a
 						>
 					</li>

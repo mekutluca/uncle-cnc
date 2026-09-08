@@ -1,10 +1,14 @@
+import * as m from '$lib/paraglide/messages';
+
 /** Firma bilgileri — müşteriden gelen gerçek bilgilerle güncellenecek tek yer. */
 export const site = {
 	name: 'Uncle CNC',
 	fullName: 'Uncle CNC — International CNC Service',
 	tagline: '.every machine can work',
-	description:
-		'CNC tezgâhlarınız için ekspertiz, danışmanlık, bakım, servis ve makine ticareti. Her makine çalışır — biz çalıştırırız.',
+	/** Getter: aktif Paraglide diline göre yeniden hesaplanır (bkz. `phoneHref` ile aynı desen). */
+	get description() {
+		return m.common_site_description();
+	},
 	phone: '+90 506 577 18 37',
 	get phoneHref() {
 		return `tel:${this.phone.replaceAll(' ', '')}`;
@@ -16,13 +20,55 @@ export const site = {
 	url: 'https://unclecnc.com'
 };
 
+/** `label` getter'dır: dil değişince Header/Footer yeniden render olduğunda güncel çeviriyi döner. */
 export const nav = [
-	{ href: '/', label: 'Ana Sayfa' },
-	{ href: '/services', label: 'Hizmetler', children: true },
-	{ href: '/machines', label: 'Satılık Ürünler' },
-	{ href: '/gallery', label: 'Galeri' },
-	{ href: '/references', label: 'Referanslar' },
-	{ href: '/announcements', label: 'Duyurular' },
-	{ href: '/about', label: 'Hakkımızda' },
-	{ href: '/contact', label: 'İletişim' }
+	{
+		href: '/',
+		get label() {
+			return m.nav_home();
+		}
+	},
+	{
+		href: '/services',
+		get label() {
+			return m.nav_services();
+		},
+		children: true
+	},
+	{
+		href: '/machines',
+		get label() {
+			return m.nav_machines();
+		}
+	},
+	{
+		href: '/gallery',
+		get label() {
+			return m.nav_gallery();
+		}
+	},
+	{
+		href: '/references',
+		get label() {
+			return m.nav_references();
+		}
+	},
+	{
+		href: '/announcements',
+		get label() {
+			return m.nav_announcements();
+		}
+	},
+	{
+		href: '/about',
+		get label() {
+			return m.nav_about();
+		}
+	},
+	{
+		href: '/contact',
+		get label() {
+			return m.nav_contact();
+		}
+	}
 ] as const;

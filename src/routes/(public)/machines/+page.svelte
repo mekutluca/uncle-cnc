@@ -5,22 +5,22 @@
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
+	import { localeTag } from '$lib/utils/locale-format';
 
 	import { fallbackToFull } from '$lib/utils/photo-fallback';
+	import { getLocale } from '$lib/paraglide/runtime';
+	import * as m from '$lib/paraglide/messages';
 
 	let { data } = $props();
 </script>
 
-<Seo
-	title="Satılık Ürünler"
-	description="Ekspertizi yapılmış, satışa hazır ikinci el CNC tezgâhları ve diğer ekipmanlar. Kategoriye göre gruplanmış tüm ilanlarımızı inceleyin."
-/>
+<Seo title={m.machines_page_seo_title()} description={m.machines_page_seo_description()} />
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader
-		eyebrow="Satılık Ürünler"
-		title="Satıştaki ürünler"
-		description="Tüm ürünlerin ekspertizi tarafımızca yapılmıştır. Bilgi veya teklif için ilan sayfasındaki formu kullanın. Bir ürününüzü satmak isterseniz makine ticareti formundan bize ulaşın."
+		eyebrow={m.machines_page_eyebrow()}
+		title={m.machines_page_title()}
+		description={m.machines_page_description()}
 	/>
 
 	{#await Promise.all([data.machines, data.categories])}
@@ -39,16 +39,16 @@
 	{:then [machines, categories]}
 		{#if machines.length === 0}
 			<div class="rounded-md border border-border bg-card p-10 text-center">
-				<p class="font-mono text-sm tracking-[0.14em] uppercase">Şu anda satışta ürün yok</p>
+				<p class="font-mono text-sm tracking-[0.14em] uppercase">{m.machines_page_empty_title()}</p>
 				<p class="mt-3 text-sm text-muted-foreground">
-					Aradığınız ürünü
+					{m.machines_page_empty_body_prefix()}
 					<a
 						href="/services/machine-trading?request=buy"
 						class="font-medium text-primary hover:underline"
 					>
-						alım talebi formuyla
+						{m.machines_page_empty_body_link()}
 					</a>
-					bize iletin — uygun ürün bulunduğunda size haber verelim.
+					{m.machines_page_empty_body_suffix()}
 				</p>
 			</div>
 		{:else}
@@ -64,7 +64,7 @@
 						<h2 class="eyebrow mb-5">{group.category.title}</h2>
 						<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 							{#each group.items as machine (machine.id)}
-								{@const price = formatPrice(machine.price, machine.currency)}
+								{@const price = formatPrice(machine.price, machine.currency, localeTag(getLocale()))}
 								<a
 									href="/machines/{machine.slug}"
 									class="group flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-foreground"
@@ -79,7 +79,9 @@
 												class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
 											/>
 											{#if machine.status === 'sold'}
-												<Badge class="absolute top-3 left-3" variant="destructive">Satıldı</Badge>
+												<Badge class="absolute top-3 start-3" variant="destructive"
+													>{m.machines_page_sold_badge()}</Badge
+												>
 											{/if}
 										</div>
 									{:else}
@@ -96,8 +98,11 @@
 											{machine.machine_type}
 										</span>
 										<h3 class="mt-2 text-lg leading-snug font-semibold">{machine.title}</h3>
-										<p class="mt-auto pt-4 font-mono text-base font-semibold text-primary">
-											{price ?? 'Fiyat için sorunuz'}
+										<p
+											class="mt-auto pt-4 font-mono text-base font-semibold text-primary"
+											dir="ltr"
+										>
+											{price ?? m.machines_page_price_fallback()}
 										</p>
 									</div>
 								</a>

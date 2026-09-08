@@ -5,20 +5,31 @@
 	import RotateCwIcon from '@lucide/svelte/icons/rotate-cw';
 	import { Button } from '$lib/components/ui/button';
 	import { site } from '$lib/data/site';
-	import { defaultErrorMessage, errorCopy, errorKind } from '$lib/utils/errors';
+	import * as m from '$lib/paraglide/messages';
+	import {
+		defaultErrorMessage,
+		errorCopy,
+		errorKind,
+		publicErrorCopy,
+		publicErrorMessage
+	} from '$lib/utils/errors';
 
 	/**
 	 * Hem sitede hem panelde kullanılan ortak hata gövdesi. Çerçeveyi (header/footer,
 	 * panel kabuğu, çelik zemin) çağıran +error.svelte sağlar.
+	 *
+	 * `localized`: yalnızca public site çağıranları geçirir — panel her zaman Türkçe
+	 * kalır (aksi halde tarayıcıdaki bir dil çerezi panelin diline sızabilirdi).
 	 */
 	let {
 		status,
 		message,
 		size = 'lg',
 		homeHref = '/',
-		homeLabel = 'Ana Sayfa',
+		homeLabel,
 		/** `auto`: 5xx'te "Tekrar Dene", diğerlerinde "Geri Dön". */
 		secondary = 'auto',
+		localized = false,
 		children,
 		actions
 	}: {
@@ -28,6 +39,7 @@
 		homeHref?: string;
 		homeLabel?: string;
 		secondary?: 'auto' | 'none';
+		localized?: boolean;
 		/** Açıklama ile butonlar arasına ek içerik (ör. telefon). */
 		children?: Snippet;
 		/** Varsayılan butonların yanına ek eylemler (ör. çıkış). */
@@ -35,8 +47,11 @@
 	} = $props();
 
 	let kind = $derived(errorKind(status));
-	let copy = $derived(errorCopy[kind]);
-	let description = $derived(message || defaultErrorMessage(status));
+	let copy = $derived(localized ? publicErrorCopy(kind) : errorCopy[kind]);
+	let description = $derived(
+		message || (localized ? publicErrorMessage(status) : defaultErrorMessage(status))
+	);
+	let resolvedHomeLabel = $derived(homeLabel ?? (localized ? m.errors_home() : 'Ana Sayfa'));
 	let lg = $derived(size === 'lg');
 </script>
 
@@ -53,7 +68,7 @@
 
 	<div class="mt-8 flex items-center gap-3">
 		<span class="crosshair text-safety" aria-hidden="true"></span>
-		<span class="eyebrow">Hata / {status}</span>
+		<span class="eyebrow">{localized ? m.errors_eyebrow({ status }) : `Hata / ${status}`}</span>
 	</div>
 	<h1 class="display mt-3 {lg ? 'text-3xl sm:text-4xl' : 'text-2xl'}">{copy.title}</h1>
 	<p class="mt-4 max-w-md leading-relaxed text-muted-foreground {lg ? 'text-lg' : 'text-base'}">
@@ -65,18 +80,18 @@
 	<div class="mt-10 flex flex-wrap justify-center gap-3">
 		<Button href={homeHref} class="btn-label">
 			<HouseIcon data-icon="inline-start" />
-			{homeLabel}
+			{resolvedHomeLabel}
 		</Button>
 		{#if secondary === 'auto'}
 			{#if kind === 'server'}
 				<Button variant="outline" class="btn-label" onclick={() => location.reload()}>
 					<RotateCwIcon data-icon="inline-start" />
-					Tekrar Dene
+					{localized ? m.errors_retry() : 'Tekrar Dene'}
 				</Button>
 			{:else}
 				<Button variant="outline" class="btn-label" onclick={() => history.back()}>
 					<ArrowLeftIcon data-icon="inline-start" />
-					Geri Dön
+					{localized ? m.errors_go_back() : 'Geri Dön'}
 				</Button>
 			{/if}
 		{/if}

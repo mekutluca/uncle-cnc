@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
 	import { MACHINE_TYPES, SIZE_OPTIONS } from '$lib/data/machine-options';
+	import * as m from '$lib/paraglide/messages';
 	import type { MachineType } from '$lib/types';
 	import { labelClass, selectClass } from './field-styles';
 
-	let { legend = 'Makine Bilgileri' }: { legend?: string } = $props();
+	let { legend = m.forms_machine_legend_default() }: { legend?: string } = $props();
 
 	let machineType = $state<MachineType | ''>('');
 	const sizeMode = $derived(machineType === '' ? null : SIZE_OPTIONS[machineType]);
@@ -13,7 +14,7 @@
 <fieldset class="grid gap-4 sm:grid-cols-2">
 	<legend class="eyebrow mb-3">{legend}</legend>
 	<div class="grid gap-1.5">
-		<label class={labelClass} for="makine_cinsi">Makine Cinsi *</label>
+		<label class={labelClass} for="makine_cinsi">{m.forms_machine_type_label()}</label>
 		<select
 			id="makine_cinsi"
 			name="makine_cinsi"
@@ -21,7 +22,7 @@
 			class={selectClass}
 			bind:value={machineType}
 		>
-			<option value="" disabled>Seçiniz</option>
+			<option value="" disabled>{m.forms_select_placeholder()}</option>
 			{#each MACHINE_TYPES as type (type)}
 				<option value={type}>{type}</option>
 			{/each}
@@ -29,12 +30,16 @@
 	</div>
 	{#if sizeMode !== null}
 		<div class="grid gap-1.5">
-			<label class={labelClass} for="makine_boyutu">Makine Boyutu</label>
+			<label class={labelClass} for="makine_boyutu">{m.forms_machine_size_label()}</label>
 			{#if sizeMode === 'text'}
-				<Input id="makine_boyutu" name="makine_boyutu" placeholder="Örn. tabla / iş boyutu (mm)" />
+				<Input
+					id="makine_boyutu"
+					name="makine_boyutu"
+					placeholder={m.forms_machine_size_placeholder()}
+				/>
 			{:else}
 				<select id="makine_boyutu" name="makine_boyutu" class={selectClass}>
-					<option value="" selected>Seçiniz</option>
+					<option value="" selected>{m.forms_select_placeholder()}</option>
 					{#each sizeMode as size (size)}
 						<option value={size}>{size}</option>
 					{/each}
