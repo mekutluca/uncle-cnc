@@ -6,9 +6,7 @@
 <svelte:head><title>Yeni Kategori | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-3xl p-4 sm:p-6">
-	<div class="mb-4">
-		<BackLink href="/admin/categories" label="Kategoriler" />
-	</div>
+	<BackLink href="/admin/categories" label="Kategoriler" class="mb-2" />
 	<h1 class="display mb-6 text-2xl">Yeni Kategori</h1>
 	<CategoryForm mode="create" />
 </div>

@@ -8,9 +8,7 @@
 <svelte:head><title>Yeni İlan | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-3xl p-4 sm:p-6">
-	<div class="mb-4">
-		<BackLink href="/admin/machines" label="Satılık Ürünler" />
-	</div>
+	<BackLink href="/admin/machines" label="Satılık Ürünler" class="mb-2" />
 	<h1 class="display mb-6 text-2xl">Yeni İlan</h1>
 	<MachineForm mode="create" categories={data.categories} />
 </div>

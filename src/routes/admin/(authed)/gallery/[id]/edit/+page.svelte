@@ -10,27 +10,19 @@
 <svelte:head><title>Galeri Öğesi Düzenle | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-3xl p-4 sm:p-6">
+	<BackLink href="/admin/gallery" label="Galeri" class="mb-2" />
 	{#await data.item}
-		<div class="mb-4">
-			<BackLink href="/admin/gallery" label="Galeri" />
-		</div>
 		<Skeleton class="mb-6 h-8 w-72" />
 		<div class="grid gap-6">
 			<Skeleton class="h-64 w-full" />
 			<Skeleton class="h-64 w-full" />
 		</div>
 	{:then item}
-		<div class="mb-4">
-			<BackLink href="/admin/gallery" label="Galeri" />
-		</div>
 		<h1 class="display mb-6 text-2xl">{item.description}</h1>
 		{#key item.id}
 			<GalleryItemForm mode="edit" {item} />
 		{/key}
 	{:catch}
-		<div class="mb-4">
-			<BackLink href="/admin/gallery" label="Galeri" />
-		</div>
 		<Empty.Root class="py-16">
 			<Empty.Header>
 				<Empty.Title>Galeri öğesi bulunamadı</Empty.Title>

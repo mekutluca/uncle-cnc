@@ -1,13 +1,12 @@
 <script lang="ts">
-	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
+	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
+	import { Button } from '$lib/components/ui/button';
+	import { cn } from '$lib/utils';
 
-	let { href, label }: { href: string; label: string } = $props();
+	let { href, label, class: className }: { href: string; label: string; class?: string } = $props();
 </script>
 
-<a
-	{href}
-	class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase transition-colors hover:text-foreground"
->
-	<ArrowLeftIcon class="size-3.5" />
+<Button variant="ghost" size="sm" {href} class={cn('-ms-2', className)}>
+	<ChevronLeftIcon data-icon="inline-start" />
 	{label}
-</a>
+</Button>

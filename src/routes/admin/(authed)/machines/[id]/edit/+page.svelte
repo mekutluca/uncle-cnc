@@ -12,10 +12,8 @@
 <svelte:head><title>İlan Düzenle | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-3xl p-4 sm:p-6">
+	<BackLink href="/admin/machines" label="Satılık Ürünler" class="mb-2" />
 	{#await data.machine}
-		<div class="mb-4">
-			<BackLink href="/admin/machines" label="Satılık Ürünler" />
-		</div>
 		<Skeleton class="mb-6 h-8 w-72" />
 		<div class="grid gap-6">
 			<Skeleton class="h-96 w-full" />
@@ -23,8 +21,8 @@
 			<Skeleton class="h-48 w-full" />
 		</div>
 	{:then machine}
-		<div class="mb-4 flex items-center justify-between">
-			<BackLink href="/admin/machines" label="Satılık Ürünler" />
+		<div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+			<h1 class="display text-2xl">{machine.title}</h1>
 			{#if machine.status !== 'hidden'}
 				<Button
 					variant="outline"
@@ -38,14 +36,10 @@
 				</Button>
 			{/if}
 		</div>
-		<h1 class="display mb-6 text-2xl">{machine.title}</h1>
 		{#key machine.id}
 			<MachineForm mode="edit" {machine} categories={data.categories} />
 		{/key}
 	{:catch}
-		<div class="mb-4">
-			<BackLink href="/admin/machines" label="Satılık Ürünler" />
-		</div>
 		<Empty.Root class="py-16">
 			<Empty.Header>
 				<Empty.Title>İlan bulunamadı</Empty.Title>

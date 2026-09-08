@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BackLink from '$lib/components/site/BackLink.svelte';
 	import Seo from '$lib/components/site/Seo.svelte';
 	import ServiceForm from '$lib/components/forms/ServiceForm.svelte';
 	import * as Accordion from '$lib/components/ui/accordion';
@@ -42,6 +43,7 @@
 
 <section class="dark bg-background text-foreground">
 	<div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+		<BackLink href="/services" label="Tüm hizmetler" class="mb-6" />
 		<p class="eyebrow mb-4 flex items-center gap-3">
 			<span class="crosshair text-safety" aria-hidden="true"></span>
 			Hizmet Kartı — {service.code}

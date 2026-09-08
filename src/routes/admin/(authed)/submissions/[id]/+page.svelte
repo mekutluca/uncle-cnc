@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
 	import Trash2Icon from '@lucide/svelte/icons/trash-2';
+	import BackLink from '$lib/components/site/BackLink.svelte';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
@@ -20,18 +20,14 @@
 <svelte:head><title>Talep: {formLabel} | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-3xl p-4 sm:p-6">
+	<BackLink href="/admin/submissions" label="Talepler" class="mb-2" />
 	<div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-		<div class="flex items-center gap-3">
-			<Button variant="ghost" size="icon" href="/admin/submissions" aria-label="Taleplere dön">
-				<ArrowLeftIcon class="size-4" />
-			</Button>
-			<div>
-				<h1 class="display text-2xl">
-					{formLabel}
-					<Badge class="ms-2 align-middle">{submission.data.ad_soyad ?? '—'}</Badge>
-				</h1>
-				<p class="text-sm text-muted-foreground">{formatDateTime(submission.created_at, 'long')}</p>
-			</div>
+		<div>
+			<h1 class="display text-2xl">
+				{formLabel}
+				<Badge class="ms-2 align-middle">{submission.data.ad_soyad ?? '—'}</Badge>
+			</h1>
+			<p class="text-sm text-muted-foreground">{formatDateTime(submission.created_at, 'long')}</p>
 		</div>
 		<Button variant="destructive" class="btn-label" onclick={() => (deleteOpen = true)}>
 			<Trash2Icon class="size-4" />

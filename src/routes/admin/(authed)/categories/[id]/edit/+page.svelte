@@ -10,24 +10,16 @@
 <svelte:head><title>Kategori Düzenle | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-3xl p-4 sm:p-6">
+	<BackLink href="/admin/categories" label="Kategoriler" class="mb-2" />
 	{#await data.category}
-		<div class="mb-4">
-			<BackLink href="/admin/categories" label="Kategoriler" />
-		</div>
 		<Skeleton class="mb-6 h-8 w-72" />
 		<Skeleton class="h-48 w-full" />
 	{:then category}
-		<div class="mb-4">
-			<BackLink href="/admin/categories" label="Kategoriler" />
-		</div>
 		<h1 class="display mb-6 text-2xl">{category.title}</h1>
 		{#key category.id}
 			<CategoryForm mode="edit" {category} />
 		{/key}
 	{:catch}
-		<div class="mb-4">
-			<BackLink href="/admin/categories" label="Kategoriler" />
-		</div>
 		<Empty.Root class="py-16">
 			<Empty.Header>
 				<Empty.Title>Kategori bulunamadı</Empty.Title>
