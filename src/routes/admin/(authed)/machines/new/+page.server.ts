@@ -1,11 +1,16 @@
 import { fail } from '@sveltejs/kit';
+import { listAllSaleCategories } from '$lib/server/categories';
 import {
 	machineSaveMessage,
 	parseMachineFields,
 	photoUploadsFrom,
 	uploadPhotos
 } from '$lib/server/machines';
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ locals }) => {
+	return { categories: await listAllSaleCategories(locals.supabase) };
+};
 
 export const actions: Actions = {
 	create: async ({ request, locals }) => {

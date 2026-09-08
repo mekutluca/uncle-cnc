@@ -19,6 +19,9 @@ export function parseMachineFields(formData: FormData): MachineFields | string {
 	if (!(MACHINE_TYPES as readonly string[]).includes(machine_type))
 		return 'Geçerli bir makine cinsi seçin.';
 
+	const category_id = String(formData.get('category_id') ?? '').trim();
+	if (!category_id) return 'Kategori seçimi zorunludur.';
+
 	const status = String(formData.get('status') ?? '') as Machine['status'];
 	if (!STATUSES.includes(status)) return 'Geçerli bir durum seçin.';
 
@@ -43,7 +46,7 @@ export function parseMachineFields(formData: FormData): MachineFields | string {
 		if (trimmedKey && value) specs[trimmedKey] = value;
 	});
 
-	return { title, slug, machine_type, status, price, currency, description, specs };
+	return { title, slug, machine_type, category_id, status, price, currency, description, specs };
 }
 
 /** Formdaki yeni fotoğraf ve küçük varyant dosyaları — oluşturma ve düzenleme paylaşır. */
@@ -55,9 +58,11 @@ export function photoUploadsFrom(formData: FormData): { files: File[]; thumbs: F
 	};
 }
 
-/** Kayıt hatasını kullanıcı metnine çevirir; 23505 (unique) tekrar eden kısa addır. */
+/** Kayıt hatasını kullanıcı metnine çevirir; 23505 (unique) tekrar eden kısa ad, 23503 geçersiz kategoridir. */
 export function machineSaveMessage(error: PostgrestError): string {
-	const detail = error.code === '23505' ? 'Bu kısa ad zaten kullanılıyor.' : error.message;
+	let detail = error.message;
+	if (error.code === '23505') detail = 'Bu kısa ad zaten kullanılıyor.';
+	else if (error.code === '23503') detail = 'Geçersiz kategori seçildi.';
 	return `Kaydedilemedi: ${detail}`;
 }
 

@@ -19,7 +19,7 @@ export const site = {
 export const nav = [
 	{ href: '/', label: 'Ana Sayfa' },
 	{ href: '/services', label: 'Hizmetler', children: true },
-	{ href: '/machines', label: 'Satılık Makineler' },
+	{ href: '/machines', label: 'Satılık Ürünler' },
 	{ href: '/gallery', label: 'Galeri' },
 	{ href: '/references', label: 'Referanslar' },
 	{ href: '/about', label: 'Hakkımızda' },

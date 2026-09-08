@@ -10,6 +10,7 @@
 
 	let { data } = $props();
 	const machine = $derived(data.machine);
+	const categoryTitle = $derived(data.categoryTitle);
 	const price = $derived(formatPrice(machine.price, machine.currency));
 	const specEntries = $derived(Object.entries(machine.specs ?? {}));
 </script>
@@ -51,7 +52,8 @@
 		<div>
 			<div class="flex items-center gap-3">
 				<span class="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-					{machine.machine_type}
+					{#if categoryTitle}{categoryTitle} ·
+					{/if}{machine.machine_type}
 				</span>
 				{#if machine.status === 'sold'}
 					<Badge variant="destructive">Satıldı</Badge>

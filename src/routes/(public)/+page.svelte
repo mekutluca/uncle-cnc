@@ -36,7 +36,7 @@
 			<div class="mt-8 flex flex-wrap gap-3">
 				<Button size="lg" href="/services" class="btn-label">Hizmet Talebi Oluştur</Button>
 				<Button size="lg" variant="outline" href="/machines" class="btn-label">
-					Satılık Makineler
+					Satılık Ürünler
 				</Button>
 			</div>
 		</div>
@@ -96,10 +96,10 @@
 		<div class="dark flex flex-col justify-between rounded-md bg-background p-6 text-foreground">
 			<div>
 				<span class="font-mono text-[11px] tracking-[0.18em] text-safety">SATIŞTA</span>
-				<h3 class="display mt-3 text-xl">Satılık Makineler</h3>
+				<h3 class="display mt-3 text-xl">Satılık Ürünler</h3>
 				<p class="mt-3 text-sm leading-relaxed text-muted-foreground">
-					Ekspertizi yapılmış, çalışır durumda ikinci el CNC tezgâhları. İlanları inceleyin, bilgi
-					isteyin.
+					Ekspertizi yapılmış, satışa hazır ikinci el CNC tezgâhları ve diğer ekipmanlar. İlanları
+					inceleyin, bilgi isteyin.
 				</p>
 			</div>
 			<Button href="/machines" class="btn-label mt-5 w-fit">İlanlara Göz At</Button>

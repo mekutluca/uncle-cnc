@@ -1,5 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import { withPhotoUrls } from '$lib/server/supabase';
+import { listAllSaleCategories } from '$lib/server/categories';
 import {
 	machineSaveMessage,
 	parseMachineFields,
@@ -20,9 +21,12 @@ async function loadMachine(locals: App.Locals, id: string): Promise<MachineWithP
 	return withPhotoUrls(data as Machine);
 }
 
-export const load: PageServerLoad = ({ params, locals }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
 	// Akış (streaming): sayfa iskeletle açılır, form veri gelince kurulur.
-	return { machine: loadMachine(locals, params.id) };
+	return {
+		machine: loadMachine(locals, params.id),
+		categories: await listAllSaleCategories(locals.supabase)
+	};
 };
 
 async function getPhotos(locals: App.Locals, id: string): Promise<string[] | null> {

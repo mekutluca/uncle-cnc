@@ -30,7 +30,7 @@
 					{/each}
 					<li>
 						<a href="/machines" class="text-sm transition-colors hover:text-safety"
-							>Satılık Makineler</a
+							>Satılık Ürünler</a
 						>
 					</li>
 				</ul>

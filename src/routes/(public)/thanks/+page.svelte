@@ -21,6 +21,6 @@
 	</a>
 	<div class="mt-10 flex gap-3">
 		<Button href="/" variant="outline" class="btn-label">Ana Sayfa</Button>
-		<Button href="/machines" class="btn-label">Satılık Makineler</Button>
+		<Button href="/machines" class="btn-label">Satılık Ürünler</Button>
 	</div>
 </section>

@@ -8,6 +8,7 @@ import type {
 	MachineWithPhotos,
 	Reference,
 	ReferenceWithLogo,
+	SaleCategory,
 	Stat
 } from '$lib/types';
 
@@ -35,6 +36,19 @@ export async function listMachines(): Promise<Machine[]> {
 		return [];
 	}
 	return (data ?? []) as Machine[];
+}
+
+export async function listSaleCategories(): Promise<SaleCategory[]> {
+	const { data, error } = await supabaseAnon
+		.from('uc_sale_categories')
+		.select('*')
+		.order('sort_order', { ascending: true })
+		.order('created_at', { ascending: true });
+	if (error) {
+		console.error('uc_sale_categories listesi alınamadı:', error.message);
+		return [];
+	}
+	return (data ?? []) as SaleCategory[];
 }
 
 export function withGalleryUrl(item: GalleryItem): GalleryItemWithUrl {

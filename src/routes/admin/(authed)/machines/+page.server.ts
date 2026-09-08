@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { withPhotoUrls } from '$lib/server/supabase';
+import { listAllSaleCategories } from '$lib/server/categories';
 import { removePhotos } from '$lib/server/photo-storage';
 import type { Machine } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
@@ -16,7 +17,10 @@ async function listAllMachines(supabase: SupabaseClient) {
 
 export const load: PageServerLoad = ({ locals }) => {
 	// Akış (streaming): tablo iskeletle açılır, veri gelince dolar.
-	return { machines: listAllMachines(locals.supabase) };
+	return {
+		machines: listAllMachines(locals.supabase),
+		categories: listAllSaleCategories(locals.supabase)
+	};
 };
 
 export const actions: Actions = {

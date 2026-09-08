@@ -38,6 +38,7 @@ export type Machine = {
 	title: string;
 	slug: string;
 	machine_type: string;
+	category_id: string;
 	specs: Record<string, string | number>;
 	price: number | null;
 	currency: 'USD' | 'EUR' | 'TRY';
@@ -45,6 +46,19 @@ export type Machine = {
 	photos: string[];
 	description: string | null;
 	created_at: string;
+};
+
+/** Supabase `uc_sale_categories` satırı — satış ilanlarının (makine, vb.) gruplandığı kategori */
+export type SaleCategory = {
+	id: string;
+	title: string;
+	sort_order: number;
+	created_at: string;
+};
+
+/** Kategori formunun doğrulanmış alanları (id/sort_order hariç) */
+export type SaleCategoryFields = {
+	title: string;
 };
 
 /** Supabase `uc_references` satırı */
@@ -83,6 +97,7 @@ export type MachineFields = {
 	title: string;
 	slug: string;
 	machine_type: string;
+	category_id: string;
 	status: Machine['status'];
 	price: number | null;
 	currency: Machine['currency'];
@@ -93,7 +108,7 @@ export type MachineFields = {
 export type SortOrder = 'asc' | 'desc';
 
 /** `sort_order` kolonuyla panelden sıralanabilen tablolar */
-export type SortableTable = 'uc_gallery_items' | 'uc_references';
+export type SortableTable = 'uc_gallery_items' | 'uc_references' | 'uc_sale_categories';
 
 /** Form aksiyonlarından dönen standart veri şekli */
 export interface FormActionData {

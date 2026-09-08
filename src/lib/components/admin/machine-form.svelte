@@ -19,13 +19,15 @@
 	import { slugify } from '$lib/utils/slugify';
 	import { CURRENCY_LABEL, STATUS_LABEL } from '$lib/utils/machine-format';
 	import { MACHINE_TYPES } from '$lib/data/machine-options';
-	import type { Machine, MachineWithPhotos, PendingPhoto } from '$lib/types';
+	import type { Machine, MachineWithPhotos, PendingPhoto, SaleCategory } from '$lib/types';
 
 	let {
 		machine = null,
+		categories,
 		mode
 	}: {
 		machine?: MachineWithPhotos | null;
+		categories: SaleCategory[];
 		mode: 'create' | 'edit';
 	} = $props();
 
@@ -38,6 +40,7 @@
 		slug: machine?.slug ?? '',
 		slugTouched: mode === 'edit',
 		machineType: machine?.machine_type ?? '',
+		categoryId: machine?.category_id ?? categories[0]?.id ?? '',
 		status: machine?.status ?? 'available',
 		currency: machine?.currency ?? 'EUR',
 		price: machine?.price?.toString() ?? '',
@@ -52,6 +55,7 @@
 	let slug = $state(initial.slug);
 	let slugTouched = $state(initial.slugTouched);
 	let machineType = $state(initial.machineType);
+	let categoryId = $state(initial.categoryId);
 	let status = $state<Machine['status']>(initial.status);
 	let currency = $state<Machine['currency']>(initial.currency);
 	let price = $state(initial.price);
@@ -179,6 +183,26 @@
 					placeholder="mazak-vtc-200"
 					class="font-mono text-sm"
 				/>
+			</div>
+			<div class="grid gap-1.5">
+				<span class={labelClass}>Kategori *</span>
+				{#if categories.length === 0}
+					<p class="text-sm text-muted-foreground">
+						Önce bir <a href="/admin/categories/new" class="text-primary hover:underline"
+							>kategori ekleyin</a
+						>.
+					</p>
+				{:else}
+					{@const categoryTitle = categories.find((c) => c.id === categoryId)?.title}
+					<Select.Root type="single" name="category_id" bind:value={categoryId}>
+						<Select.Trigger class="w-full">{categoryTitle || 'Seçiniz'}</Select.Trigger>
+						<Select.Content>
+							{#each categories as category (category.id)}
+								<Select.Item value={category.id}>{category.title}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
+				{/if}
 			</div>
 			<div class="grid gap-1.5">
 				<span class={labelClass}>Makine Cinsi *</span>

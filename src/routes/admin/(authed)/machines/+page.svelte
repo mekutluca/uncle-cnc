@@ -19,7 +19,7 @@
 	import { formatDate } from '$lib/utils/date-format';
 	import { formatPrice, STATUS_LABEL } from '$lib/utils/machine-format';
 	import { TableSort } from '$lib/utils/table-sort.svelte';
-	import type { Machine, MachineWithPhotos } from '$lib/types';
+	import type { Machine, MachineWithPhotos, SaleCategory } from '$lib/types';
 
 	let { data } = $props();
 
@@ -57,16 +57,20 @@
 		}
 		return rows;
 	}
+
+	function categoryTitleOf(categories: SaleCategory[], categoryId: string): string {
+		return categories.find((c) => c.id === categoryId)?.title ?? '—';
+	}
 </script>
 
-<svelte:head><title>Makineler | Uncle CNC Yönetim</title></svelte:head>
+<svelte:head><title>Satılık Ürünler | Uncle CNC Yönetim</title></svelte:head>
 
 <div class="mx-auto max-w-6xl p-4 sm:p-6">
 	<div class="mb-5 flex flex-wrap items-center justify-between gap-3">
-		<h1 class="display text-2xl">Makineler</h1>
+		<h1 class="display text-2xl">Satılık Ürünler</h1>
 		<Button href="/admin/machines/new" class="btn-label">
 			<PlusIcon class="size-4" />
-			Yeni Makine
+			Yeni İlan
 		</Button>
 	</div>
 
@@ -87,21 +91,21 @@
 
 	<Card.Root class="py-0">
 		<Card.Content class="p-0">
-			{#await data.machines}
+			{#await Promise.all([data.machines, data.categories])}
 				<div class="grid gap-3 p-4">
 					{#each Array.from({ length: 4 }, (_, i) => i) as i (i)}
 						<Skeleton class="h-14 w-full" />
 					{/each}
 				</div>
-			{:then machines}
+			{:then [machines, categories]}
 				{@const rows = filterAndSort(machines)}
 				{#if rows.length === 0}
 					<Empty.Root class="py-16">
 						<Empty.Header>
-							<Empty.Title>Makine bulunamadı</Empty.Title>
+							<Empty.Title>İlan bulunamadı</Empty.Title>
 							<Empty.Description>
 								{machines.length === 0
-									? 'Henüz ilan eklenmemiş. İlk makineyi ekleyin.'
+									? 'Henüz ilan eklenmemiş. İlk ilanı ekleyin.'
 									: 'Filtrelere uyan ilan yok.'}
 							</Empty.Description>
 						</Empty.Header>
@@ -112,6 +116,7 @@
 							<Table.Row>
 								<Table.Head class="w-16"></Table.Head>
 								<SortableHead {sort} key="title" label="Başlık" />
+								<Table.Head>Kategori</Table.Head>
 								<SortableHead {sort} key="machine_type" label="Cins" />
 								<SortableHead {sort} key="price" label="Fiyat" alignRight />
 								<SortableHead {sort} key="status" label="Durum" />
@@ -135,6 +140,9 @@
 									<Table.Cell>
 										<p class="font-medium">{machine.title}</p>
 										<p class="font-mono text-[11px] text-muted-foreground">/{machine.slug}</p>
+									</Table.Cell>
+									<Table.Cell class="text-sm text-muted-foreground">
+										{categoryTitleOf(categories, machine.category_id)}
 									</Table.Cell>
 									<Table.Cell>{machine.machine_type}</Table.Cell>
 									<Table.Cell class="text-right font-mono text-sm">
@@ -200,6 +208,6 @@
 	bind:open={deleteOpen}
 	id={deleteTarget?.id ?? null}
 	action="?/deleteMachine"
-	title="Makineyi sil"
+	title="İlanı sil"
 	description={`"${deleteTarget?.title}" ilanı ve tüm fotoğrafları kalıcı olarak silinecek. Bu işlem geri alınamaz.`}
 />
