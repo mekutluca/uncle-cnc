@@ -52,7 +52,7 @@ const dayKeyNoon = (dayKey: string) => `${dayKey}T12:00:00${TR_OFFSET}`;
 
 /* ---------- Yayın durumu ---------- */
 
-export function isLive(a: AnnouncementWindow, now: number = Date.now()): boolean {
+function isLive(a: AnnouncementWindow, now: number = Date.now()): boolean {
 	if (!a.published) return false;
 	if (Date.parse(a.starts_at) > now) return false;
 	return !a.ends_at || Date.parse(a.ends_at) > now;
@@ -78,7 +78,7 @@ export const announcementStateLabel: Record<AnnouncementState, string> = {
 /* ---------- Açılır mesaj penceresi ---------- */
 
 /** Açılır mesajın bittiği an (ms). Kapalıysa null. Son günü aşamaz. */
-export function popupEndsAt(a: AnnouncementPopupWindow): number | null {
+function popupEndsAt(a: AnnouncementPopupWindow): number | null {
 	if (!a.popup) return null;
 	const byDays = Date.parse(a.starts_at) + a.popup_days * DAY_MS;
 	return a.ends_at ? Math.min(byDays, Date.parse(a.ends_at)) : byDays;
@@ -143,7 +143,7 @@ export function datePlate(iso: string): { day: string; month: string } {
 }
 
 /** "12 Eylül 2026" */
-export function formatDayLong(iso: string): string {
+function formatDayLong(iso: string): string {
 	return new Date(iso).toLocaleDateString('tr-TR', {
 		day: 'numeric',
 		month: 'long',
@@ -153,7 +153,7 @@ export function formatDayLong(iso: string): string {
 }
 
 /** "12 Eyl 2026" */
-export function formatDayMedium(iso: string): string {
+function formatDayMedium(iso: string): string {
 	return new Date(iso)
 		.toLocaleDateString('tr-TR', {
 			day: 'numeric',

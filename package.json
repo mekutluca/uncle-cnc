@@ -1,7 +1,7 @@
 {
 	"name": "unclecnc",
 	"private": true,
-	"version": "1.2.0",
+	"version": "1.2.2",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -11,6 +11,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
+		"gen:db-types": "node scripts/gen-db-types.mjs",
 		"lint": "prettier --check .",
 		"start": "node build"
 	},
