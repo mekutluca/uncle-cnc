@@ -110,6 +110,10 @@ export type SortOrder = 'asc' | 'desc';
 /** `sort_order` kolonuyla panelden sıralanabilen tablolar */
 export type SortableTable = 'uc_gallery_items' | 'uc_references' | 'uc_sale_categories';
 
+/** Tek fotoğraf/logo kolonu taşıyan tablolar (silmede depo temizliği yapılır) */
+export type PhotoTable = 'uc_gallery_items' | 'uc_references' | 'uc_announcements';
+export type PhotoColumn = 'photo' | 'logo';
+
 /** Form aksiyonlarından dönen standart veri şekli */
 export interface FormActionData {
 	message?: string;
@@ -178,6 +182,53 @@ export type Stat = {
 	sort_order: number;
 	created_at: string;
 };
+
+/** Supabase `uc_announcements` satırı — duyurular ve isteğe bağlı açılır mesaj */
+export type Announcement = {
+	id: string;
+	title: string;
+	body: string;
+	/** Mutlak URL ya da `/` ile başlayan site içi yol. Boşsa kart arşive bağlanır */
+	link_url: string | null;
+	link_label: string | null;
+	/** `uc-machine-photos` bucket'ındaki yol (announcements/{id}/…). Boşsa görsel alanı çizilmez */
+	photo: string | null;
+	/** Görünürlük penceresi [starts_at, ends_at) yarı açıktır, ends_at null ise süresiz */
+	starts_at: string;
+	ends_at: string | null;
+	published: boolean;
+	/** Ziyaretçiye açılır mesaj olarak da gösterilsin mi */
+	popup: boolean;
+	/** Açılır mesajın ilk günden itibaren kaç gün süreceği (son günü aşamaz) */
+	popup_days: number;
+	created_at: string;
+	updated_at: string;
+};
+
+/** Görüntüleme için herkese açık fotoğraf URL'leri eklenmiş duyuru */
+export type AnnouncementWithPhoto = Announcement & {
+	photoUrl: string | null;
+	thumbUrl: string | null;
+};
+
+/** Duyuru formunun doğrulanmış alanları (id/photo/zaman damgaları hariç) */
+export type AnnouncementFields = Omit<Announcement, 'id' | 'photo' | 'created_at' | 'updated_at'>;
+
+/** Panel rozetinde gösterilen türetilmiş yayın durumu */
+export type AnnouncementState = 'draft' | 'scheduled' | 'live' | 'ended';
+
+/** Yayın penceresini belirleyen alanlar */
+export type AnnouncementWindow = Pick<Announcement, 'published' | 'starts_at' | 'ends_at'>;
+
+/** Açılır mesaj penceresini belirleyen alanlar */
+export type AnnouncementPopupWindow = AnnouncementWindow &
+	Pick<Announcement, 'popup' | 'popup_days'>;
+
+/** `/api/announcements/popup` uç noktasının döndürdüğü özet */
+export type PopupAnnouncement = Pick<
+	Announcement,
+	'id' | 'title' | 'body' | 'link_url' | 'link_label' | 'starts_at'
+> & { photoUrl: string | null; thumbUrl: string | null };
 
 /** Supabase `uc_form_submissions` satırı */
 export type FormSubmission = {

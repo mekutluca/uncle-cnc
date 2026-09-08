@@ -20,6 +20,7 @@ npm run dev
 - **Formlar `/api/submit` endpoint'ine gönderilir.** Kayıt `uc_form_submissions` tablosuna, fotoğraflar private `uc-submission-photos` bucket'ına yazılır. Ardından SMTP yapılandırılmışsa bildirim e-postası gönderilir (başarısızlığı gönderimi düşürmez). Talepler `/admin/submissions` sayfasında görüntülenir. Yeni bir form alanı eklerseniz Türkçe etiketini `src/lib/data/form-fields.ts` dosyasına da ekleyin.
 - **Satılık makineler Supabase'ten gelir** (paylaşılan DB, `uc_` önekli tablolar). Kurulum: `docs/supabase-setup.sql` dosyasını Supabase Studio SQL Editor'de çalıştırın. Sayfa SSR ile yüklenir (`cache-control: s-maxage` başlıkları öne bir CDN konursa geçerli olur). Rebuild gerekmez.
 - **Firma bilgileri** (telefon, adres, e-posta, harita) tek yerden: `src/lib/data/site.ts` — TODO işaretli alanları müşteri bilgileriyle güncelleyin.
+- **Duyurular** `uc_announcements` tablosundan gelir. Ana sayfada (yayında duyuru varsa) son 3'ü, `/announcements` sayfasında tümü listelenir. Görünürlük penceresi `[starts_at, ends_at)` yarı açıktır: panelde girilen "son gün" kapsayıcıdır, ertesi günün başlangıcı olarak saklanır (`src/lib/utils/announcements.ts`). "Açılır mesaj" işaretli duyuru, ilk günden itibaren `popup_days` gün boyunca (son günü aşmadan) herkese açık her sayfada köşe plakası olarak bir kez gösterilir. Veri `/api/announcements/popup` ucundan tarayıcıda çekilir (prerender edilmiş sayfalar da çalışır), kapatılan duyurunun kimliği `localStorage` (`uc-popup-seen`) içinde tutulur. Aynı anda birden çok açılır mesaj varsa yalnızca en yeni başlangıçlı olan çıkar.
 
 ## Hata sayfaları
 
@@ -33,6 +34,7 @@ npm run dev
 - **Yetki = RLS**: yalnızca `uc_admins` tablosundaki kullanıcılar `uc_machines` ve `uc-machine-photos` bucket'ına yazabilir (`public.uc_is_admin()` — paylaşılan auth havuzunda "authenticated" yeterli değildir).
 - Yeni yönetici eklemek: Supabase Studio → Auth → Add user, ardından `insert into uc_admins (user_id) values ('<uid>');`
 - Makine CRUD: `/admin/machines` (liste + sil), `/admin/machines/new`, `/admin/machines/[id]/edit` (fotoğraf ekle/sil/sırala — fotoğraflar tarayıcıda ~1600px'e küçültülür). Kayıtlar herkese açık `/machines` sayfasına anında yansır (öne CDN konursa en geç 5 dk). Deploy gerekmez.
+- Duyuru CRUD: `/admin/announcements` (liste + sil), `/admin/announcements/new`, `/admin/announcements/[id]/edit`. Başlık, metin, isteğe bağlı bağlantı ve fotoğraf, ilk/son gün, "Sitede göster" ve "Açılır mesaj" (+ süre gün) alanları. Sıralama kronolojiktir, elle sıralama yoktur.
 - Panel navigasyonuna sayfa eklemek: `src/lib/data/admin-routes.ts`.
 
 ## Coolify (VDS) dağıtımı

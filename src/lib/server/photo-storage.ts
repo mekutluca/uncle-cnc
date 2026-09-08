@@ -1,5 +1,7 @@
+import { fail } from '@sveltejs/kit';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { PHOTOS_BUCKET, thumbPath } from '$lib/utils/storage';
+import type { PhotoColumn, PhotoTable } from '$lib/types';
 
 /**
  * Tek fotoğrafı küçük varyantıyla birlikte depoya yükler, yolu döner.
@@ -40,4 +42,36 @@ export async function removePhotos(supabase: SupabaseClient, paths: string[]): P
 	const allPaths = paths.flatMap((path) => [path, thumbPath(path)]);
 	const { error } = await supabase.storage.from(PHOTOS_BUCKET).remove(allPaths);
 	if (error) console.error('Fotoğraflar depodan silinemedi:', error.message);
+}
+
+/** Kaydın fotoğraf/logo yolu. undefined: kayıt yok, null: kayıt var ama dosyasız. */
+export async function getPhotoPath(
+	supabase: SupabaseClient,
+	table: PhotoTable,
+	column: PhotoColumn,
+	id: string
+): Promise<string | null | undefined> {
+	const { data } = await supabase.from(table).select(column).eq('id', id).maybeSingle();
+	return data === null ? undefined : ((data as Record<string, string | null>)[column] ?? null);
+}
+
+/** Ortak "fotoğrafı/logoyu sil" aksiyonu: kolonu boşaltır, dosyayı depodan kaldırır. */
+export async function deletePhotoAction(
+	supabase: SupabaseClient,
+	table: PhotoTable,
+	column: PhotoColumn,
+	id: string,
+	labels: { notFound: string; success: string }
+) {
+	const current = await getPhotoPath(supabase, table, column, id);
+	if (!current) return fail(400, { success: false, message: labels.notFound });
+
+	const { error } = await supabase
+		.from(table)
+		.update({ [column]: null })
+		.eq('id', id);
+	if (error) return fail(500, { success: false, message: `Silinemedi: ${error.message}` });
+
+	await removePhotos(supabase, [current]);
+	return { success: true, message: labels.success };
 }

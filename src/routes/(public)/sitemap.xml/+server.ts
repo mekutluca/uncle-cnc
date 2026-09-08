@@ -10,6 +10,7 @@ const staticPaths = [
 	'/about',
 	'/gallery',
 	'/references',
+	'/announcements',
 	'/contact',
 	'/services',
 	...services.map((s) => `/services/${s.slug}`),

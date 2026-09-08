@@ -1,7 +1,12 @@
 import { fail } from '@sveltejs/kit';
 import { withLogoUrl } from '$lib/server/supabase';
 import { parseReferenceFields, referencesFolder } from '$lib/server/references';
-import { removePhotos, uploadPhotoFile } from '$lib/server/photo-storage';
+import {
+	deletePhotoAction,
+	getPhotoPath,
+	removePhotos,
+	uploadPhotoFile
+} from '$lib/server/photo-storage';
 import type { Reference, ReferenceWithLogo } from '$lib/types';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -20,23 +25,13 @@ export const load: PageServerLoad = ({ params, locals }) => {
 	return { reference: loadReference(locals, params.id) };
 };
 
-async function getLogo(locals: App.Locals, id: string): Promise<string | null | undefined> {
-	const { data } = await locals.supabase
-		.from('uc_references')
-		.select('logo')
-		.eq('id', id)
-		.maybeSingle();
-	// undefined: kayıt yok, null: kayıt var ama logosuz.
-	return data === null ? undefined : ((data.logo as string | null) ?? null);
-}
-
 export const actions: Actions = {
 	update: async ({ request, params, locals }) => {
 		const formData = await request.formData();
 		const fields = parseReferenceFields(formData);
 		if (typeof fields === 'string') return fail(400, { success: false, message: fields });
 
-		const currentLogo = await getLogo(locals, params.id);
+		const currentLogo = await getPhotoPath(locals.supabase, 'uc_references', 'logo', params.id);
 		if (currentLogo === undefined)
 			return fail(400, { success: false, message: 'Referans bulunamadı.' });
 
@@ -65,18 +60,9 @@ export const actions: Actions = {
 		};
 	},
 
-	deleteLogo: async ({ params, locals }) => {
-		const currentLogo = await getLogo(locals, params.id);
-		if (!currentLogo) return fail(400, { success: false, message: 'Logo bulunamadı.' });
-
-		const { error: updateError } = await locals.supabase
-			.from('uc_references')
-			.update({ logo: null })
-			.eq('id', params.id);
-		if (updateError)
-			return fail(500, { success: false, message: `Silinemedi: ${updateError.message}` });
-
-		await removePhotos(locals.supabase, [currentLogo]);
-		return { success: true, message: 'Logo silindi.' };
-	}
+	deleteLogo: ({ params, locals }) =>
+		deletePhotoAction(locals.supabase, 'uc_references', 'logo', params.id, {
+			notFound: 'Logo bulunamadı.',
+			success: 'Logo silindi.'
+		})
 };

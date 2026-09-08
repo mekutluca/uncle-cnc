@@ -1,7 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { removePhotos } from '$lib/server/photo-storage';
-import type { SortableTable } from '$lib/types';
+import { getPhotoPath, removePhotos } from '$lib/server/photo-storage';
+import type { PhotoColumn, PhotoTable, SortableTable } from '$lib/types';
 
 /** Yeni kayıt listenin sonuna eklenir: mevcut en büyük sıra numarası + 1. */
 export async function nextSortOrder(
@@ -65,8 +65,8 @@ export async function moveRowAction(
  */
 export async function deleteWithPhotoCleanup(
 	supabase: SupabaseClient,
-	table: SortableTable,
-	photoColumn: 'photo' | 'logo',
+	table: PhotoTable,
+	photoColumn: PhotoColumn,
 	request: Request,
 	notFoundMessage: string,
 	successMessage: string
@@ -75,14 +75,8 @@ export async function deleteWithPhotoCleanup(
 	const id = String(formData.get('id') ?? '');
 	if (!id) return fail(400, { success: false, message: notFoundMessage });
 
-	const { data: row, error: fetchError } = await supabase
-		.from(table)
-		.select(photoColumn)
-		.eq('id', id)
-		.maybeSingle();
-	if (fetchError || !row) return fail(400, { success: false, message: notFoundMessage });
-
-	const photo = (row as Record<string, string | null>)[photoColumn];
+	const photo = await getPhotoPath(supabase, table, photoColumn, id);
+	if (photo === undefined) return fail(400, { success: false, message: notFoundMessage });
 	if (photo) await removePhotos(supabase, [photo]);
 
 	const { error } = await supabase.from(table).delete().eq('id', id);

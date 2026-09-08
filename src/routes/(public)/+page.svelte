@@ -5,6 +5,7 @@
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import HeroDrawing from '$lib/components/site/HeroDrawing.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
+	import AnnouncementLane from '$lib/components/site/AnnouncementLane.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import { services } from '$lib/data/services';
 	import { site } from '$lib/data/site';
@@ -68,6 +69,26 @@
 		{/await}
 	</div>
 </section>
+
+<!-- DUYURULAR (yalnızca yayında duyuru varsa) -->
+{#if data.announcements.length > 0}
+	<section class="border-b border-border">
+		<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24">
+			<SectionHeader
+				eyebrow="Duyurular / {String(data.announcements.length).padStart(2, '0')}"
+				title="Atölyeden haberler"
+			/>
+			<div class="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
+				{#each data.announcements as announcement (announcement.id)}
+					<AnnouncementLane {announcement} variant="compact" />
+				{/each}
+			</div>
+			<div class="mt-8">
+				<Button variant="outline" href="/announcements" class="btn-label">Tüm Duyurular</Button>
+			</div>
+		</div>
+	</section>
+{/if}
 
 <!-- HİZMETLER -->
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24">

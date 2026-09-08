@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/components/site/Header.svelte';
 	import Footer from '$lib/components/site/Footer.svelte';
+	import AnnouncementPopup from '$lib/components/site/AnnouncementPopup.svelte';
 
 	let { children } = $props();
 </script>
@@ -21,3 +22,5 @@
 
 	<Footer />
 </div>
+
+<AnnouncementPopup />

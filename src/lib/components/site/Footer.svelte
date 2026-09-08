@@ -33,6 +33,11 @@
 							>Satılık Ürünler</a
 						>
 					</li>
+					<li>
+						<a href="/announcements" class="text-sm transition-colors hover:text-safety"
+							>Duyurular</a
+						>
+					</li>
 				</ul>
 			</nav>
 

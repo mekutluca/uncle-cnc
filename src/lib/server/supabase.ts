@@ -2,6 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { publicPhotoUrl, publicThumbUrl } from '$lib/utils/storage';
 import type {
+	Announcement,
+	AnnouncementWithPhoto,
 	GalleryItem,
 	GalleryItemWithUrl,
 	Machine,
@@ -87,6 +89,33 @@ export async function listReferences(): Promise<Reference[]> {
 		return [];
 	}
 	return (data ?? []) as Reference[];
+}
+
+export function withAnnouncementUrls(announcement: Announcement): AnnouncementWithPhoto {
+	return {
+		...announcement,
+		photoUrl: announcement.photo ? publicPhotoUrl(announcement.photo) : null,
+		thumbUrl: announcement.photo ? publicThumbUrl(announcement.photo) : null
+	};
+}
+
+/** Yayında ve tarih penceresi açık duyurular, en yeni başlangıç önce.
+ * RLS zaten aynı süzgeci uygular, burada açıkça yinelenir. */
+export async function listAnnouncements(): Promise<Announcement[]> {
+	const now = new Date().toISOString();
+	const { data, error } = await supabaseAnon
+		.from('uc_announcements')
+		.select('*')
+		.eq('published', true)
+		.lte('starts_at', now)
+		.or(`ends_at.is.null,ends_at.gt.${now}`)
+		.order('starts_at', { ascending: false })
+		.order('created_at', { ascending: false });
+	if (error) {
+		console.error('uc_announcements listesi alınamadı:', error.message);
+		return [];
+	}
+	return (data ?? []) as Announcement[];
 }
 
 export async function listStats(): Promise<Stat[]> {

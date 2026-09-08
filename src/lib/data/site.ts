@@ -22,6 +22,7 @@ export const nav = [
 	{ href: '/machines', label: 'Satılık Ürünler' },
 	{ href: '/gallery', label: 'Galeri' },
 	{ href: '/references', label: 'Referanslar' },
+	{ href: '/announcements', label: 'Duyurular' },
 	{ href: '/about', label: 'Hakkımızda' },
 	{ href: '/contact', label: 'İletişim' }
 ] as const;

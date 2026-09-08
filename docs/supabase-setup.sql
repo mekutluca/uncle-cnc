@@ -139,3 +139,46 @@ insert into public.uc_stats (value, label, sort_order) values
 	('5 HİZMET', 'Tek çatı altında', 2),
 	('INT’L', 'Yurt içi + yurt dışı servis', 3)
 on conflict do nothing;
+
+-- ---------------------------------------------------------------------------
+-- Duyurular: ana sayfa bölümü, /announcements arşivi ve isteğe bağlı açılır mesaj.
+-- Görünürlük penceresi [starts_at, ends_at) yarı açıktır: panelde girilen "son gün"
+-- ertesi günün başlangıcı olarak saklanır. Açılır mesaj penceresi
+-- [starts_at, least(starts_at + popup_days gün, ends_at)) uygulama tarafında hesaplanır.
+create table if not exists public.uc_announcements (
+	id uuid primary key default gen_random_uuid(),
+	title text not null check (char_length(title) between 1 and 120),
+	body text not null check (char_length(body) between 1 and 1000),
+	link_url text check (link_url is null or char_length(link_url) <= 500),
+	link_label text check (link_label is null or char_length(link_label) <= 60),
+	photo text,                                -- uc-machine-photos bucket'ındaki yol (announcements/{id}/…)
+	starts_at timestamptz not null default now(),
+	ends_at timestamptz check (ends_at is null or ends_at > starts_at),
+	published boolean not null default true,
+	popup boolean not null default false,
+	popup_days integer not null default 7 check (popup_days between 1 and 90),
+	created_at timestamptz not null default now(),
+	updated_at timestamptz not null default now()
+);
+
+alter table public.uc_announcements enable row level security;
+
+-- Anon yalnızca yayında ve tarih penceresi açık kayıtları okur.
+drop policy if exists "uc_announcements anon read live" on public.uc_announcements;
+create policy "uc_announcements anon read live" on public.uc_announcements
+	for select using (
+		published and starts_at <= now() and (ends_at is null or ends_at > now())
+	);
+
+drop policy if exists "uc_announcements admin select" on public.uc_announcements;
+create policy "uc_announcements admin select" on public.uc_announcements
+	for select to authenticated using (public.uc_is_admin());
+drop policy if exists "uc_announcements admin insert" on public.uc_announcements;
+create policy "uc_announcements admin insert" on public.uc_announcements
+	for insert to authenticated with check (public.uc_is_admin());
+drop policy if exists "uc_announcements admin update" on public.uc_announcements;
+create policy "uc_announcements admin update" on public.uc_announcements
+	for update to authenticated using (public.uc_is_admin()) with check (public.uc_is_admin());
+drop policy if exists "uc_announcements admin delete" on public.uc_announcements;
+create policy "uc_announcements admin delete" on public.uc_announcements
+	for delete to authenticated using (public.uc_is_admin());
