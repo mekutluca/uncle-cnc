@@ -16,6 +16,7 @@
 	import ConfirmDeleteDialog from '$lib/components/admin/confirm-delete-dialog.svelte';
 	import SortableHead from '$lib/components/admin/sortable-head.svelte';
 	import PhotoThumb from '$lib/components/site/PhotoThumb.svelte';
+	import { formatDate } from '$lib/utils/date-format';
 	import { formatPrice, STATUS_LABEL } from '$lib/utils/machine-format';
 	import { TableSort } from '$lib/utils/table-sort.svelte';
 	import type { Machine, MachineWithPhotos } from '$lib/types';
@@ -145,7 +146,7 @@
 										>
 									</Table.Cell>
 									<Table.Cell class="text-sm text-muted-foreground">
-										{new Date(machine.created_at).toLocaleDateString('tr-TR')}
+										{formatDate(machine.created_at)}
 									</Table.Cell>
 									<Table.Cell onclick={(e: MouseEvent) => e.stopPropagation()}>
 										<DropdownMenu.Root>

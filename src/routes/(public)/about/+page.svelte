@@ -35,7 +35,7 @@
 			Hakkımızda
 		</p>
 		<h1 class="display max-w-3xl text-4xl sm:text-5xl">
-			Her makine çalışır.<br />
+			.Her makine çalışır<br />
 			<span class="text-safety">Biz çalıştırırız.</span>
 		</h1>
 		<p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">

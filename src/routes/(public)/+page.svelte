@@ -32,8 +32,8 @@
 				International CNC Service
 			</p>
 			<h1 class="display text-4xl sm:text-5xl xl:text-6xl">
-				Her makine<br />
-				<span class="text-safety">çalışır.</span>
+				.Her makine<br />
+				<span class="text-safety">çalışır</span>
 			</h1>
 			<p class="mt-4 font-mono text-sm tracking-[0.14em] text-safety">{site.tagline}</p>
 			<p class="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
