@@ -13,7 +13,7 @@
 	</span>
 	<h1 class="display mt-8 text-3xl sm:text-4xl">Talebiniz alındı</h1>
 	<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-		Formunuz ekibimize iletildi; en kısa sürede size dönüş yapacağız. Acil durumlar için bizi
+		Formunuz ekibimize iletildi. En kısa sürede size dönüş yapacağız. Acil durumlar için bizi
 		doğrudan arayabilirsiniz:
 	</p>
 	<a href={site.phoneHref} class="mt-3 font-mono text-lg font-semibold text-primary">

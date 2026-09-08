@@ -1,7 +1,7 @@
 import { serviceBySlug } from '$lib/data/services';
 import type { GalleryFields } from '$lib/types';
 
-/** Form alanlarını doğrular; hata durumunda kullanıcıya gösterilecek metin döner. */
+/** Form alanlarını doğrular. Hata durumunda kullanıcıya gösterilecek metin döner. */
 export function parseGalleryFields(formData: FormData): GalleryFields | string {
 	const label = String(formData.get('label') ?? '').trim();
 	if (!label) return 'Etiket zorunludur.';

@@ -20,7 +20,7 @@
 	<SectionHeader
 		eyebrow="Satılık Ürünler"
 		title="Satıştaki ürünler"
-		description="Tüm ürünlerin ekspertizi tarafımızca yapılmıştır. Bilgi veya teklif için ilan sayfasındaki formu kullanın; bir ürününüzü satmak isterseniz makine ticareti formundan bize ulaşın."
+		description="Tüm ürünlerin ekspertizi tarafımızca yapılmıştır. Bilgi veya teklif için ilan sayfasındaki formu kullanın. Bir ürününüzü satmak isterseniz makine ticareti formundan bize ulaşın."
 	/>
 
 	{#await Promise.all([data.machines, data.categories])}

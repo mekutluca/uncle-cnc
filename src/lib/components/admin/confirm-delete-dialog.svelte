@@ -12,7 +12,7 @@
 		action
 	}: {
 		open?: boolean;
-		/** Silinecek kaydın kimliği; hedef seçilmemişse null */
+		/** Silinecek kaydın kimliği. Hedef seçilmemişse null */
 		id: string | null;
 		title: string;
 		description: string;

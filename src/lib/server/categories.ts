@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { SaleCategory, SaleCategoryFields } from '$lib/types';
 
-/** Form alanlarını doğrular; hata durumunda kullanıcıya gösterilecek metin döner. */
+/** Form alanlarını doğrular. Hata durumunda kullanıcıya gösterilecek metin döner. */
 export function parseSaleCategoryFields(formData: FormData): SaleCategoryFields | string {
 	const title = String(formData.get('title') ?? '').trim();
 	if (!title) return 'Kategori adı zorunludur.';

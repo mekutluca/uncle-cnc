@@ -6,7 +6,7 @@ import type { Machine, MachineFields } from '$lib/types';
 const STATUSES: Machine['status'][] = ['available', 'sold', 'hidden'];
 const CURRENCIES: Machine['currency'][] = ['EUR', 'USD', 'TRY'];
 
-/** Form alanlarını doğrular; hata durumunda kullanıcıya gösterilecek metin döner. */
+/** Form alanlarını doğrular. Hata durumunda kullanıcıya gösterilecek metin döner. */
 export function parseMachineFields(formData: FormData): MachineFields | string {
 	const title = String(formData.get('title') ?? '').trim();
 	if (!title) return 'Başlık zorunludur.';
@@ -58,7 +58,7 @@ export function photoUploadsFrom(formData: FormData): { files: File[]; thumbs: F
 	};
 }
 
-/** Kayıt hatasını kullanıcı metnine çevirir; 23505 (unique) tekrar eden kısa ad, 23503 geçersiz kategoridir. */
+/** Kayıt hatasını kullanıcı metnine çevirir. 23505 (unique) tekrar eden kısa ad, 23503 geçersiz kategoridir. */
 export function machineSaveMessage(error: PostgrestError): string {
 	let detail = error.message;
 	if (error.code === '23505') detail = 'Bu kısa ad zaten kullanılıyor.';

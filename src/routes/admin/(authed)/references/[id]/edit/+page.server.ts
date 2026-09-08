@@ -26,7 +26,7 @@ async function getLogo(locals: App.Locals, id: string): Promise<string | null | 
 		.select('logo')
 		.eq('id', id)
 		.maybeSingle();
-	// undefined: kayıt yok; null: kayıt var ama logosuz.
+	// undefined: kayıt yok, null: kayıt var ama logosuz.
 	return data === null ? undefined : ((data.logo as string | null) ?? null);
 }
 

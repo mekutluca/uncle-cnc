@@ -12,7 +12,7 @@ export function publicPhotoUrl(path: string): string {
 }
 
 /** Bir fotoğraf yolunun küçük varyantının yolu: {ad}.thumb.{uzantı}. Şemasızdır —
- * varyant, ana yoldan türetilir; ayrı bir sütunda tutulmaz. */
+ * varyant, ana yoldan türetilir. Ayrı bir sütunda tutulmaz. */
 export function thumbPath(path: string): string {
 	const dot = path.lastIndexOf('.');
 	return dot > path.lastIndexOf('/')

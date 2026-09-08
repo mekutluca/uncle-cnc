@@ -8,7 +8,7 @@
 	import { defaultErrorMessage, errorCopy, errorKind } from '$lib/utils/errors';
 
 	/**
-	 * Hem sitede hem panelde kullanılan ortak hata gövdesi; çerçeveyi (header/footer,
+	 * Hem sitede hem panelde kullanılan ortak hata gövdesi. Çerçeveyi (header/footer,
 	 * panel kabuğu, çelik zemin) çağıran +error.svelte sağlar.
 	 */
 	let {

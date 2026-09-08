@@ -2,7 +2,7 @@
 	import ImageOffIcon from '@lucide/svelte/icons/image-off';
 	import { fallbackToFull } from '$lib/utils/photo-fallback';
 
-	/** Küçük fotoğraf önizlemesi; fotoğraf yoksa simgeli yer tutucu gösterir.
+	/** Küçük fotoğraf önizlemesi. Fotoğraf yoksa simgeli yer tutucu gösterir.
 	 * `src` küçük varyant URL'i olabilir — yüklenemezse `fallback` (tam boyut) denenir. */
 	let {
 		src = null,

@@ -23,7 +23,7 @@ export function defaultErrorMessage(status: number): string {
 		case 'forbidden':
 			return 'Bu sayfayı görüntülemek için gerekli yetkiye sahip değilsiniz.';
 		default:
-			return 'Lütfen tekrar deneyin; sorun sürerse bizimle iletişime geçin.';
+			return 'Lütfen tekrar deneyin. Sorun sürerse bizimle iletişime geçin.';
 	}
 }
 

@@ -4,7 +4,7 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { defaultErrorMessage } from '$lib/utils/errors';
 
-/** Supabase oturum istemcisi yalnızca /admin alt ağacı için kurulur; halka açık
+/** Supabase oturum istemcisi yalnızca /admin alt ağacı için kurulur. Halka açık
  *  (prerender edilen) sayfalar ve /machines SSR'ı bu hook'tan etkilenmez. */
 const supabase: Handle = async ({ event, resolve }) => {
 	if (!event.route.id?.startsWith('/admin')) return resolve(event);
@@ -26,7 +26,7 @@ const supabase: Handle = async ({ event, resolve }) => {
 		} = await event.locals.supabase.auth.getSession();
 		if (!session) return { session: null, user: null };
 
-		// getUser JWT'yi Supabase'e doğrulatır; sahte çerezle oturum açılamaz.
+		// getUser JWT'yi Supabase'e doğrulatır. Sahte çerezle oturum açılamaz.
 		const {
 			data: { user },
 			error
@@ -59,7 +59,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
 export const handle = sequence(supabase, authGuard);
 
 // Yalnızca beklenmeyen hatalar (fırlatılan istisnalar, eşleşmeyen rotalar) buraya
-// düşer; `error()` çağrıları kendi Türkçe mesajını korur. Gerçek hata sunucu
+// düşer. `error()` çağrıları kendi Türkçe mesajını korur. Gerçek hata sunucu
 // logunda kalır, tarayıcıya genel mesaj gider: yığın izi ve Supabase ayrıntıları
 // hata sayfasına ulaşmaz.
 export const handleError: HandleServerError = ({ error, event, status, message }) => {

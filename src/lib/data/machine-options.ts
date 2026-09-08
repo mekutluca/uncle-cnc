@@ -2,7 +2,7 @@ import type { MachineType } from '$lib/types';
 
 /**
  * Tek doğruluk kaynağı: makine cinsleri ve cinse bağlı boyut seçenekleri.
- * Formlar buradan türetilir — alan adları Türkçe kalır; e-posta bildirimi ve
+ * Formlar buradan türetilir — alan adları Türkçe kalır. E-posta bildirimi ve
  * yönetim panelindeki etiketler $lib/data/form-fields.ts ile eşleşmelidir.
  */
 export const MACHINE_TYPES = [

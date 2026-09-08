@@ -6,7 +6,7 @@ import { SUBMISSION_PHOTOS_BUCKET } from '$lib/utils/storage';
 import type { RequestHandler } from './$types';
 
 /** Tüm talep formlarının gönderim noktası: kayıt uc_form_submissions'a,
- * fotoğraflar private bucket'a yazılır; ardından en-iyi-çaba e-posta bildirimi
+ * fotoğraflar private bucket'a yazılır. Ardından en-iyi-çaba e-posta bildirimi
  * gönderilir (başarısızlığı gönderimi düşürmez). */
 
 const MAX_FILES = 3; // PhotoUploadField ile eşleşir
@@ -16,7 +16,7 @@ const MAX_FIELD_CHARS = 5000;
 export const POST: RequestHandler = async ({ request }) => {
 	const formData = await request.formData();
 
-	// Honeypot dolduysa bot'a da başarı gösterilir; kayıt alınmaz.
+	// Honeypot dolduysa bot'a da başarı gösterilir. Kayıt alınmaz.
 	if (String(formData.get('bot-field') ?? '').trim() !== '') redirect(303, '/thanks');
 
 	const formName = String(formData.get('form-name') ?? '');
@@ -67,6 +67,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		console.error('Bildirim e-postası gönderilemedi:', mailError);
 	}
 
-	// JS kapalıyken natif POST da buraya düşer; her iki durumda /thanks'e yönlenir.
+	// JS kapalıyken natif POST da buraya düşer. Her iki durumda /thanks'e yönlenir.
 	redirect(303, '/thanks');
 };

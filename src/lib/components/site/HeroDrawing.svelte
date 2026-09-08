@@ -1,7 +1,7 @@
 <script lang="ts">
 	/**
 	 * İmza görsel: dik işleme merkezinin teknik resim (CAD) üslubunda çizimi.
-	 * Çizgiler sayfa açılışında çizilir, ölçü etiketleri sonradan belirir;
+	 * Çizgiler sayfa açılışında çizilir, ölçü etiketleri sonradan belirir.
 	 * prefers-reduced-motion açıksa animasyon yapılmaz.
 	 */
 </script>

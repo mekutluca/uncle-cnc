@@ -74,7 +74,7 @@
 	<SectionHeader
 		eyebrow="Hizmetler / 01–05"
 		title="Beş hizmet, tek sorumlu"
-		description="Ekspertizden makine ticaretine — tezgâhınızın tüm yaşam döngüsünü üstleniyoruz. Her hizmetin kendi talep formu vardır; doldurun, ekibimiz size dönsün."
+		description="Ekspertizden makine ticaretine — tezgâhınızın tüm yaşam döngüsünü üstleniyoruz. Her hizmetin kendi talep formu var. Doldurun, ekibimiz size dönsün."
 	/>
 	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 		{#each services as service (service.slug)}

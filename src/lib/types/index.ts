@@ -66,7 +66,7 @@ export type Reference = {
 	id: string;
 	name: string;
 	sector: string | null;
-	/** `uc-machine-photos` bucket'ındaki yol (references/{id}/…); boşsa yalnız isim gösterilir */
+	/** `uc-machine-photos` bucket'ındaki yol (references/{id}/…). Boşsa yalnız isim gösterilir */
 	logo: string | null;
 	sort_order: number;
 	created_at: string;
@@ -132,7 +132,7 @@ export type PendingLogo = { file: File; url: string };
 export interface PendingPhoto {
 	id: string;
 	file: File;
-	/** Kart/liste görünümleri için ~800px varyant; ana dosyayla birlikte yüklenir */
+	/** Kart/liste görünümleri için ~800px varyant. Ana dosyayla birlikte yüklenir */
 	thumb: File;
 	url: string;
 }
@@ -149,9 +149,9 @@ export type GalleryItem = {
 	id: string;
 	label: string;
 	description: string;
-	/** Görselden ilgili hizmet formuna yönlendirme (PDF isteği); boşsa bağlantı gösterilmez */
+	/** Görselden ilgili hizmet formuna yönlendirme (PDF isteği). Boşsa bağlantı gösterilmez */
 	service_slug: string | null;
-	/** `uc-machine-photos` bucket'ındaki yol (gallery/{id}/…); boşsa yer tutucu gösterilir */
+	/** `uc-machine-photos` bucket'ındaki yol (gallery/{id}/…). Boşsa yer tutucu gösterilir */
 	photo: string | null;
 	sort_order: number;
 	created_at: string;
@@ -185,7 +185,7 @@ export type FormSubmission = {
 	form_name: string;
 	/** Form alanları anahtar-değer olarak (ör. ad_soyad, telefon…) */
 	data: Record<string, string>;
-	/** `uc-submission-photos` bucket'ındaki yollar; görüntüleme imzalı URL ile */
+	/** `uc-submission-photos` bucket'ındaki yollar. Görüntüleme imzalı URL ile */
 	photos: string[];
 	is_read: boolean;
 	created_at: string;

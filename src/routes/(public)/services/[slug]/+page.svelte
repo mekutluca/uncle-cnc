@@ -29,7 +29,7 @@
 		},
 		{
 			title: 'Hassasiyet ölçümleri',
-			detail: 'Eksen geometrileri, mil salgısı ve tekrarlanabilirlik ölçülür; sonuçlar raporlanır.'
+			detail: 'Eksen geometrileri, mil salgısı ve tekrarlanabilirlik ölçülür, sonuçlar raporlanır.'
 		},
 		{
 			title: 'Raporlama',

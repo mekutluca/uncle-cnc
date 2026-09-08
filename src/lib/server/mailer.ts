@@ -4,7 +4,7 @@ import { FORM_LABELS, orderedEntries } from '$lib/data/form-fields';
 import { site } from '$lib/data/site';
 
 /** SMTP env değişkenleri (Coolify'da tanımlanır): SMTP_HOST, SMTP_PORT,
- * SMTP_USER, SMTP_PASS; isteğe bağlı SMTP_FROM ve FORM_NOTIFY_TO.
+ * SMTP_USER, SMTP_PASS. İsteğe bağlı: SMTP_FROM ve FORM_NOTIFY_TO.
  * Eksiklerse bildirim sessizce atlanır — gönderim zaten veritabanında. */
 function transport() {
 	if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASS) return null;
@@ -27,7 +27,7 @@ export async function sendSubmissionNotification(
 ): Promise<void> {
 	const mailer = transport();
 	if (!mailer) {
-		console.warn('SMTP yapılandırılmamış; form bildirimi e-postası atlandı.');
+		console.warn('SMTP yapılandırılmamış, form bildirimi e-postası atlandı.');
 		return;
 	}
 

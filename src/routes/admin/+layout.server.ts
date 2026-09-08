@@ -5,7 +5,7 @@ export const load: LayoutServerLoad = async ({
 	cookies,
 	setHeaders
 }) => {
-	// Panel arama motorlarına kapalı; gizlilik değil görünürlük önlemi (güvenlik = RLS).
+	// Panel arama motorlarına kapalı. Gizlilik değil görünürlük önlemi (güvenlik = RLS).
 	setHeaders({ 'x-robots-tag': 'noindex' });
 
 	const { session } = await safeGetSession();

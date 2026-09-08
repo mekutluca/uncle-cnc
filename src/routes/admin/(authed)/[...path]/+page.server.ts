@@ -6,6 +6,6 @@ import type { PageServerLoad } from './$types';
 // ziyaretçi login'e yönlenir, yetkisiz hesap 403 alır, yönetici 404'ü panel
 // kabuğunun içinde görür.
 export const load: PageServerLoad = () => {
-	// Mesajsız error(404) gövdeye 'Error: 404' yazar; Türkçe açıklamayı açıkça ver.
+	// Mesajsız error(404) gövdeye 'Error: 404' yazar. Türkçe açıklamayı açıkça ver.
 	error(404, defaultErrorMessage(404));
 };

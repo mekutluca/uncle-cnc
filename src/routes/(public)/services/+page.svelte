@@ -14,7 +14,7 @@
 	<SectionHeader
 		eyebrow="Hizmetler / 01–05"
 		title="Hizmet talebi oluşturun"
-		description="Size uygun hizmeti seçin; her hizmetin sayfasında o işe özel talep formu bulunur. Formunuz doğrudan ekibimize iletilir."
+		description="Size uygun hizmeti seçin. Her hizmetin sayfasında o işe özel talep formu bulunur. Formunuz doğrudan ekibimize iletilir."
 	/>
 	<div class="grid gap-5 lg:grid-cols-2">
 		{#each services as service (service.slug)}

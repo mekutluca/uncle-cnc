@@ -3,7 +3,7 @@ import { PHOTOS_BUCKET, thumbPath } from '$lib/utils/storage';
 
 /**
  * Tek fotoğrafı küçük varyantıyla birlikte depoya yükler, yolu döner.
- * Yol düzeni: {folder}/{uuid}.{uzantı}; varyant `thumbPath` ile aynı klasöre
+ * Yol düzeni: {folder}/{uuid}.{uzantı}. Varyant `thumbPath` ile aynı klasöre
  * gider. Varyant yüklemesi başarısız olsa da fotoğraf kabul edilir —
  * görüntüleme tarafı tam boyuta düşer (onerror).
  */
@@ -36,7 +36,7 @@ export async function uploadPhotoFile(
 
 export async function removePhotos(supabase: SupabaseClient, paths: string[]): Promise<void> {
 	if (!paths.length) return;
-	// Küçük varyantlar da silinir; olmayan yol hata üretmez.
+	// Küçük varyantlar da silinir. Olmayan yol hata üretmez.
 	const allPaths = paths.flatMap((path) => [path, thumbPath(path)]);
 	const { error } = await supabase.storage.from(PHOTOS_BUCKET).remove(allPaths);
 	if (error) console.error('Fotoğraflar depodan silinemedi:', error.message);

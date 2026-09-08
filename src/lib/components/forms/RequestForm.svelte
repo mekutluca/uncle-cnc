@@ -13,7 +13,7 @@
 	let failed = $state(false);
 
 	/* Gönderim /api/submit endpoint'ine yapılır: kayıt Supabase'e yazılır ve
-	   e-posta bildirimi gönderilir. Başarıda /thanks'e istemci tarafında geçilir;
+	   e-posta bildirimi gönderilir. Başarıda /thanks'e istemci tarafında geçilir.
 	   JS kapalıysa form natif POST edilir ve endpoint /thanks'e yönlendirir. */
 	async function onsubmit(event: SubmitEvent) {
 		event.preventDefault();

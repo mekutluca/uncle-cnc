@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const submission = data as FormSubmission;
 
-	// Görüntülenen talep okundu sayılır; hata kritik değil.
+	// Görüntülenen talep okundu sayılır. Hata kritik değil.
 	if (!submission.is_read) {
 		const { error: readError } = await locals.supabase
 			.from('uc_form_submissions')

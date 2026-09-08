@@ -195,7 +195,7 @@
 					<Empty.Header>
 						<Empty.Title>Liste yüklenemedi</Empty.Title>
 						<Empty.Description
-							>Sayfayı yenileyin; sorun sürerse tekrar giriş yapın.</Empty.Description
+							>Sayfayı yenileyin. Sorun sürerse tekrar giriş yapın.</Empty.Description
 						>
 					</Empty.Header>
 				</Empty.Root>

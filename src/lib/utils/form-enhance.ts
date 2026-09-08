@@ -37,7 +37,7 @@ export function createFormEnhance(opts: FormEnhanceOptions = {}): SubmitFunction
 			else if (result.type === 'failure')
 				showFailure(result.data as FormActionData | undefined, toastId);
 			else if (toastId !== undefined) toast.dismiss(toastId);
-			// Bağlı (bind) alan durumu form değerlerinin sahibi; DOM reset'i senkronu bozar.
+			// Bağlı (bind) alan durumu form değerlerinin sahibi. DOM reset'i senkronu bozar.
 			await update({ reset: false });
 			// update'ten sonra: onSuccess içindeki goto, update'in tetiklediği
 			// invalidation tarafından iptal edilmesin.

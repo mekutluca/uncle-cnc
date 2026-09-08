@@ -1,6 +1,6 @@
 import type { ReferenceFields } from '$lib/types';
 
-/** Form alanlarını doğrular; hata durumunda kullanıcıya gösterilecek metin döner. */
+/** Form alanlarını doğrular. Hata durumunda kullanıcıya gösterilecek metin döner. */
 export function parseReferenceFields(formData: FormData): ReferenceFields | string {
 	const name = String(formData.get('name') ?? '').trim();
 	if (!name) return 'Firma adı zorunludur.';

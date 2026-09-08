@@ -2,7 +2,7 @@ import type { SortOrder } from '$lib/types';
 
 /**
  * Tıklanabilir başlıklı tablolar için sütun sıralama durumu. Bir sütuna
- * tıklamak başlangıç yönü → ters yön → sırasız döngüsünde ilerler; başka
+ * tıklamak başlangıç yönü → ters yön → sırasız döngüsünde ilerler. Başka
  * sütuna tıklamak o sütunun başlangıç yönüyle yeniden başlar.
  */
 export class TableSort<K extends string> {

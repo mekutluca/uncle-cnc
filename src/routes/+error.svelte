@@ -11,7 +11,7 @@
 <!--
 	Son basamak: rota eşleşmeleri [...path] yakalayıcılara, sayfa hataları grup
 	+error.svelte'lerine düşer. Buraya yalnızca bir grup layout'unun kendisi
-	çöktüğünde (ör. admin/+layout.ts) ulaşılır; çerçeve yine de bölüme uyar.
+	çöktüğünde (ör. admin/+layout.ts) ulaşılır. Çerçeve yine de bölüme uyar.
 -->
 {#if isAdmin}
 	<ErrorFrame status={page.status} message={page.error?.message} />

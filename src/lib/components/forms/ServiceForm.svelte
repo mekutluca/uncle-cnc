@@ -25,7 +25,7 @@
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
 		relatedListing = params.get('listing') ?? '';
-		// İlan seçiliyken talep her zaman "almak"tır; request parametresi yok sayılır.
+		// İlan seçiliyken talep her zaman "almak"tır, request parametresi yok sayılır.
 		if (params.get('request') === 'sell' && !relatedListing) intent = 'satmak';
 	});
 
@@ -37,7 +37,7 @@
 
 	/* Belirli bir ilan için gelen "Bilgi / Teklif İste" talebi: makine zaten belli
 	   olduğundan işlem türü seçici ve istenen-makine alanları (cins/boyut, model
-	   yılı, fiyat aralığı) gösterilmez; islem_turu gizli alanla "almak" gönderilir. */
+	   yılı, fiyat aralığı) gösterilmez. islem_turu gizli alanla "almak" gönderilir. */
 	const hasListing = $derived(isTrading && relatedListing !== '');
 </script>
 
@@ -120,7 +120,7 @@
 
 		<Button type="submit" size="lg" class="btn-label">Talebi Gönder</Button>
 		<p class="text-xs text-muted-foreground">
-			* işaretli alanlar zorunludur. Talebiniz doğrudan ekibimize iletilir; en kısa sürede size
+			* işaretli alanlar zorunludur. Talebiniz doğrudan ekibimize iletilir, en kısa sürede size
 			dönüş yapılır.
 		</p>
 	</RequestForm>

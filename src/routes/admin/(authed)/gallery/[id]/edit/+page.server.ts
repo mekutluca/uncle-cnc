@@ -26,7 +26,7 @@ async function getPhoto(locals: App.Locals, id: string): Promise<string | null |
 		.select('photo')
 		.eq('id', id)
 		.maybeSingle();
-	// undefined: kayıt yok; null: kayıt var ama fotoğrafsız.
+	// undefined: kayıt yok, null: kayıt var ama fotoğrafsız.
 	return data === null ? undefined : ((data.photo as string | null) ?? null);
 }
 

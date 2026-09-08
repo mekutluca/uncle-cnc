@@ -15,7 +15,7 @@
 	 */
 	let { status, message }: { status: number; message?: string } = $props();
 
-	// admin/+layout.ts'ten gelir; kök layout yükleme hatasında bulunmayabilir.
+	// admin/+layout.ts'ten gelir. Kök layout yükleme hatasında bulunmayabilir.
 	let supabase = $derived(page.data.supabase);
 	let forbidden = $derived(errorKind(status) === 'forbidden');
 

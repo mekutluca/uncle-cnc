@@ -65,7 +65,7 @@
 	let saving = $state(false);
 	let photoBusy = $state(false);
 
-	// Mevcut fotoğraflar sunucu verisinden türetilir; sil/sırala invalidate ile tazelenir.
+	// Mevcut fotoğraflar sunucu verisinden türetilir. Sil/sırala invalidate ile tazelenir.
 	const existingPhotos = $derived(
 		(machine?.photos ?? []).map((path, index) => ({
 			path,
@@ -133,7 +133,7 @@
 	const formEnhance = createFormEnhance({
 		loadingMessage: 'Kaydediliyor…',
 		beforeSubmit: (formData) => {
-			// photos ve thumbs aynı sırayla eklenir; sunucu dizinle eşleştirir.
+			// photos ve thumbs aynı sırayla eklenir. Sunucu dizinle eşleştirir.
 			pendingPhotos.forEach((photo) => {
 				formData.append('photos', photo.file);
 				formData.append('thumbs', photo.thumb);

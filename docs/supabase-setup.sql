@@ -61,7 +61,7 @@ create policy "uc photos admin delete" on storage.objects
 -- Yönetici eklemek: Studio > Auth > Add user, ardından:
 -- insert into public.uc_admins (user_id) values ('<auth kullanıcı uid>');
 
--- Örnek kayıtlar (test için; silinebilir):
+-- Örnek kayıtlar (test için, silinebilir):
 insert into public.uc_machines (title, slug, machine_type, specs, price, currency, status, description) values
 	('Örnek Dik İşleme Merkezi 1000', 'ornek-dik-isleme-1000', 'Dik işleme',
 	 '{"Model Yılı": 2018, "Tabla Boyutu": "1000x500 mm", "Kontrol": "Fanuc 0i-MF"}',
@@ -74,7 +74,7 @@ insert into public.uc_machines (title, slug, machine_type, specs, price, currenc
 on conflict (slug) do nothing;
 
 -- ---------------------------------------------------------------------------
--- Form gönderimleri (Netlify Forms yerine kendi kaydımız; bkz. /api/submit)
+-- Form gönderimleri (Netlify Forms yerine kendi kaydımız, bkz. /api/submit)
 create table if not exists public.uc_form_submissions (
 	id uuid primary key default gen_random_uuid(),
 	form_name text not null check (form_name in ('contact','appraisal','consulting','maintenance','repair','machine-trading')),
@@ -86,7 +86,7 @@ create table if not exists public.uc_form_submissions (
 
 alter table public.uc_form_submissions enable row level security;
 
--- Form endpoint'i anon anahtarla yazar; okuma/güncelleme/silme yalnızca yönetici.
+-- Form endpoint'i anon anahtarla yazar. Okuma/güncelleme/silme yalnızca yönetici.
 create policy "uc_form_submissions anon insert" on public.uc_form_submissions
 	for insert to anon with check (true);
 create policy "uc_form_submissions admin select" on public.uc_form_submissions
@@ -110,7 +110,7 @@ create policy "uc submission photos admin delete" on storage.objects
 	for delete to authenticated using (bucket_id = 'uc-submission-photos' and public.uc_is_admin());
 
 -- ---------------------------------------------------------------------------
--- Ana sayfa spec şeridindeki 4 istatistik; panelden düzenlenebilir.
+-- Ana sayfa spec şeridindeki 4 istatistik. Panelden düzenlenebilir.
 create table if not exists public.uc_stats (
 	id uuid primary key default gen_random_uuid(),
 	value text not null,

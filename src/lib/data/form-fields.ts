@@ -32,7 +32,7 @@ const FIELD_LABELS: Record<string, string> = {
 	notlar: 'Notlar'
 };
 
-/** Gönderim verisini görüntüleme sırasına dizer; haritada olmayan alanlar sona eklenir. */
+/** Gönderim verisini görüntüleme sırasına dizer. Haritada olmayan alanlar sona eklenir. */
 export function orderedEntries(data: Record<string, string>): [string, string][] {
 	const known = Object.keys(FIELD_LABELS).filter((key) => key in data);
 	const extra = Object.keys(data).filter((key) => !(key in FIELD_LABELS));

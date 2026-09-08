@@ -43,7 +43,7 @@
 
 	afterNavigate((navigation) => {
 		mobileOpen = false;
-		// İçerik iç içe overflow-auto <main> içinde kayıyor; gezinmede sıfırla.
+		// İçerik iç içe overflow-auto <main> içinde kayıyor. Gezinmede sıfırla.
 		if (mainEl && navigation.from?.url.pathname !== navigation.to?.url.pathname) {
 			mainEl.scrollTop = 0;
 		}
