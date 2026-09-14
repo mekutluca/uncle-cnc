@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { site } from '$lib/data/site';
 	import { services } from '$lib/data/services';
-	import BrandMark from './BrandMark.svelte';
+	import logoLockup from '$lib/assets/logo-lockup.png';
 	import * as m from '$lib/paraglide/messages';
 </script>
 
@@ -9,8 +9,7 @@
 	<div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
 		<div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
 			<div>
-				<BrandMark />
-				<p class="mt-2 font-mono text-xs tracking-[0.14em] text-safety">{site.tagline}</p>
+				<img src={logoLockup} alt={site.fullName} class="h-14 w-auto rounded-md" />
 				<p class="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
 					{site.description}
 				</p>

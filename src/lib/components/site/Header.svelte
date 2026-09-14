@@ -3,7 +3,7 @@
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import { Button } from '$lib/components/ui/button';
 	import * as Sheet from '$lib/components/ui/sheet';
-	import BrandMark from './BrandMark.svelte';
+	import logoLockup from '$lib/assets/logo-lockup.png';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { nav, site } from '$lib/data/site';
@@ -19,7 +19,7 @@
 	<div class="h-0.5 bg-safety" aria-hidden="true"></div>
 	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6">
 		<a href="/" aria-label="{site.fullName} {m.header_home_aria_suffix()}">
-			<BrandMark subtitle="International CNC Service" subtitleLang="en" />
+			<img src={logoLockup} alt="" class="h-10 w-auto rounded-md sm:h-11" />
 		</a>
 
 		<nav class="hidden items-center gap-1 lg:flex" aria-label={m.header_nav_main_aria()}>
