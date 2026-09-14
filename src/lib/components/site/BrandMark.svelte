@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { site } from '$lib/data/site';
+	import logoMark from '$lib/assets/logo-mark.png';
 
 	let {
 		subtitle = '',
@@ -16,10 +17,11 @@
 
 	const nameSize = $derived({ sm: 'text-base', md: 'text-lg', lg: 'text-xl' }[size]);
 	const subtitleSize = $derived(size === 'sm' ? 'text-[8px]' : 'text-[9px]');
+	const markSize = $derived({ sm: 'size-7', md: 'size-8', lg: 'size-9' }[size]);
 </script>
 
 <span class="flex items-center gap-3">
-	<span class="crosshair shrink-0 text-safety" aria-hidden="true"></span>
+	<img src={logoMark} alt="" class="{markSize} shrink-0 rounded-md object-cover" aria-hidden="true" />
 	<span class="leading-none">
 		<span class="display block {nameSize}">{site.name}</span>
 		{#if subtitle}
