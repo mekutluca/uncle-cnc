@@ -31,7 +31,9 @@
 	);
 	const label = $derived(
 		announcement?.link_label ??
-			(announcement?.link_url ? m.announcements_chrome_details() : m.announcements_chrome_go_to_announcement())
+			(announcement?.link_url
+				? m.announcements_chrome_details()
+				: m.announcements_chrome_go_to_announcement())
 	);
 
 	function seenIds(): string[] {
@@ -99,7 +101,7 @@
 		class="plate fixed inset-x-3 bottom-3 z-[60] flex max-h-[70dvh] flex-col rounded-md sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[min(26rem,calc(100vw-3rem))]"
 	>
 		<div
-			class="flex shrink-0 items-center justify-between gap-3 border-b border-foreground bg-safety px-4 py-2 text-steel"
+			class="flex shrink-0 items-center justify-between gap-3 border-b border-foreground bg-safety px-4 py-2 text-safety-foreground"
 		>
 			<span class="font-mono text-[11px] font-semibold tracking-[0.18em] uppercase">
 				{m.announcements_chrome_header({ day: plate.day, month: plate.month })}

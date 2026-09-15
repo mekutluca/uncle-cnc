@@ -5,6 +5,7 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import logoLockup from '$lib/assets/logo-lockup.png';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
+	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { nav, site } from '$lib/data/site';
 	import { services } from '$lib/data/services';
@@ -35,7 +36,7 @@
 							{item.label}
 						</a>
 						<div
-							class="invisible absolute top-full start-0 pt-2 opacity-0 transition-opacity
+							class="invisible absolute start-0 top-full pt-2 opacity-0 transition-opacity
 								group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
 						>
 							<div class="w-64 rounded-md border border-border bg-card p-1.5 shadow-lg">
@@ -67,9 +68,12 @@
 		</nav>
 
 		<div class="flex items-center gap-2">
+			<ThemeSwitcher />
 			<LanguageSwitcher />
 
-			<Button href="/services" class="btn-label hidden sm:inline-flex">{m.header_request_service()}</Button>
+			<Button href="/services" class="btn-label hidden sm:inline-flex"
+				>{m.header_request_service()}</Button
+			>
 
 			<Sheet.Root bind:open={sheetOpen}>
 				<Sheet.Trigger class="lg:hidden">

@@ -42,7 +42,7 @@ Whole-lifecycle responsibility for a machine under one roof: diagnosis, maintena
 ## Brand Commitments
 
 - Name: Uncle CNC — International CNC Service. Tagline ".every machine can work".
-- Visual world is established in code ("Çelik ve İkaz"): cast-iron dark `#16191D`, ground surface `#F4F5F7`, machine blue `#164B9E`, safety yellow `#F5B301`, steel greys. Fonts: Archivo Variable (display, wide), Barlow (text), IBM Plex Mono (labels, numbers). Datasheet and nameplate motifs (`.plate`, `.eyebrow`, `.dim-line`, `.crosshair`). Radius 0.25rem. Dark sections flip primary to safety yellow.
+- Visual world is established in code ("Çelik ve İkaz"): cast-iron dark `#16191D`, ground surface `#F4F5F7`, machine blue `#164B9E`, brand red `#952E29`, steel greys. Fonts: Archivo Variable (display, wide), Barlow (text), IBM Plex Mono (labels, numbers). Datasheet and nameplate motifs (`.plate`, `.eyebrow`, `.dim-line`, `.crosshair`). Radius 0.25rem. Dark sections flip primary to brand red.
 - Crosshair favicon and BrandMark component.
 
 ## Evidence on Hand

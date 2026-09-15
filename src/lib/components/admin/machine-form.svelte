@@ -318,7 +318,7 @@
 							/>
 							{#if index === 0}
 								<span
-									class="absolute top-1 left-1 rounded-sm bg-safety px-1.5 py-0.5 font-mono text-[9px] font-semibold tracking-[0.1em] text-steel uppercase"
+									class="absolute top-1 left-1 rounded-sm bg-safety px-1.5 py-0.5 font-mono text-[9px] font-semibold tracking-[0.1em] text-safety-foreground uppercase"
 								>
 									Kapak
 								</span>

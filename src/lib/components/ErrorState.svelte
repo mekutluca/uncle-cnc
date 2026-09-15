@@ -59,7 +59,7 @@
 
 <div class="flex flex-col items-center text-center">
 	<span
-		class="flex items-center justify-center rounded-full bg-safety text-steel {lg
+		class="flex items-center justify-center rounded-full bg-safety text-safety-foreground {lg
 			? 'size-14'
 			: 'size-11'}"
 	>

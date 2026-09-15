@@ -252,3 +252,8 @@ export interface ErrorCopy {
 	tab: string;
 	title: string;
 }
+
+/* ---------- Renk teması seçici (müşteri önizlemesi) ---------- */
+
+/** Header'daki ThemeSwitcher ile `<html data-accent>` üzerinden seçilen marka rengi */
+export type AccentTheme = 'yellow' | 'red' | 'red-contrast';

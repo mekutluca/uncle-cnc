@@ -9,7 +9,9 @@
 <Seo title={m.thanks_seo_title()} description={m.thanks_seo_description()} />
 
 <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6">
-	<span class="flex size-14 items-center justify-center rounded-full bg-safety text-steel">
+	<span
+		class="flex size-14 items-center justify-center rounded-full bg-safety text-safety-foreground"
+	>
 		<CheckIcon class="size-7" strokeWidth={2.5} />
 	</span>
 	<h1 class="display mt-8 text-3xl sm:text-4xl">{m.thanks_title()}</h1>

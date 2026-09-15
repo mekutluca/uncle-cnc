@@ -14,7 +14,8 @@
 /*
 	Uncle CNC design tokens — "Çelik ve İkaz"
 	#16191D dökme demir · #F4F5F7 taşlanmış yüzey · #164B9E makine mavisi
-	#F5B301 ikaz sarısı · #8B929B / #D8DCE1 çelik gri ve çizgiler
+	#952E29 marka kırmızısı (açık zeminlerde) · #E06856 marka kırmızısı, çelik koyu zeminde açık ton
+	#8B929B / #D8DCE1 çelik gri ve çizgiler
 */
 :root {
 	--background: #f4f5f7;
@@ -36,7 +37,7 @@
 	--input: #c2c8d0;
 	--ring: #164b9e;
 	--chart-1: #164b9e;
-	--chart-2: #f5b301;
+	--chart-2: #952e29;
 	--chart-3: #8b929b;
 	--chart-4: #16191d;
 	--chart-5: #5a6270;
@@ -51,10 +52,13 @@
 	--sidebar-ring: #164b9e;
 
 	--steel: #16191d;
-	--safety: #f5b301;
+	--safety: #952e29;
+	--safety-foreground: #f4f5f7;
 }
 
-/* Dark = steel sections (hero, CTA band, footer). Primary flips to safety yellow. */
+/* Dark = steel sections (hero, CTA band, footer). Primary flips to a lighter brand
+   red tuned for contrast on near-black — the true maroon (#952e29) only hits ~2.3:1
+   against #16191d, well under WCAG AA; #e06856 hits ~5.3:1. */
 .dark {
 	--background: #16191d;
 	--foreground: #f4f5f7;
@@ -62,7 +66,7 @@
 	--card-foreground: #f4f5f7;
 	--popover: #1e232a;
 	--popover-foreground: #f4f5f7;
-	--primary: #f5b301;
+	--primary: #e06856;
 	--primary-foreground: #16191d;
 	--secondary: #262b33;
 	--secondary-foreground: #f4f5f7;
@@ -73,15 +77,72 @@
 	--destructive: #ff6a5f;
 	--border: rgb(255 255 255 / 14%);
 	--input: rgb(255 255 255 / 20%);
-	--ring: #f5b301;
+	--ring: #e06856;
 	--sidebar: #1e232a;
 	--sidebar-foreground: #f4f5f7;
-	--sidebar-primary: #f5b301;
+	--sidebar-primary: #e06856;
 	--sidebar-primary-foreground: #16191d;
 	--sidebar-accent: #262b33;
 	--sidebar-accent-foreground: #f4f5f7;
 	--sidebar-border: rgb(255 255 255 / 14%);
+	--sidebar-ring: #e06856;
+
+	--safety: #e06856;
+	--safety-foreground: #16191d;
+}
+
+/*
+	Accent theme picker (client preview only — see ThemeSwitcher.svelte).
+	`data-accent` on <html> swaps the "safety"/dark-primary family between three
+	client-facing options. Default (no attribute) is `red-contrast`, matching the
+	:root/.dark values above.
+*/
+:root[data-accent='yellow'] {
+	--chart-2: #f5b301;
+	--safety: #f5b301;
+	--safety-foreground: #16191d;
+}
+:root[data-accent='yellow'] .dark {
+	--primary: #f5b301;
+	--primary-foreground: #16191d;
+	--ring: #f5b301;
+	--sidebar-primary: #f5b301;
+	--sidebar-primary-foreground: #16191d;
 	--sidebar-ring: #f5b301;
+	--safety: #f5b301;
+	--safety-foreground: #16191d;
+}
+
+:root[data-accent='red'] {
+	--chart-2: #952e29;
+	--safety: #952e29;
+	--safety-foreground: #f4f5f7;
+}
+:root[data-accent='red'] .dark {
+	--primary: #952e29;
+	--primary-foreground: #f4f5f7;
+	--ring: #952e29;
+	--sidebar-primary: #952e29;
+	--sidebar-primary-foreground: #f4f5f7;
+	--sidebar-ring: #952e29;
+	--safety: #952e29;
+	--safety-foreground: #f4f5f7;
+}
+
+:root[data-accent='red-contrast'] {
+	--chart-2: #952e29;
+	--safety: #952e29;
+	--safety-foreground: #f4f5f7;
+}
+:root[data-accent='red-contrast'] .dark {
+	--primary: #e06856;
+	--primary-foreground: #16191d;
+	--ring: #e06856;
+	--sidebar-primary: #e06856;
+	--sidebar-primary-foreground: #16191d;
+	--sidebar-ring: #e06856;
+	--safety: #e06856;
+	--safety-foreground: #16191d;
 }
 
 @theme inline {
@@ -90,6 +151,7 @@
 	--font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 	--color-steel: var(--steel);
 	--color-safety: var(--safety);
+	--color-safety-foreground: var(--safety-foreground);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
