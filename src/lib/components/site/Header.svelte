@@ -5,7 +5,6 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import logoLockup from '$lib/assets/logo-lockup.png';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
-	import ThemeSwitcher from './ThemeSwitcher.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { nav, site } from '$lib/data/site';
 	import { services } from '$lib/data/services';
@@ -68,7 +67,6 @@
 		</nav>
 
 		<div class="flex items-center gap-2">
-			<ThemeSwitcher />
 			<LanguageSwitcher />
 
 			<Button href="/services" class="btn-label hidden sm:inline-flex"
