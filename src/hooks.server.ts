@@ -5,6 +5,22 @@ import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/publi
 import type { Database } from '$lib/types/database.types';
 import { defaultErrorMessage } from '$lib/utils/errors';
 
+/** `www.` ile gelen istek çıplak alan adına kalıcı yönlenir. ORIGIN tanımlıyken
+ *  `event.url` hep çıplak adı gösterir, bu yüzden vekilin ilettiği Host okunur.
+ *  Prerender edilen sayfalar hook'tan geçmez: onları canonical etiketi korur. */
+const canonicalHost: Handle = ({ event, resolve }) => {
+	const host = event.request.headers.get('x-forwarded-host') ?? event.request.headers.get('host');
+	const safeMethod = event.request.method === 'GET' || event.request.method === 'HEAD';
+	if (host?.toLowerCase().startsWith('www.') && safeMethod) {
+		const { pathname, search } = event.url;
+		return new Response(null, {
+			status: 308,
+			headers: { location: `https://${host.slice(4)}${pathname}${search}` }
+		});
+	}
+	return resolve(event);
+};
+
 /** Supabase oturum istemcisi yalnızca /admin alt ağacı için kurulur. Halka açık
  *  (prerender edilen) sayfalar ve /machines SSR'ı bu hook'tan etkilenmez. */
 const supabase: Handle = async ({ event, resolve }) => {
@@ -61,7 +77,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle = sequence(supabase, authGuard);
+export const handle = sequence(canonicalHost, supabase, authGuard);
 
 // Yalnızca beklenmeyen hatalar (fırlatılan istisnalar, eşleşmeyen rotalar) buraya
 // düşer. `error()` çağrıları kendi Türkçe mesajını korur. Gerçek hata sunucu

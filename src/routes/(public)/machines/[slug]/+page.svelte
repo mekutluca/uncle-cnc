@@ -16,12 +16,34 @@
 	const categoryTitle = $derived(data.categoryTitle);
 	const price = $derived(formatPrice(machine.price, machine.currency, localeTag(getLocale())));
 	const specEntries = $derived(Object.entries(machine.specs ?? {}));
+
+	const productLd = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'Product',
+		name: machine.title,
+		description: machine.description ?? machine.title,
+		url: `${site.url}/machines/${machine.slug}`,
+		...(machine.photoUrls.length > 0 && { image: machine.photoUrls }),
+		...(categoryTitle && { category: categoryTitle }),
+		// Fiyatsız ilanlarda Offer yazılmaz: Google fiyatsız Offer'ı hata sayar.
+		...(machine.price != null && {
+			offers: {
+				'@type': 'Offer',
+				price: machine.price,
+				priceCurrency: machine.currency,
+				availability:
+					machine.status === 'sold' ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+				seller: { '@id': `${site.url}/#business` }
+			}
+		})
+	});
 </script>
 
 <Seo
 	title={machine.title}
 	description={machine.description ?? machine.title}
 	image={machine.photoUrls[0]}
+	jsonLd={productLd}
 />
 
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
