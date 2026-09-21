@@ -226,6 +226,7 @@
 	"machines_page_empty_body_suffix": "به ما اطلاع دهید تا در صورت موجود شدن دستگاه مناسب، به شما اطلاع دهیم.",
 	"machines_page_sold_badge": "فروخته شد",
 	"machines_page_price_fallback": "برای قیمت تماس بگیرید",
+	"machines_page_catalog_cta": "دانلود کاتالوگ",
 	"machine_detail_back_link": "همه آگهی‌ها",
 	"machine_detail_sold_badge": "فروخته شد",
 	"machine_detail_photo_alt": "{title} — تصویر {index}",

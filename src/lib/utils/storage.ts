@@ -25,3 +25,18 @@ export function thumbPath(path: string): string {
 export function publicThumbUrl(path: string): string {
 	return publicPhotoUrl(thumbPath(path));
 }
+
+/** Katalog PDF'inin tutulduğu herkese açık bucket. Her yükleme yeni bir dosya adıyla
+ * gelir, en yenisi geçerlidir (bkz. `$lib/server/catalog`). */
+export const CATALOG_BUCKET = 'uc-catalog';
+
+/** Basılı kartlardaki QR kodun gösterdiği kalıcı yol — asla değiştirilmez. */
+export const CATALOG_ROUTE = '/catalog';
+
+/** İndirilen dosyanın ziyaretçinin cihazında göreceği ad. */
+export const CATALOG_DOWNLOAD_NAME = 'Uncle-CNC-Katalog.pdf';
+
+/** Katalog dosyasının indirmeye zorlayan herkese açık URL'i. */
+export function publicCatalogUrl(name: string): string {
+	return `${PUBLIC_SUPABASE_URL}/storage/v1/object/public/${CATALOG_BUCKET}/${name}?download=${encodeURIComponent(CATALOG_DOWNLOAD_NAME)}`;
+}

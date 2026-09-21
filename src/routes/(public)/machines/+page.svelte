@@ -1,12 +1,15 @@
 <script lang="ts">
+	import DownloadIcon from '@lucide/svelte/icons/download';
 	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
 	import { Skeleton } from '$lib/components/ui/skeleton';
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import Placeholder from '$lib/components/site/Placeholder.svelte';
 	import { formatPrice } from '$lib/utils/machine-format';
-	import { localeTag } from '$lib/utils/locale-format';
+	import { formatMegabytes, localeTag } from '$lib/utils/locale-format';
 
+	import { CATALOG_ROUTE } from '$lib/utils/storage';
 	import { fallbackToFull } from '$lib/utils/photo-fallback';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import * as m from '$lib/paraglide/messages';
@@ -21,7 +24,24 @@
 		eyebrow={m.machines_page_eyebrow()}
 		title={m.machines_page_title()}
 		description={m.machines_page_description()}
-	/>
+	>
+		<!-- Yükseklik ayrılır: katalog bilgisi akışla gelince ızgara aşağı kaymaz. -->
+		<div class="mt-6 flex min-h-10 flex-wrap items-center gap-x-4 gap-y-2">
+			{#await data.catalog}
+				<Skeleton class="h-10 w-52" />
+			{:then catalog}
+				{#if catalog}
+					<Button href={CATALOG_ROUTE} data-sveltekit-reload class="btn-label h-10 gap-2.5 px-5">
+						<DownloadIcon class="size-4" aria-hidden="true" />
+						{m.machines_page_catalog_cta()}
+					</Button>
+					<span class="font-mono text-xs tracking-[0.08em] text-muted-foreground" dir="ltr">
+						PDF · {formatMegabytes(catalog.size, localeTag(getLocale()))}
+					</span>
+				{/if}
+			{/await}
+		</div>
+	</SectionHeader>
 
 	{#await Promise.all([data.machines, data.categories])}
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -64,7 +84,11 @@
 						<h2 class="eyebrow mb-5">{group.category.title}</h2>
 						<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 							{#each group.items as machine (machine.id)}
-								{@const price = formatPrice(machine.price, machine.currency, localeTag(getLocale()))}
+								{@const price = formatPrice(
+									machine.price,
+									machine.currency,
+									localeTag(getLocale())
+								)}
 								<a
 									href="/machines/{machine.slug}"
 									class="group flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-foreground"
@@ -79,7 +103,7 @@
 												class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
 											/>
 											{#if machine.status === 'sold'}
-												<Badge class="absolute top-3 start-3" variant="destructive"
+												<Badge class="absolute start-3 top-3" variant="destructive"
 													>{m.machines_page_sold_badge()}</Badge
 												>
 											{/if}

@@ -34,6 +34,7 @@ npm run dev
 - **Yetki = RLS**: yalnızca `uc_admins` tablosundaki kullanıcılar `uc_machines` ve `uc-machine-photos` bucket'ına yazabilir (`public.uc_is_admin()` — paylaşılan auth havuzunda "authenticated" yeterli değildir).
 - Yeni yönetici eklemek: Supabase Studio → Auth → Add user, ardından `insert into uc_admins (user_id) values ('<uid>');`
 - Makine CRUD: `/admin/machines` (liste + sil), `/admin/machines/new`, `/admin/machines/[id]/edit` (fotoğraf ekle/sil/sırala — fotoğraflar tarayıcıda ~1600px'e küçültülür). Kayıtlar herkese açık `/machines` sayfasına anında yansır (öne CDN konursa en geç 5 dk). Deploy gerekmez.
+- Katalog: `/admin/catalog` PDF'i tarayıcıdan doğrudan `uc-catalog` bucket'ına yükler (en çok 50 MB, sunucu gövde sınırından geçmez). Kalıcı bağlantı `/catalog` en yeni PDF'e indirme olarak yönlendirir. Basılı kartlardaki QR kod bu yolu gösterir, yol asla değiştirilmemeli. Baskı için SVG QR aynı sayfadan indirilir.
 - Duyuru CRUD: `/admin/announcements` (liste + sil), `/admin/announcements/new`, `/admin/announcements/[id]/edit`. Başlık, metin, isteğe bağlı bağlantı ve fotoğraf, ilk/son gün, "Sitede göster" ve "Açılır mesaj" (+ süre gün) alanları. Sıralama kronolojiktir, elle sıralama yoktur.
 - Panel navigasyonuna sayfa eklemek: `src/lib/data/admin-routes.ts`.
 

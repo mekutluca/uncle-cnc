@@ -252,3 +252,8 @@ export interface ErrorCopy {
 	tab: string;
 	title: string;
 }
+
+/* ---------- Katalog ---------- */
+
+/** `uc-catalog` bucket'ındaki geçerli (en yeni) PDF. */
+export type CatalogFile = { name: string; size: number; uploadedAt: string | null };

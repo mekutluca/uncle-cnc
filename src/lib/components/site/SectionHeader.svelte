@@ -1,6 +1,12 @@
 <script lang="ts">
-	let { eyebrow, title, description }: { eyebrow: string; title: string; description?: string } =
-		$props();
+	import type { Snippet } from 'svelte';
+
+	let {
+		eyebrow,
+		title,
+		description,
+		children
+	}: { eyebrow: string; title: string; description?: string; children?: Snippet } = $props();
 </script>
 
 <header class="mb-10 max-w-2xl sm:mb-14">
@@ -12,4 +18,5 @@
 	{#if description}
 		<p class="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{description}</p>
 	{/if}
+	{@render children?.()}
 </header>

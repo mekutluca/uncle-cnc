@@ -182,3 +182,25 @@ create policy "uc_announcements admin update" on public.uc_announcements
 drop policy if exists "uc_announcements admin delete" on public.uc_announcements;
 create policy "uc_announcements admin delete" on public.uc_announcements
 	for delete to authenticated using (public.uc_is_admin());
+
+-- Katalog PDF'i: public bucket, her yükleme yeni bir dosya adıyla gelir (CDN'de eski
+-- sürüm kalmasın diye). /catalog rotası en yeni dosyayı listeleyip ona yönlendirir,
+-- bu yüzden listeleme (select) herkese açıktır. Yazma yalnızca yöneticilerde.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('uc-catalog', 'uc-catalog', true, 52428800, array['application/pdf'])
+on conflict (id) do nothing;
+
+drop policy if exists "uc catalog public select" on storage.objects;
+create policy "uc catalog public select" on storage.objects
+	for select using (bucket_id = 'uc-catalog');
+drop policy if exists "uc catalog admin insert" on storage.objects;
+create policy "uc catalog admin insert" on storage.objects
+	for insert to authenticated with check (bucket_id = 'uc-catalog' and public.uc_is_admin());
+drop policy if exists "uc catalog admin update" on storage.objects;
+create policy "uc catalog admin update" on storage.objects
+	for update to authenticated
+	using (bucket_id = 'uc-catalog' and public.uc_is_admin())
+	with check (bucket_id = 'uc-catalog' and public.uc_is_admin());
+drop policy if exists "uc catalog admin delete" on storage.objects;
+create policy "uc catalog admin delete" on storage.objects
+	for delete to authenticated using (bucket_id = 'uc-catalog' and public.uc_is_admin());

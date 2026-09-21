@@ -226,6 +226,7 @@
 	"machines_page_empty_body_suffix": "mit, wonach Sie suchen — wir informieren Sie, sobald eine passende Maschine verfügbar ist.",
 	"machines_page_sold_badge": "Verkauft",
 	"machines_page_price_fallback": "Preis auf Anfrage",
+	"machines_page_catalog_cta": "Katalog herunterladen",
 	"machine_detail_back_link": "Alle Angebote",
 	"machine_detail_sold_badge": "Verkauft",
 	"machine_detail_photo_alt": "{title} — Foto {index}",

@@ -226,6 +226,7 @@
 	"machines_page_empty_body_suffix": "bize iletin — uygun ürün bulunduğunda size haber verelim.",
 	"machines_page_sold_badge": "Satıldı",
 	"machines_page_price_fallback": "Fiyat için sorunuz",
+	"machines_page_catalog_cta": "Kataloğu indir",
 	"machine_detail_back_link": "Tüm ilanlar",
 	"machine_detail_sold_badge": "Satıldı",
 	"machine_detail_photo_alt": "{title} — fotoğraf {index}",

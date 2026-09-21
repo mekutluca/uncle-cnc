@@ -12,3 +12,11 @@ const LOCALE_TAGS: Record<string, string> = {
 export function localeTag(locale: string): string {
 	return LOCALE_TAGS[locale] ?? LOCALE_TAGS.tr;
 }
+
+/** Dosya boyutu, ondalık MB olarak (ör. "26,5 MB"). `tag` verilmezse tr-TR. */
+export function formatMegabytes(bytes: number, tag = LOCALE_TAGS.tr): string {
+	const megabytes = new Intl.NumberFormat(tag, { maximumFractionDigits: 1 }).format(
+		bytes / 1_000_000
+	);
+	return `${megabytes} MB`;
+}

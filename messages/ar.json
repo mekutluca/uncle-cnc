@@ -226,6 +226,7 @@
 	"machines_page_empty_body_suffix": "وسنُعلمكم عند توفر ماكينة مناسبة.",
 	"machines_page_sold_badge": "تم البيع",
 	"machines_page_price_fallback": "استفسر عن السعر",
+	"machines_page_catalog_cta": "تحميل الكتالوج",
 	"machine_detail_back_link": "جميع الإعلانات",
 	"machine_detail_sold_badge": "تم البيع",
 	"machine_detail_photo_alt": "{title} — صورة {index}",

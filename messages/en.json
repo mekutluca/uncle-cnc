@@ -226,6 +226,7 @@
 	"machines_page_empty_body_suffix": "and we'll notify you when a matching machine becomes available.",
 	"machines_page_sold_badge": "Sold",
 	"machines_page_price_fallback": "Ask for price",
+	"machines_page_catalog_cta": "Download the catalog",
 	"machine_detail_back_link": "All listings",
 	"machine_detail_sold_badge": "Sold",
 	"machine_detail_photo_alt": "{title} — photo {index}",
