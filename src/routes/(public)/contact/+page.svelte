@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import Seo from '$lib/components/site/Seo.svelte';
 	import SectionHeader from '$lib/components/site/SectionHeader.svelte';
 	import RequestForm from '$lib/components/forms/RequestForm.svelte';
+	import SubmitButton from '$lib/components/forms/SubmitButton.svelte';
 	import ContactFields from '$lib/components/forms/ContactFields.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
 	import { labelClass } from '$lib/components/forms/field-styles';
@@ -69,7 +69,7 @@
 						placeholder={m.contact_page_message_placeholder()}
 					/>
 				</div>
-				<Button type="submit" size="lg" class="btn-label">{m.contact_page_submit_button()}</Button>
+				<SubmitButton label={m.contact_page_submit_button()} />
 			</RequestForm>
 		</div>
 	</div>

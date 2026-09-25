@@ -122,7 +122,7 @@
 				<span class="btn-label mt-5 inline-flex items-center gap-2 text-primary">
 					{m.home_services_cta()}
 					<ArrowRightIcon
-						class="size-3.5 rtl:-scale-x-100 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
+						class="size-3.5 transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
 					/>
 				</span>
 			</a>
@@ -213,11 +213,7 @@
 			<h2 class="display text-3xl sm:text-4xl">{m.home_cta_title()}</h2>
 			<p class="mt-4 text-lg text-muted-foreground">
 				{m.home_cta_body()}
-				<a
-					href={site.phoneHref}
-					dir="ltr"
-					class="font-mono text-base text-safety hover:underline"
-				>
+				<a href={site.phoneHref} dir="ltr" class="font-mono text-base text-safety hover:underline">
 					{site.phone}
 				</a>
 			</p>

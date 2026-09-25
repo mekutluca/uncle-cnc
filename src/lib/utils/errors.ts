@@ -52,10 +52,18 @@ export function publicErrorMessage(status: number): string {
 export function publicErrorCopy(kind: ErrorKind): ErrorCopy {
 	switch (kind) {
 		case 'notFound':
-			return { icon: CircleAlertIcon, tab: m.errors_not_found_tab(), title: m.errors_not_found_title() };
+			return {
+				icon: CircleAlertIcon,
+				tab: m.errors_not_found_tab(),
+				title: m.errors_not_found_title()
+			};
 		case 'forbidden':
 			return { icon: LockIcon, tab: m.errors_forbidden_tab(), title: m.errors_forbidden_title() };
 		case 'server':
-			return { icon: TriangleAlertIcon, tab: m.errors_server_tab(), title: m.errors_server_title() };
+			return {
+				icon: TriangleAlertIcon,
+				tab: m.errors_server_tab(),
+				title: m.errors_server_title()
+			};
 	}
 }

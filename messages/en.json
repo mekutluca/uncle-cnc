@@ -101,6 +101,7 @@
 	"forms_notes_label": "Anything Else You'd Like to Mention",
 	"forms_notes_placeholder": "Anything you'd like to add…",
 	"forms_submit_button": "Send Request",
+	"forms_submitting": "Sending…",
 	"forms_required_footnote": "* indicates a required field. Your request goes directly to our team and we'll get back to you shortly.",
 	"forms_request_form_title": "Request Form",
 	"layout_skip_to_content": "Skip to content",

@@ -21,7 +21,12 @@
 </script>
 
 <span class="flex items-center gap-3">
-	<img src={logoMark} alt="" class="{markSize} shrink-0 rounded-md object-cover" aria-hidden="true" />
+	<img
+		src={logoMark}
+		alt=""
+		class="{markSize} shrink-0 rounded-md object-cover"
+		aria-hidden="true"
+	/>
 	<span class="leading-none">
 		<span class="display block {nameSize}">{site.name}</span>
 		{#if subtitle}

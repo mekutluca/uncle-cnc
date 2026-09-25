@@ -17,7 +17,8 @@
 	const plate = $derived(datePlate(announcement.starts_at, localeTag(getLocale())));
 	const href = $derived(announcement.link_url ?? `/announcements#${announcement.id}`);
 	const label = $derived(
-		announcement.link_label ?? (announcement.link_url ? m.announcements_chrome_details() : m.announcements_chrome_more())
+		announcement.link_label ??
+			(announcement.link_url ? m.announcements_chrome_details() : m.announcements_chrome_more())
 	);
 	const paragraphs = $derived(splitParagraphs(announcement.body));
 	const compact = $derived(variant === 'compact');

@@ -101,6 +101,7 @@
 	"forms_notes_label": "أي ملاحظات إضافية تودّ ذكرها",
 	"forms_notes_placeholder": "أضف ما تودّ إضافته…",
 	"forms_submit_button": "إرسال الطلب",
+	"forms_submitting": "جارٍ الإرسال…",
 	"forms_required_footnote": "* الحقول المميزة إلزامية. يصل طلبكم مباشرة إلى فريقنا وسنتواصل معكم في أقرب وقت.",
 	"forms_request_form_title": "نموذج الطلب",
 	"layout_skip_to_content": "تخطَّ إلى المحتوى",

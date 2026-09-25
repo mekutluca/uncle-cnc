@@ -10,7 +10,10 @@
 	let { data } = $props();
 </script>
 
-<Seo title={m.announcements_page_seo_title()} description={m.announcements_page_seo_description()} />
+<Seo
+	title={m.announcements_page_seo_title()}
+	description={m.announcements_page_seo_description()}
+/>
 
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
 	<SectionHeader

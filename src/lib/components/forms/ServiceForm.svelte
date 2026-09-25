@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Button } from '$lib/components/ui/button';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import * as m from '$lib/paraglide/messages';
 	import type { Service } from '$lib/types';
@@ -9,6 +8,7 @@
 	import MachineTypeSizeFields from './MachineTypeSizeFields.svelte';
 	import ModelYearFields from './ModelYearFields.svelte';
 	import RequestForm from './RequestForm.svelte';
+	import SubmitButton from './SubmitButton.svelte';
 	import PhotoUploadField from './PhotoUploadField.svelte';
 	import PriceRangeFields from './PriceRangeFields.svelte';
 	import PlateHeader from '$lib/components/site/PlateHeader.svelte';
@@ -128,7 +128,7 @@
 			<Textarea id="notlar" name="notlar" rows={3} placeholder={m.forms_notes_placeholder()} />
 		</div>
 
-		<Button type="submit" size="lg" class="btn-label">{m.forms_submit_button()}</Button>
+		<SubmitButton label={m.forms_submit_button()} />
 		<p class="text-xs text-muted-foreground">
 			{m.forms_required_footnote()}
 		</p>

@@ -45,7 +45,7 @@
 								class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
 							/>
 							<span
-								class="absolute bottom-2 start-2 rounded-sm bg-background/85 px-2 py-1 font-mono text-[10px] tracking-[0.16em] uppercase"
+								class="absolute start-2 bottom-2 rounded-sm bg-background/85 px-2 py-1 font-mono text-[10px] tracking-[0.16em] uppercase"
 							>
 								{item.label}
 							</span>

@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { site } from '$lib/data/site';
 	import * as m from '$lib/paraglide/messages';
+	import { setRequestFormState } from './request-form-context';
 
 	let {
 		name,
@@ -12,6 +13,12 @@
 
 	let submitting = $state(false);
 	let failed = $state(false);
+
+	setRequestFormState({
+		get submitting() {
+			return submitting;
+		}
+	});
 
 	/* Gönderim /api/submit endpoint'ine yapılır: kayıt Supabase'e yazılır ve
 	   e-posta bildirimi gönderilir. Başarıda /thanks'e istemci tarafında geçilir.

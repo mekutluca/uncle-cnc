@@ -93,7 +93,10 @@
 			</a>
 		</div>
 
-		<nav class="rounded-md border border-border bg-card p-6" aria-label={m.service_detail_other_services_aria()}>
+		<nav
+			class="rounded-md border border-border bg-card p-6"
+			aria-label={m.service_detail_other_services_aria()}
+		>
 			<h2 class="eyebrow mb-4">{m.service_detail_other_services_heading()}</h2>
 			<ul class="grid gap-2.5">
 				{#each otherServices as other (other.slug)}

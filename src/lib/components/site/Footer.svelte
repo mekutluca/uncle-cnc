@@ -48,8 +48,7 @@
 						<a
 							href={site.phoneHref}
 							dir="ltr"
-							class="inline-block font-mono transition-colors hover:text-safety"
-							>{site.phone}</a
+							class="inline-block font-mono transition-colors hover:text-safety">{site.phone}</a
 						>
 					</li>
 					<li>

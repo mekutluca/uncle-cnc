@@ -101,6 +101,7 @@
 	"forms_notes_label": "نکات دیگری که مایلید ذکر کنید",
 	"forms_notes_placeholder": "هرچه مایلید اضافه کنید…",
 	"forms_submit_button": "ارسال درخواست",
+	"forms_submitting": "در حال ارسال…",
 	"forms_required_footnote": "* فیلدهای ستاره‌دار الزامی هستند. درخواست شما مستقیماً به تیم ما ارسال می‌شود و در سریع‌ترین زمان ممکن با شما تماس خواهیم گرفت.",
 	"forms_request_form_title": "فرم درخواست",
 	"layout_skip_to_content": "رفتن به محتوا",

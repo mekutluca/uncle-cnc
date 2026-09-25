@@ -257,3 +257,8 @@ export interface ErrorCopy {
 
 /** `uc-catalog` bucket'ındaki geçerli (en yeni) PDF. */
 export type CatalogFile = { name: string; size: number; uploadedAt: string | null };
+
+/* ---------- Talep formları ---------- */
+
+/** RequestForm'un içindeki SubmitButton'a context ile ilettiği gönderim durumu. */
+export type RequestFormState = { readonly submitting: boolean };
